@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import Main from '../main/main.jsx';
 
+const offerTitleClickHandler = () => {};
+
 const App = (props) => {
   const {
     offersCount,
@@ -13,6 +15,7 @@ const App = (props) => {
     <Main
       offersCount={offersCount}
       offerTitles={offerTitles}
+      onOfferTitleClick={offerTitleClickHandler}
     />
   );
 };

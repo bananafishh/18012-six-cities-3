@@ -19,6 +19,7 @@ it(`Компонент Main рендерится корректно`, () => {
         <Main
           offersCount={offersCount}
           offerTitles={offerTitles}
+          onOfferTitleClick={() => {}}
         />
     )
     .toJSON();
