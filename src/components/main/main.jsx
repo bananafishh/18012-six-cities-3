@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 const Main = (props) => {
   const {
     offersCount,
-    offerTitles
+    offerTitles,
+    onOfferTitleClick
   } = props;
 
   return (
@@ -160,7 +161,10 @@ const Main = (props) => {
                         </div>
                       </div>
 
-                      <h2 className="place-card__name">
+                      <h2
+                        className="place-card__name"
+                        onClick={onOfferTitleClick}
+                      >
                         <a href="#">{offerTitle}</a>
                       </h2>
 
@@ -187,7 +191,8 @@ Main.defaultProps = {
 
 Main.propTypes = {
   offersCount: PropTypes.number,
-  offerTitles: PropTypes.arrayOf(PropTypes.string).isRequired
+  offerTitles: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onOfferTitleClick: PropTypes.func.isRequired
 };
 
 export default Main;
