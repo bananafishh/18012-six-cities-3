@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import App from './app';
+import OffersList from './offers-list.jsx';
 
 const offers = [
   {
@@ -42,11 +42,12 @@ const offers = [
   },
 ];
 
-it(`Компонент «App» рендерится корректно`, () => {
+it(`Компонент «OffersList» рендерится корректно`, () => {
   const tree = renderer
     .create(
-        <App
+        <OffersList
           offers={offers}
+          onOfferTitleClick={() => {}}
         />
     )
     .toJSON();

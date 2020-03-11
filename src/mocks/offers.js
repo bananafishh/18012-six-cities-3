@@ -1,9 +1,4 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-
-import App from './app';
-
-const offers = [
+export default [
   {
     id: 1,
     title: `Luxe 1-Bedroom Flat Near Manhattan`,
@@ -41,15 +36,3 @@ const offers = [
     rating: 2.5,
   },
 ];
-
-it(`Компонент «App» рендерится корректно`, () => {
-  const tree = renderer
-    .create(
-        <App
-          offers={offers}
-        />
-    )
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
-});
