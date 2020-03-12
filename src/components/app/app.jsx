@@ -1,16 +1,45 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 import Main from '../main/main.jsx';
+import DetailedOfferInfo from '../detailed-offer-info/detailed-offer-info.jsx';
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
 
+    this.state = {};
+
     this.handleOfferTitleClick = this.handleOfferTitleClick.bind(this);
   }
 
-  handleOfferTitleClick() {}
+  handleOfferTitleClick(clickedOfferId) {
+    this.setState({clickedOfferId});
+  }
+
+  renderApp() {
+    const {
+      offers,
+    } = this.props;
+
+    const {clickedOfferId} = this.state;
+
+    if (clickedOfferId) {
+      const clickedOffer = offers.find((offer) => offer.id === clickedOfferId);
+
+      return (
+        <DetailedOfferInfo offer={clickedOffer}/>
+      );
+    }
+
+    return (
+      <Main
+        offers={offers}
+        onOfferTitleClick={this.handleOfferTitleClick}
+      />
+    );
+  }
 
   render() {
     const {
@@ -18,10 +47,19 @@ class App extends PureComponent {
     } = this.props;
 
     return (
-      <Main
-        offers={offers}
-        onOfferTitleClick={this.handleOfferTitleClick}
-      />
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            {this.renderApp()}
+          </Route>
+        </Switch>
+
+        <Switch>
+          <Route exact path="/dev-offer">
+            <DetailedOfferInfo offer={offers[0]}/>
+          </Route>
+        </Switch>
+      </Router>
     );
   }
 }

@@ -48,15 +48,15 @@ const offers = [
 it(`При клике по заголовку карточки предложения об аренде вызывается коллбэк`, () => {
   const handleOfferTitleClick = jest.fn();
 
-  const mainElement = shallow(
+  const main = shallow(
       <Main
         offers={offers}
         onOfferTitleClick={handleOfferTitleClick}
       />
   );
 
-  const offerTitlesElements = mainElement.find(`.place-card__name`);
-  offerTitlesElements.forEach((title) => title.simulate(`click`));
+  const offersTitles = main.find(`.place-card__name`);
+  offersTitles.forEach((title) => title.simulate(`click`));
 
-  expect(handleOfferTitleClick).toHaveBeenCalledTimes(offerTitlesElements.length);
+  expect(handleOfferTitleClick).toHaveBeenCalledTimes(offersTitles.length);
 });

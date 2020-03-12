@@ -203,7 +203,7 @@ exports[`Компонент «OffersList» рендерится корректн
       <p
         className="place-card__type"
       >
-        Apartment
+        House
       </p>
     </div>
   </article>
@@ -308,7 +308,7 @@ exports[`Компонент «OffersList» рендерится корректн
       <p
         className="place-card__type"
       >
-        Studio
+        Hotel
       </p>
     </div>
   </article>
@@ -406,7 +406,7 @@ exports[`Компонент «OffersList» рендерится корректн
       <p
         className="place-card__type"
       >
-        Private room
+        Private Room
       </p>
     </div>
   </article>

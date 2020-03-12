@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {RATING_STARS_MAX} from '../../constants';
+import {RATING_MAX, PlaceType} from '../../constants';
+import {getRatingInPercent} from '../../utils';
 
 const OfferCard = (props) => {
   const {
@@ -15,13 +16,11 @@ const OfferCard = (props) => {
     title,
     type,
     price,
-    picture,
+    pictures,
     rating,
     isPremium,
     isBookmarked,
   } = offer;
-
-  const offerRating = Math.round(rating / RATING_STARS_MAX * 100);
 
   return (
     <article
@@ -38,7 +37,7 @@ const OfferCard = (props) => {
         <a href="#">
           <img
             className="place-card__image"
-            src={picture}
+            src={pictures[0]}
             width="260"
             height="200"
             alt="Place image"
@@ -68,19 +67,19 @@ const OfferCard = (props) => {
 
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${offerRating}%`}}></span>
+            <span style={{width: `${getRatingInPercent(rating, RATING_MAX)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
 
         <h2
           className="place-card__name"
-          onClick={onOfferTitleClick}
+          onClick={() => onOfferTitleClick(id)}
         >
           <a href="#">{title}</a>
         </h2>
 
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{PlaceType[type.toUpperCase()]}</p>
       </div>
     </article>
   );
@@ -92,7 +91,7 @@ OfferCard.propTypes = {
     title: PropTypes.string,
     type: PropTypes.string,
     price: PropTypes.number,
-    picture: PropTypes.string,
+    pictures: PropTypes.arrayOf(PropTypes.string),
     rating: PropTypes.number,
     isPremium: PropTypes.bool,
     isBookmarked: PropTypes.bool,
