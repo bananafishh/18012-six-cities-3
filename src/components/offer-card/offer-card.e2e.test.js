@@ -9,14 +9,15 @@ configure({adapter: new Adapter()});
 const offer = {
   id: 1,
   title: `Luxe 1-Bedroom Flat Near Manhattan`,
-  type: `Apartment`,
+  type: `apartment`,
   price: 120,
-  picture: `https://placeimg.com/260/200/arch/1`,
+  pictures: [`https://placeimg.com/260/200/arch/1`],
   rating: 4.5,
   isPremium: true,
+  isBookmarked: false,
 };
 
-it(`При наведении на карточку предложения об аренде вызывается коллбэк, в который передаётся информация об объекте недвижимости`, () => {
+it(`При наведении на карточку предложения об аренде вызывается коллбэк, в который передаётся id предложения`, () => {
   const handleOfferCardHover = jest.fn();
 
   const offerCard = shallow(

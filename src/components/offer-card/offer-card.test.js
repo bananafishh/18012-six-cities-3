@@ -6,11 +6,12 @@ import OfferCard from './offer-card.jsx';
 const offer = {
   id: 1,
   title: `Luxe 1-Bedroom Flat Near Manhattan`,
-  type: `Apartment`,
+  type: `apartment`,
   price: 120,
-  picture: `https://placeimg.com/260/200/arch/1`,
+  pictures: [`https://placeimg.com/260/200/arch/1`],
   rating: 4.5,
   isPremium: true,
+  isBookmarked: false,
 };
 
 it(`Компонент «OfferCard» рендерится корректно`, () => {
