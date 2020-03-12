@@ -74,7 +74,7 @@ const OfferCard = (props) => {
 
         <h2
           className="place-card__name"
-          onClick={onOfferTitleClick}
+          onClick={() => onOfferTitleClick(id)}
         >
           <a href="#">{title}</a>
         </h2>

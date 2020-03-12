@@ -9,15 +9,29 @@ class App extends PureComponent {
   constructor(props) {
     super(props);
 
+    this.state = {};
+
     this.handleOfferTitleClick = this.handleOfferTitleClick.bind(this);
   }
 
-  handleOfferTitleClick() {}
+  handleOfferTitleClick(clickedOfferId) {
+    this.setState({clickedOfferId});
+  }
 
   renderApp() {
     const {
       offers,
     } = this.props;
+
+    const {clickedOfferId} = this.state;
+
+    if (clickedOfferId) {
+      const clickedOffer = offers.find((offer) => offer.id === clickedOfferId);
+
+      return (
+        <DetailedOfferInfo offer={clickedOffer}/>
+      );
+    }
 
     return (
       <Main
