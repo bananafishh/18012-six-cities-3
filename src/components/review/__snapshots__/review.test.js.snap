@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Компонент «Review» рендерится корректно 1`] = `
+<li
+  className="reviews__item"
+>
+  <div
+    className="reviews__user user"
+  >
+    <div
+      className="reviews__avatar-wrapper user__avatar-wrapper"
+    >
+      <img
+        alt="Reviewer's avatar"
+        className="reviews__avatar user__avatar"
+        height="54"
+        src="https://api.adorable.io/avatars/128/1"
+        width="54"
+      />
+    </div>
+    <span
+      className="reviews__user-name"
+    >
+      Steven
+    </span>
+  </div>
+  <div
+    className="reviews__info"
+  >
+    <div
+      className="reviews__rating rating"
+    >
+      <div
+        className="reviews__stars rating__stars"
+      >
+        <span
+          style={
+            Object {
+              "width": "100%",
+            }
+          }
+        />
+        <span
+          className="visually-hidden"
+        >
+          Rating
+        </span>
+      </div>
+    </div>
+    <p
+      className="reviews__text"
+    >
+      Excellent location in a charming building. It’s about the size of a typical hotel room and 
+  perhaps a little smaller than Airbnb places tend to be overall. Would recommend though as it’s 
+  a great value and location.
+    </p>
+    <time
+      className="reviews__time"
+      dateTime="2020-03-15"
+    >
+      March 15, 2020
+    </time>
+  </div>
+</li>
+`;
