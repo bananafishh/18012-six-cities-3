@@ -6,3 +6,8 @@ export const PlaceType = {
   HOUSE: `House`,
   HOTEL: `Hotel`,
 };
+
+export const MapPinIcon = {
+  URL: `img/pin.svg`,
+  SIZE: [27, 39],
+};
