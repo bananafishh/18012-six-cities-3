@@ -5,28 +5,26 @@ import {RATING_MAX, PlaceType} from '../../constants';
 import {getRatingInPercent} from '../../utils';
 
 const DetailedOfferInfo = (props) => {
-  const {offer} = props;
-
   const {
-    title,
-    type,
-    price,
-    pictures,
-    rating,
-    isPremium,
-    isBookmarked,
-    description,
-    bedroomsCount,
-    guestsCountMax,
-    householdItems,
-    host,
-  } = offer;
-
-  const {
-    name,
-    picture: hostPicture,
-    isSuper,
-  } = host;
+    offer: {
+      title,
+      type,
+      price,
+      pictures,
+      rating,
+      isPremium,
+      isBookmarked,
+      description,
+      bedroomsCount,
+      guestsCountMax,
+      householdItems,
+      host: {
+        name,
+        picture: hostPicture,
+        isSuper,
+      },
+    },
+  } = props;
 
   return (
     <div className="page">

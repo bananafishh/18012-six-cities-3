@@ -35,6 +35,7 @@ export default [
       name: `Abott`,
       isSuper: true,
     },
+    coords: [52.3909553943508, 4.85309666406198],
   },
   {
     id: 2,
@@ -69,6 +70,7 @@ export default [
       name: `Alice`,
       isSuper: true,
     },
+    coords: [52.369553943508, 4.85309666406198],
   },
   {
     id: 3,
@@ -104,6 +106,7 @@ export default [
       name: `John`,
       isSuper: false,
     },
+    coords: [52.3909553943508, 4.929309666406198],
   },
   {
     id: 4,
@@ -137,5 +140,6 @@ export default [
       name: `Kate`,
       isSuper: false,
     },
+    coords: [52.3809553943508, 4.939309666406198],
   },
 ];
