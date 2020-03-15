@@ -328,7 +328,7 @@ exports[`Компонент «DetailedOfferInfo» рендерится корр�
               <p
                 className="property__text"
               >
-                    The apartment is very clean. It has high ceilings, TV set with a selection of movies to enjoy on a rainy day, hi-fi system, high speed wi-fi and a tiny but fully-equipped kitchenette.
+                  The apartment is very clean. It has high ceilings, TV set with a selection of movies to enjoy on a rainy day, hi-fi system, high speed wi-fi and a tiny but fully-equipped kitchenette.
               </p>
             </div>
           </div>
@@ -342,7 +342,7 @@ exports[`Компонент «DetailedOfferInfo» рендерится корр�
               <span
                 className="reviews__amount"
               >
-                1
+                2
               </span>
             </h2>
             <ul
@@ -358,17 +358,78 @@ exports[`Компонент «DetailedOfferInfo» рендерится корр�
                     className="reviews__avatar-wrapper user__avatar-wrapper"
                   >
                     <img
-                      alt="Reviews avatar"
+                      alt="Reviewer's avatar"
                       className="reviews__avatar user__avatar"
                       height="54"
-                      src="img/avatar-max.jpg"
+                      src="https://api.adorable.io/avatars/128/1"
                       width="54"
                     />
                   </div>
                   <span
                     className="reviews__user-name"
                   >
-                    Max
+                    Steven
+                  </span>
+                </div>
+                <div
+                  className="reviews__info"
+                >
+                  <div
+                    className="reviews__rating rating"
+                  >
+                    <div
+                      className="reviews__stars rating__stars"
+                    >
+                      <span
+                        style={
+                          Object {
+                            "width": "100%",
+                          }
+                        }
+                      />
+                      <span
+                        className="visually-hidden"
+                      >
+                        Rating
+                      </span>
+                    </div>
+                  </div>
+                  <p
+                    className="reviews__text"
+                  >
+                    Excellent location in a charming building. It’s about the size of a typical hotel room and 
+      perhaps a little smaller than Airbnb places tend to be overall. Would recommend though as it’s 
+      a great value and location.
+                  </p>
+                  <time
+                    className="reviews__time"
+                    dateTime="2020-03-15"
+                  >
+                    March 15, 2020
+                  </time>
+                </div>
+              </li>
+              <li
+                className="reviews__item"
+              >
+                <div
+                  className="reviews__user user"
+                >
+                  <div
+                    className="reviews__avatar-wrapper user__avatar-wrapper"
+                  >
+                    <img
+                      alt="Reviewer's avatar"
+                      className="reviews__avatar user__avatar"
+                      height="54"
+                      src="https://api.adorable.io/avatars/128/2"
+                      width="54"
+                    />
+                  </div>
+                  <span
+                    className="reviews__user-name"
+                  >
+                    Monica
                   </span>
                 </div>
                 <div
@@ -397,13 +458,14 @@ exports[`Компонент «DetailedOfferInfo» рендерится корр�
                   <p
                     className="reviews__text"
                   >
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
+                    Apartment was very pretty and quaint! Location was excellent , very close to the main 
+      sights in Porto. Abott greeted us and was very helpful, gave us some great tips.
                   </p>
                   <time
                     className="reviews__time"
-                    dateTime="2019-04-24"
+                    dateTime="2020-03-15"
                   >
-                    April 2019
+                    March 15, 2020
                   </time>
                 </div>
               </li>

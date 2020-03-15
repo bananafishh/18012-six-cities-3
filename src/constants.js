@@ -1,4 +1,5 @@
 export const RATING_MAX = 5;
+export const REVIEWS_ON_PAGE_MAX = 10;
 
 export const PlaceType = {
   APARTMENT: `Apartment`,
