@@ -6,21 +6,19 @@ import {getRatingInPercent} from '../../utils';
 
 const OfferCard = (props) => {
   const {
-    offer,
+    offer: {
+      id,
+      title,
+      type,
+      price,
+      pictures,
+      rating,
+      isPremium,
+      isBookmarked,
+    },
     onOfferTitleClick,
     onOfferCardHover,
   } = props;
-
-  const {
-    id,
-    title,
-    type,
-    price,
-    pictures,
-    rating,
-    isPremium,
-    isBookmarked,
-  } = offer;
 
   return (
     <article
