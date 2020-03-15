@@ -10,6 +10,8 @@ const Main = (props) => {
     onOfferTitleClick,
   } = props;
 
+  const offersCoords = offers.map((offer) => offer.coords);
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -125,7 +127,7 @@ const Main = (props) => {
 
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers}/>
+                <Map coords={offersCoords}/>
               </section>
             </div>
           </div>
