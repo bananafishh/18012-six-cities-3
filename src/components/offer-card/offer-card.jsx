@@ -18,11 +18,12 @@ const OfferCard = (props) => {
     },
     onOfferTitleClick,
     onOfferCardHover,
+    mix,
   } = props;
 
   return (
     <article
-      className="cities__place-card place-card"
+      className={`place-card${mix ? ` ${mix}` : ``}`}
       onMouseEnter={() => onOfferCardHover(id)}
     >
       {isPremium && (
@@ -96,6 +97,7 @@ OfferCard.propTypes = {
   }).isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
   onOfferCardHover: PropTypes.func.isRequired,
+  mix: PropTypes.string,
 };
 
 export default OfferCard;

@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import OffersList from './offers-list.jsx';
+import OffersList from './offers-list';
 
 const offers = [
   {

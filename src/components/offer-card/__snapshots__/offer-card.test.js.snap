@@ -2,7 +2,7 @@
 
 exports[`Компонент «OfferCard» рендерится корректно 1`] = `
 <article
-  className="cities__place-card place-card"
+  className="place-card"
   onMouseEnter={[Function]}
 >
   <div

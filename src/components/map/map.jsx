@@ -45,14 +45,12 @@ class Map extends PureComponent {
   }
 
   addMarkersTo(map) {
-    const coords = this.props.offers.map((offer) => offer.coords);
-
     const icon = leaflet.icon({
       iconUrl: MapPinIcon.URL,
       iconSize: MapPinIcon.SIZE,
     });
 
-    coords.forEach((coord) => {
+    this.props.coords.forEach((coord) => {
       leaflet
         .marker(coord, {icon})
         .addTo(map);
@@ -61,15 +59,15 @@ class Map extends PureComponent {
 
   render() {
     return (
-      <div ref={this.mapRef} style={{height: `100%`}}/>
+      <div ref={this.mapRef} style={{height: `100%`}}></div>
     );
   }
 }
 
 Map.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    coords: PropTypes.arrayOf(PropTypes.number),
-  })).isRequired,
+  coords: PropTypes.arrayOf(PropTypes.arrayOf(
+      PropTypes.number
+  )).isRequired,
 };
 
 export default Map;
