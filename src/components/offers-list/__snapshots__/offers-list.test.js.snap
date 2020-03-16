@@ -1,11 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Компонент «OffersList» рендерится корректно 1`] = `
-<div
-  className="cities__places-list places__list tabs__content"
->
+<div>
   <article
-    className="cities__place-card place-card"
+    className="place-card"
     onMouseEnter={[Function]}
   >
     <div
@@ -110,7 +108,7 @@ exports[`Компонент «OffersList» рендерится корректн
     </div>
   </article>
   <article
-    className="cities__place-card place-card"
+    className="place-card"
     onMouseEnter={[Function]}
   >
     <div
@@ -208,7 +206,7 @@ exports[`Компонент «OffersList» рендерится корректн
     </div>
   </article>
   <article
-    className="cities__place-card place-card"
+    className="place-card"
     onMouseEnter={[Function]}
   >
     <div
@@ -313,7 +311,7 @@ exports[`Компонент «OffersList» рендерится корректн
     </div>
   </article>
   <article
-    className="cities__place-card place-card"
+    className="place-card"
     onMouseEnter={[Function]}
   >
     <div

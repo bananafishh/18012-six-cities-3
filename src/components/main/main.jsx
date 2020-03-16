@@ -120,6 +120,8 @@ const Main = (props) => {
               </form>
 
               <OffersList
+                mix="cities__places-list places__list tabs__content"
+                offerMix="cities__place-card"
                 offers={offers}
                 onOfferTitleClick={onOfferTitleClick}
               />

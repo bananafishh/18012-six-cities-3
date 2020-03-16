@@ -18,6 +18,8 @@ class OffersList extends PureComponent {
     const {
       offers,
       onOfferTitleClick,
+      mix,
+      offerMix,
     } = this.props;
 
     if (!offers.length) {
@@ -25,10 +27,11 @@ class OffersList extends PureComponent {
     }
 
     return (
-      <div className="cities__places-list places__list tabs__content">
-        {offers.map((offer, index) => (
+      <div className={mix}>
+        {offers.map((offer) => (
           <OfferCard
-            key={`${offer.title}-${index}`}
+            key={offer.id}
+            mix={offerMix}
             offer={offer}
             onOfferTitleClick={onOfferTitleClick}
             onOfferCardHover={this.handleOfferHover}
@@ -51,6 +54,8 @@ OffersList.propTypes = {
     isBookmarked: PropTypes.bool,
   })).isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
+  mix: PropTypes.string,
+  offerMix: PropTypes.string,
 };
 
 export default OffersList;
