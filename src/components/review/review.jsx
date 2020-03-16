@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {RATING_MAX, DateFormat} from '../../constants';
-import {getRatingInPercent, formatDateToString} from '../../utils.js';
+import {getRatingInPercent, formatDateToString} from '../../utils';
 
 const Review = (props) => {
   const {

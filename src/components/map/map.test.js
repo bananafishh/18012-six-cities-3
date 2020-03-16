@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Map from './map.jsx';
+import Map from './map';
 
 const coords = [
   [52.3909553943508, 4.85309666406198],
