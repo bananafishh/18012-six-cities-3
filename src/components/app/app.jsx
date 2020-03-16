@@ -26,7 +26,11 @@ class App extends PureComponent {
       const clickedOffer = offers.find((offer) => offer.id === clickedOfferId);
 
       return (
-        <DetailedOfferInfo offer={clickedOffer}/>
+        <DetailedOfferInfo
+          offer={clickedOffer}
+          nearbyOffers={offers}
+          onNearbyOfferTitleClick={this.handleOfferTitleClick}
+        />
       );
     }
 
@@ -39,6 +43,8 @@ class App extends PureComponent {
   }
 
   render() {
+    const {offers} = this.props;
+
     return (
       <Router>
         <Switch>
@@ -49,7 +55,11 @@ class App extends PureComponent {
 
         <Switch>
           <Route exact path="/dev-offer">
-            <DetailedOfferInfo offer={this.props.offers[0]}/>
+            <DetailedOfferInfo
+              offer={offers[0]}
+              nearbyOffers={offers}
+              onNearbyOfferTitleClick={this.handleOfferTitleClick}
+            />
           </Route>
         </Switch>
       </Router>

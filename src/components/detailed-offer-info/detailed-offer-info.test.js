@@ -3,6 +3,29 @@ import renderer from 'react-test-renderer';
 
 import DetailedOfferInfo from './detailed-offer-info';
 
+const offers = [
+  {
+    id: 1,
+    title: `Luxe 1-Bedroom Flat Near Manhattan`,
+    type: `apartment`,
+    price: 120,
+    pictures: [`https://placeimg.com/260/200/arch/1`],
+    rating: 4.5,
+    isPremium: true,
+    isBookmarked: false,
+  },
+  {
+    id: 2,
+    title: `Bright & Airy in Highland Park`,
+    type: `house`,
+    price: 200,
+    pictures: [`https://placeimg.com/260/200/arch/2`],
+    rating: 3.9,
+    isPremium: false,
+    isBookmarked: true,
+  },
+];
+
 const offer = {
   title: `Luxe 1-Bedroom Flat Near Manhattan`,
   type: `apartment`,
@@ -68,7 +91,11 @@ const offer = {
 it(`Компонент «DetailedOfferInfo» рендерится корректно`, () => {
   const tree = renderer
     .create(
-        <DetailedOfferInfo offer={offer}/>
+        <DetailedOfferInfo
+          offer={offer}
+          nearbyOffers={offers}
+          onNearbyOfferTitleClick={() => {}}
+        />
     )
     .toJSON();
 
