@@ -6,6 +6,7 @@ import {getRatingInPercent} from '../../utils';
 
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
+import Map from '../map/map.jsx';
 
 const DetailedOfferInfo = (props) => {
   const {
@@ -35,6 +36,9 @@ const DetailedOfferInfo = (props) => {
   const sortedReviews = reviews
     .sort((a, b) => b.date.getTime() - a.date.getTime())
     .slice(0, REVIEWS_ON_PAGE_MAX);
+
+  const reducedNearbyOffers = nearbyOffers.slice(0, NEARBY_OFFERS_MAX);
+  const nearbyOffersCoords = reducedNearbyOffers.map((offer) => offer.coords);
 
   return (
     <div className="page">
@@ -266,7 +270,7 @@ const DetailedOfferInfo = (props) => {
           </div>
 
           <section className="property__map map">
-
+            <Map coords={nearbyOffersCoords}/>
           </section>
         </section>
 
@@ -277,7 +281,7 @@ const DetailedOfferInfo = (props) => {
             <OffersList
               mix="near-places__list places__list"
               offerMix="near-places__card"
-              offers={nearbyOffers.slice(0, NEARBY_OFFERS_MAX)}
+              offers={reducedNearbyOffers}
               onOfferTitleClick={onNearbyOfferTitleClick}
             />
           </section>

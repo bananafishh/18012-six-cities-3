@@ -635,7 +635,15 @@ exports[`Компонент «DetailedOfferInfo» рендерится корр�
       </div>
       <section
         className="property__map map"
-      />
+      >
+        <div
+          style={
+            Object {
+              "height": "100%",
+            }
+          }
+        />
+      </section>
     </section>
     <div
       className="container"
