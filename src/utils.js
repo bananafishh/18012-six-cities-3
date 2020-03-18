@@ -25,3 +25,5 @@ export const formatDateToString = (date, format) => {
       return `${formattedMonth}.${formattedDay}.${year}`;
   }
 };
+
+export const extend = (a, b) => Object.assign({}, a, b);
