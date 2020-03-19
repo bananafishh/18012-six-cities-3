@@ -6,7 +6,7 @@ import Main from './main';
 
 configure({adapter: new Adapter()});
 
-const offers = [
+const currentOffers = [
   {
     id: 1,
     title: `Luxe 1-Bedroom Flat Near Manhattan`,
@@ -45,12 +45,18 @@ const offers = [
   },
 ];
 
+const currentCity = {
+  name: `Amsterdam`,
+  coords: [52.37403, 4.88969],
+};
+
 it(`При клике по заголовку карточки предложения об аренде вызывается коллбэк`, () => {
   const handleOfferTitleClick = jest.fn();
 
   const main = shallow(
       <Main
-        offers={offers}
+        currentCity={currentCity}
+        currentOffers={currentOffers}
         onOfferTitleClick={handleOfferTitleClick}
       />
   );
