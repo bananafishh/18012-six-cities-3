@@ -10,6 +10,7 @@ const Main = (props) => {
     currentOffers,
     currentCity: {
       name,
+      coords,
     },
     onOfferTitleClick,
   } = props;
@@ -93,7 +94,7 @@ const Main = (props) => {
 
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map coords={offersCoords}/>
+                <Map center={coords} coords={offersCoords}/>
               </section>
             </div>
           </div>

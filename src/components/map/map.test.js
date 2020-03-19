@@ -13,7 +13,7 @@ const coords = [
 it(`Компонент «Map» рендерится корректно`, () => {
   const tree = renderer
     .create(
-        <Map coords={coords}/>,
+        <Map center={coords[0]} coords={coords}/>,
         {createNodeMock: () => document.createElement(`div`)}
     )
     .toJSON();

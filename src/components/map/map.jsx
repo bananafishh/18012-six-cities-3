@@ -17,6 +17,8 @@ class Map extends PureComponent {
 
   componentDidUpdate() {
     this.addMarkersToMap();
+
+    this.map.flyTo(this.props.center);
   }
 
   componentWillUnmount() {
@@ -24,20 +26,20 @@ class Map extends PureComponent {
   }
 
   initMap() {
-    const mapElement = this.mapRef.current;
+    const {center} = this.props;
 
-    const city = [52.38333, 4.9];
+    const mapElement = this.mapRef.current;
     const zoom = 12;
 
     if (mapElement) {
       this.map = leaflet.map(mapElement, {
-        center: city,
+        center,
         zoom,
         zoomControl: false,
         marker: true
       });
 
-      this.map.setView(city, zoom);
+      this.map.setView(center, zoom);
 
       this.addTileLayerToMap();
       this.addMarkersToMap();
@@ -88,6 +90,7 @@ Map.propTypes = {
   coords: PropTypes.arrayOf(PropTypes.arrayOf(
       PropTypes.number
   )).isRequired,
+  center: PropTypes.arrayOf(PropTypes.number),
 };
 
 export default Map;
