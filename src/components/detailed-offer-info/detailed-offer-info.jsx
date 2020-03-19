@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {RATING_MAX, REVIEWS_ON_PAGE_MAX, NEARBY_OFFERS_MAX, PlaceType} from '../../constants';
-import {getRatingInPercent} from '../../utils';
+import {getRatingInPercent, pluralizeWord} from '../../utils';
 
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
@@ -112,11 +112,11 @@ const DetailedOfferInfo = (props) => {
                 </li>
 
                 <li className="property__feature property__feature--bedrooms">
-                  {bedroomsCount} {bedroomsCount > 1 ? `Bedrooms` : `Bedroom`}
+                  {bedroomsCount} {pluralizeWord(`Bedroom`, bedroomsCount)}
                 </li>
 
                 <li className="property__feature property__feature--adults">
-                  Max {guestsCountMax} {guestsCountMax > 1 ? `adults` : `adult`}
+                  Max {guestsCountMax} {pluralizeWord(`adult`, guestsCountMax)}
                 </li>
               </ul>
 

@@ -107,7 +107,9 @@ exports[`Компонент «App» рендерится корректно 1`] 
             className="places__found"
           >
             4
-             places to stay in 
+             
+            places
+             to stay in 
             Amsterdam
           </b>
           <form

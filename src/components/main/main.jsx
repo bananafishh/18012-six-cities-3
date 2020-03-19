@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {pluralizeWord} from '../../utils';
+
 import CitiesList from '../cities-list/cities-list.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import Map from '../map/map.jsx';
@@ -57,7 +59,9 @@ const Main = (props) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{currentOffers.length} places to stay in {name}</b>
+              <b className="places__found">
+                {currentOffers.length} {pluralizeWord(`place`, currentOffers.length)} to stay in {name}
+              </b>
 
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
