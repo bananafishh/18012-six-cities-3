@@ -1,33 +1,16 @@
 import {extend} from '../utils';
+import {ActionType} from '../action-creator/action-creator';
 
 import offers from '../mocks/offers';
 
-const filterOffers = (offersList, city) => offersList[city.name].offers;
-
 const cities = Object.keys(offers);
 const currentCity = offers[cities[0]].city;
-const currentOffers = filterOffers(offers, currentCity);
+const currentOffers = offers[currentCity.name].offers;
 
 const initialState = {
   currentCity,
   currentOffers,
   offers,
-};
-
-const ActionType = {
-  CHANGE_CITY: `CHANGE_CITY`,
-  FILTER_OFFERS: `FILTER_OFFERS`,
-};
-
-const ActionCreator = {
-  changeCity: (city) => ({
-    type: ActionType.CHANGE_CITY,
-    payload: city,
-  }),
-  filterOffers: (offersList, city) => ({
-    type: ActionType.FILTER_OFFERS,
-    payload: filterOffers(offersList, city),
-  }),
 };
 
 const reducer = (state = initialState, action) => {
@@ -43,4 +26,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export {reducer, ActionType, ActionCreator};
+export {reducer};

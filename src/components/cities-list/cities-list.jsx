@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import {ActionCreator} from '../../reducer/reducer';
+import {ActionCreator} from '../../action-creator/action-creator';
 
 const CitiesList = (props) => {
   const {
