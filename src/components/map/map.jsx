@@ -15,6 +15,14 @@ class Map extends PureComponent {
     this.initMap();
   }
 
+  componentDidUpdate() {
+    this.addMarkersToMap();
+  }
+
+  componentWillUnmount() {
+    this.destroyMap();
+  }
+
   initMap() {
     const mapElement = this.mapRef.current;
 
@@ -22,39 +30,51 @@ class Map extends PureComponent {
     const zoom = 12;
 
     if (mapElement) {
-      const map = leaflet.map(mapElement, {
+      this.map = leaflet.map(mapElement, {
         center: city,
         zoom,
         zoomControl: false,
         marker: true
       });
 
-      map.setView(city, zoom);
+      this.map.setView(city, zoom);
 
-      this.addTileLayerTo(map);
-      this.addMarkersTo(map);
+      this.addTileLayerToMap();
+      this.addMarkersToMap();
     }
   }
 
-  addTileLayerTo(map) {
+  addTileLayerToMap() {
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
-      .addTo(map);
+      .addTo(this.map);
   }
 
-  addMarkersTo(map) {
+  addMarkersToMap() {
     const icon = leaflet.icon({
       iconUrl: MapPinIcon.URL,
       iconSize: MapPinIcon.SIZE,
     });
 
-    this.props.coords.forEach((coord) => {
-      leaflet
-        .marker(coord, {icon})
-        .addTo(map);
-    });
+    if (this.markers) {
+      this.markers.forEach((marker) => {
+        this.map.removeLayer(marker);
+      });
+    }
+
+    this.markers = this.props.coords.map((coord) => (leaflet
+      .marker(coord, {icon})
+      .addTo(this.map)
+    ));
+  }
+
+  destroyMap() {
+    this.map.remove();
+
+    this.map = null;
+    this.markers = null;
   }
 
   render() {
