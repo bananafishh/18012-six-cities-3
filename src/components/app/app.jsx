@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import Main from '../main/main.jsx';
 import DetailedOfferInfo from '../detailed-offer-info/detailed-offer-info.jsx';
@@ -19,16 +20,20 @@ class App extends PureComponent {
   }
 
   renderApp() {
-    const {offers} = this.props;
+    const {
+      currentOffers,
+      currentCity,
+    } = this.props;
+
     const {clickedOfferId} = this.state;
 
     if (clickedOfferId) {
-      const clickedOffer = offers.find((offer) => offer.id === clickedOfferId);
+      const clickedOffer = currentOffers.find((offer) => offer.id === clickedOfferId);
 
       return (
         <DetailedOfferInfo
           offer={clickedOffer}
-          nearbyOffers={offers}
+          nearbyOffers={currentOffers}
           onNearbyOfferTitleClick={this.handleOfferTitleClick}
         />
       );
@@ -36,14 +41,15 @@ class App extends PureComponent {
 
     return (
       <Main
-        offers={offers}
+        currentCity={currentCity}
+        currentOffers={currentOffers}
         onOfferTitleClick={this.handleOfferTitleClick}
       />
     );
   }
 
   render() {
-    const {offers} = this.props;
+    const {currentOffers} = this.props;
 
     return (
       <Router>
@@ -56,8 +62,8 @@ class App extends PureComponent {
         <Switch>
           <Route exact path="/dev-offer">
             <DetailedOfferInfo
-              offer={offers[0]}
-              nearbyOffers={offers}
+              offer={currentOffers[0]}
+              nearbyOffers={currentOffers}
               onNearbyOfferTitleClick={this.handleOfferTitleClick}
             />
           </Route>
@@ -68,7 +74,7 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
+  currentOffers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
     type: PropTypes.string,
@@ -78,6 +84,15 @@ App.propTypes = {
     isPremium: PropTypes.bool,
     isBookmarked: PropTypes.bool,
   })).isRequired,
+  currentCity: PropTypes.shape({
+    name: PropTypes.string,
+    coords: PropTypes.arrayOf(PropTypes.number),
+  }).isRequired,
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  currentCity: state.currentCity,
+  currentOffers: state.currentOffers,
+});
+
+export default connect(mapStateToProps)(App);
