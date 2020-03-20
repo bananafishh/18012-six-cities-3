@@ -23,6 +23,32 @@ exports[`Компонент «CitiesList» рендерится корректн
           </span>
         </a>
       </li>
+      <li
+        className="locations__item"
+      >
+        <a
+          className="locations__item-link tabs__item"
+          href="#"
+          onClick={[Function]}
+        >
+          <span>
+            Paris
+          </span>
+        </a>
+      </li>
+      <li
+        className="locations__item"
+      >
+        <a
+          className="locations__item-link tabs__item"
+          href="#"
+          onClick={[Function]}
+        >
+          <span>
+            Brussels
+          </span>
+        </a>
+      </li>
     </ul>
   </section>
 </div>

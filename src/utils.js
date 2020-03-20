@@ -29,3 +29,7 @@ export const formatDateToString = (date, format) => {
 export const extend = (a, b) => Object.assign({}, a, b);
 
 export const pluralizeWord = (word, count) => count > 1 ? `${word}s` : `${word}`;
+
+export const getCities = (state) => Object.keys(state.offers).map((cityName) => state.offers[cityName].city);
+
+export const getCityOffers = (state) => state.offers[state.currentCity.name].offers;

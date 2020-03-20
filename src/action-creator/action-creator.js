@@ -1,6 +1,6 @@
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
-  FILTER_OFFERS: `FILTER_OFFERS`,
+  GET_OFFERS: `GET_OFFERS`,
 };
 
 const ActionCreator = {
@@ -8,9 +8,9 @@ const ActionCreator = {
     type: ActionType.CHANGE_CITY,
     payload: city,
   }),
-  filterOffers: (offersList, city) => ({
-    type: ActionType.FILTER_OFFERS,
-    payload: offersList[city.name].offers,
+  getOffers: (offers) => ({
+    type: ActionType.GET_OFFERS,
+    payload: offers,
   }),
 };
 

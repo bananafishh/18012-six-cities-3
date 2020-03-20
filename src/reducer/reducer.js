@@ -5,12 +5,10 @@ import offers from '../mocks/offers';
 
 const cities = Object.keys(offers);
 const currentCity = offers[cities[0]].city;
-const currentOffers = offers[currentCity.name].offers;
 
 const initialState = {
-  currentCity,
-  currentOffers,
   offers,
+  currentCity,
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,8 +16,8 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_CITY:
       return extend(state, {currentCity: action.payload});
 
-    case ActionType.FILTER_OFFERS:
-      return extend(state, {currentOffers: action.payload});
+    case ActionType.GET_OFFERS:
+      return extend(state, {offers: action.payload});
 
     default:
       return state;

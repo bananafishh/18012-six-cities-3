@@ -22,29 +22,6 @@ const offers = {
   },
 };
 
-const currentOffers = [
-  {
-    id: 1,
-    title: `Luxe 1-Bedroom Flat Near Manhattan`,
-    type: `apartment`,
-    price: 120,
-    pictures: [`https://placeimg.com/260/200/arch/1`],
-    rating: 4.5,
-    isPremium: true,
-    isBookmarked: false,
-  },
-  {
-    id: 2,
-    title: `Bright & Airy in Highland Park`,
-    type: `house`,
-    price: 200,
-    pictures: [`https://placeimg.com/260/200/arch/2`],
-    rating: 3.9,
-    isPremium: false,
-    isBookmarked: true,
-  }
-];
-
 const newOffers = [
   {
     id: 3,
@@ -81,31 +58,27 @@ const newCity = {
 describe(`Редьюсер работает корректно`, () => {
   it(`Редьюсер изменяет текущий город на переданное значение`, () => {
     expect(reducer({
-      currentCity,
-      currentOffers,
       offers,
+      currentCity,
     }, {
       type: ActionType.CHANGE_CITY,
       payload: newCity,
     })).toEqual({
-      currentCity: newCity,
-      currentOffers,
       offers,
+      currentCity: newCity,
     });
   });
 
-  it(`Редьюсер изменяет текущие предложения об аренде на переданное значение`, () => {
+  it(`Редьюсер изменяет список предложений об аренде на переданное значение`, () => {
     expect(reducer({
-      currentCity,
-      currentOffers,
       offers,
+      currentCity,
     }, {
-      type: ActionType.FILTER_OFFERS,
+      type: ActionType.GET_OFFERS,
       payload: newOffers,
     })).toEqual({
+      offers: newOffers,
       currentCity,
-      currentOffers: newOffers,
-      offers,
     });
   });
 });

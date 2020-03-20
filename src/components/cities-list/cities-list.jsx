@@ -2,16 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
+import {getCities} from '../../utils';
 import {ActionCreator} from '../../action-creator/action-creator';
 
 const CitiesList = (props) => {
   const {
-    offers,
+    cities,
     currentCity,
     onCityChange,
   } = props;
-
-  const cities = Object.keys(offers).map((city) => offers[city].city);
 
   return (
     <div className="tabs">
@@ -22,7 +21,7 @@ const CitiesList = (props) => {
               <a
                 className={`locations__item-link tabs__item${city.name === currentCity.name ? ` tabs__item--active` : ``}`}
                 href="#"
-                onClick={() => onCityChange(offers, city)}
+                onClick={() => onCityChange(city)}
               >
                 <span>{city.name}</span>
               </a>
@@ -35,7 +34,10 @@ const CitiesList = (props) => {
 };
 
 CitiesList.propTypes = {
-  offers: PropTypes.object.isRequired,
+  cities: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    coords: PropTypes.arrayOf(PropTypes.number),
+  })).isRequired,
   currentCity: PropTypes.shape({
     name: PropTypes.string,
     coords: PropTypes.arrayOf(PropTypes.number),
@@ -44,14 +46,13 @@ CitiesList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
+  cities: getCities(state),
   currentCity: state.currentCity,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onCityChange(offers, city) {
+  onCityChange(city) {
     dispatch(ActionCreator.changeCity(city));
-    dispatch(ActionCreator.filterOffers(offers, city));
   },
 });
 

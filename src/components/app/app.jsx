@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 
+import {getCityOffers} from '../../utils';
+
 import Main from '../main/main.jsx';
 import DetailedOfferInfo from '../detailed-offer-info/detailed-offer-info.jsx';
 
@@ -21,19 +23,19 @@ class App extends PureComponent {
 
   renderApp() {
     const {
-      currentOffers,
+      offers,
       currentCity,
     } = this.props;
 
     const {clickedOfferId} = this.state;
 
     if (clickedOfferId) {
-      const clickedOffer = currentOffers.find((offer) => offer.id === clickedOfferId);
+      const clickedOffer = offers.find((offer) => offer.id === clickedOfferId);
 
       return (
         <DetailedOfferInfo
           offer={clickedOffer}
-          nearbyOffers={currentOffers}
+          nearbyOffers={offers}
           onNearbyOfferTitleClick={this.handleOfferTitleClick}
         />
       );
@@ -42,14 +44,14 @@ class App extends PureComponent {
     return (
       <Main
         currentCity={currentCity}
-        currentOffers={currentOffers}
+        offers={offers}
         onOfferTitleClick={this.handleOfferTitleClick}
       />
     );
   }
 
   render() {
-    const {currentOffers} = this.props;
+    const {offers} = this.props;
 
     return (
       <Router>
@@ -62,8 +64,8 @@ class App extends PureComponent {
         <Switch>
           <Route exact path="/dev-offer">
             <DetailedOfferInfo
-              offer={currentOffers[0]}
-              nearbyOffers={currentOffers}
+              offer={offers[0]}
+              nearbyOffers={offers}
               onNearbyOfferTitleClick={this.handleOfferTitleClick}
             />
           </Route>
@@ -74,7 +76,7 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  currentOffers: PropTypes.arrayOf(PropTypes.shape({
+  offers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
     type: PropTypes.string,
@@ -91,8 +93,8 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  offers: getCityOffers(state),
   currentCity: state.currentCity,
-  currentOffers: state.currentOffers,
 });
 
 export default connect(mapStateToProps)(App);

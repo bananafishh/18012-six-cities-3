@@ -9,7 +9,7 @@ import Map from '../map/map.jsx';
 
 const Main = (props) => {
   const {
-    currentOffers,
+    offers,
     currentCity: {
       name,
       coords,
@@ -17,7 +17,7 @@ const Main = (props) => {
     onOfferTitleClick,
   } = props;
 
-  const offersCoords = currentOffers.map((offer) => offer.coords);
+  const offersCoords = offers.map((offer) => offer.coords);
 
   return (
     <div className="page page--gray page--main">
@@ -60,7 +60,7 @@ const Main = (props) => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {currentOffers.length} {pluralizeWord(`place`, currentOffers.length)} to stay in {name}
+                {offers.length} {pluralizeWord(`place`, offers.length)} to stay in {name}
               </b>
 
               <form className="places__sorting" action="#" method="get">
@@ -91,7 +91,7 @@ const Main = (props) => {
               <OffersList
                 mix="cities__places-list places__list tabs__content"
                 offerMix="cities__place-card"
-                offers={currentOffers}
+                offers={offers}
                 onOfferTitleClick={onOfferTitleClick}
               />
             </section>
@@ -109,11 +109,11 @@ const Main = (props) => {
 };
 
 Main.defaultProps = {
-  currentOffers: [],
+  offers: [],
 };
 
 Main.propTypes = {
-  currentOffers: PropTypes.arrayOf(PropTypes.shape({
+  offers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
     type: PropTypes.string,
