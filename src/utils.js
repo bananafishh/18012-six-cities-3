@@ -25,3 +25,7 @@ export const formatDateToString = (date, format) => {
       return `${formattedMonth}.${formattedDay}.${year}`;
   }
 };
+
+export const extend = (a, b) => Object.assign({}, a, b);
+
+export const pluralizeWord = (word, count) => count > 1 ? `${word}s` : `${word}`;

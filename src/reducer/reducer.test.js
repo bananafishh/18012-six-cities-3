@@ -1,11 +1,5 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import {Provider} from 'react-redux';
-import configureStore from 'redux-mock-store';
-
-import Main from './main';
-
-const mockStore = configureStore([]);
+import {reducer} from '../reducer/reducer';
+import {ActionType} from '../action-creator/action-creator';
 
 const offers = {
   Amsterdam: {
@@ -48,7 +42,10 @@ const currentOffers = [
     rating: 3.9,
     isPremium: false,
     isBookmarked: true,
-  },
+  }
+];
+
+const newOffers = [
   {
     id: 3,
     title: `Cozy Parkside Studio in the ❤ of the East Village`,
@@ -76,24 +73,39 @@ const currentCity = {
   coords: [52.37403, 4.88969],
 };
 
-it(`Компонент «Main» рендерится корректно`, () => {
-  const store = mockStore({
-    currentCity,
-    currentOffers,
-    offers,
+const newCity = {
+  name: `Paris`,
+  coords: [48.85341, 2.3488],
+};
+
+describe(`Редьюсер работает корректно`, () => {
+  it(`Редьюсер изменяет текущий город на переданное значение`, () => {
+    expect(reducer({
+      currentCity,
+      currentOffers,
+      offers,
+    }, {
+      type: ActionType.CHANGE_CITY,
+      payload: newCity,
+    })).toEqual({
+      currentCity: newCity,
+      currentOffers,
+      offers,
+    });
   });
 
-  const tree = renderer
-    .create(
-        <Provider store={store}>
-          <Main
-            currentCity={currentCity}
-            currentOffers={currentOffers}
-            onOfferTitleClick={() => {}}
-          />
-        </Provider>
-    )
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
+  it(`Редьюсер изменяет текущие предложения об аренде на переданное значение`, () => {
+    expect(reducer({
+      currentCity,
+      currentOffers,
+      offers,
+    }, {
+      type: ActionType.FILTER_OFFERS,
+      payload: newOffers,
+    })).toEqual({
+      currentCity,
+      currentOffers: newOffers,
+      offers,
+    });
+  });
 });

@@ -15,46 +15,68 @@ class Map extends PureComponent {
     this.initMap();
   }
 
-  initMap() {
-    const mapElement = this.mapRef.current;
+  componentDidUpdate() {
+    this.addMarkersToMap();
 
-    const city = [52.38333, 4.9];
+    this.map.flyTo(this.props.center);
+  }
+
+  componentWillUnmount() {
+    this.destroyMap();
+  }
+
+  initMap() {
+    const {center} = this.props;
+
+    const mapElement = this.mapRef.current;
     const zoom = 12;
 
     if (mapElement) {
-      const map = leaflet.map(mapElement, {
-        center: city,
+      this.map = leaflet.map(mapElement, {
+        center,
         zoom,
         zoomControl: false,
         marker: true
       });
 
-      map.setView(city, zoom);
+      this.map.setView(center, zoom);
 
-      this.addTileLayerTo(map);
-      this.addMarkersTo(map);
+      this.addTileLayerToMap();
+      this.addMarkersToMap();
     }
   }
 
-  addTileLayerTo(map) {
+  addTileLayerToMap() {
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
-      .addTo(map);
+      .addTo(this.map);
   }
 
-  addMarkersTo(map) {
+  addMarkersToMap() {
     const icon = leaflet.icon({
       iconUrl: MapPinIcon.URL,
       iconSize: MapPinIcon.SIZE,
     });
 
-    this.props.coords.forEach((coord) => {
-      leaflet
-        .marker(coord, {icon})
-        .addTo(map);
-    });
+    if (this.markers) {
+      this.markers.forEach((marker) => {
+        this.map.removeLayer(marker);
+      });
+    }
+
+    this.markers = this.props.coords.map((coord) => (leaflet
+      .marker(coord, {icon})
+      .addTo(this.map)
+    ));
+  }
+
+  destroyMap() {
+    this.map.remove();
+
+    this.map = null;
+    this.markers = null;
   }
 
   render() {
@@ -68,6 +90,7 @@ Map.propTypes = {
   coords: PropTypes.arrayOf(PropTypes.arrayOf(
       PropTypes.number
   )).isRequired,
+  center: PropTypes.arrayOf(PropTypes.number),
 };
 
 export default Map;
