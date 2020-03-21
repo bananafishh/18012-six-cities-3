@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {getCityOffers} from '../../utils';
+import {getSortedOffers} from '../../utils';
+import {ActionCreator} from '../../action-creator/action-creator';
 
 import Main from '../main/main.jsx';
 import DetailedOfferInfo from '../detailed-offer-info/detailed-offer-info.jsx';
@@ -25,6 +26,8 @@ class App extends PureComponent {
     const {
       offers,
       currentCity,
+      currentSortingOption,
+      onSortingOptionChange,
     } = this.props;
 
     const {clickedOfferId} = this.state;
@@ -43,9 +46,11 @@ class App extends PureComponent {
 
     return (
       <Main
-        currentCity={currentCity}
         offers={offers}
+        currentCity={currentCity}
+        currentSortingOption={currentSortingOption}
         onOfferTitleClick={this.handleOfferTitleClick}
+        onSortingOptionChange={onSortingOptionChange}
       />
     );
   }
@@ -90,11 +95,23 @@ App.propTypes = {
     name: PropTypes.string,
     coords: PropTypes.arrayOf(PropTypes.number),
   }).isRequired,
+  currentSortingOption: PropTypes.shape({
+    value: PropTypes.string,
+    label: PropTypes.string,
+  }).isRequired,
+  onSortingOptionChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  offers: getCityOffers(state),
+  offers: getSortedOffers(state),
   currentCity: state.currentCity,
+  currentSortingOption: state.currentSortingOption,
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  onSortingOptionChange(option) {
+    dispatch(ActionCreator.changeSortingOption(option));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -34,6 +34,7 @@ const DetailedOfferInfo = (props) => {
   } = props;
 
   const sortedReviews = reviews
+    .slice()
     .sort((a, b) => b.date.getTime() - a.date.getTime())
     .slice(0, REVIEWS_ON_PAGE_MAX);
 
