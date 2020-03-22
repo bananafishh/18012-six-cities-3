@@ -17,11 +17,11 @@ const Main = (props) => {
       coords,
     },
     currentSortingOption,
+    activeOfferId,
     onOfferTitleClick,
     onSortingOptionChange,
+    onOfferHover,
   } = props;
-
-  const offersCoords = offers.map((offer) => offer.coords);
 
   return (
     <div className="page page--gray page--main">
@@ -78,12 +78,17 @@ const Main = (props) => {
                 offerMix="cities__place-card"
                 offers={offers}
                 onOfferTitleClick={onOfferTitleClick}
+                onOfferHover={onOfferHover}
               />
             </section>
 
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map center={coords} coords={offersCoords}/>
+                <Map
+                  center={coords}
+                  offers={offers}
+                  activeOfferId={activeOfferId}
+                />
               </section>
             </div>
           </div>
@@ -116,8 +121,10 @@ Main.propTypes = {
     value: PropTypes.string,
     label: PropTypes.string,
   }).isRequired,
+  activeOfferId: PropTypes.number,
   onOfferTitleClick: PropTypes.func.isRequired,
   onSortingOptionChange: PropTypes.func.isRequired,
+  onOfferHover: PropTypes.func,
 };
 
 export default Main;

@@ -13,6 +13,7 @@ export const PlaceType = {
 
 export const MapPinIcon = {
   URL: `img/pin.svg`,
+  URL_ACTIVE: `img/pin-active.svg`,
   SIZE: [27, 39],
 };
 

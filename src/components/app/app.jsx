@@ -18,8 +18,8 @@ class App extends PureComponent {
     this.handleOfferTitleClick = this.handleOfferTitleClick.bind(this);
   }
 
-  handleOfferTitleClick(clickedOfferId) {
-    this.setState({clickedOfferId});
+  handleOfferTitleClick(clickedOffer) {
+    this.setState({clickedOffer});
   }
 
   renderApp() {
@@ -27,18 +27,19 @@ class App extends PureComponent {
       offers,
       currentCity,
       currentSortingOption,
+      activeOfferId,
       onSortingOptionChange,
+      onOfferHover,
     } = this.props;
 
-    const {clickedOfferId} = this.state;
+    const {clickedOffer} = this.state;
 
-    if (clickedOfferId) {
-      const clickedOffer = offers.find((offer) => offer.id === clickedOfferId);
-
+    if (clickedOffer) {
       return (
         <DetailedOfferInfo
           offer={clickedOffer}
           nearbyOffers={offers}
+          currentCity={currentCity}
           onNearbyOfferTitleClick={this.handleOfferTitleClick}
         />
       );
@@ -49,14 +50,19 @@ class App extends PureComponent {
         offers={offers}
         currentCity={currentCity}
         currentSortingOption={currentSortingOption}
+        activeOfferId={activeOfferId}
         onOfferTitleClick={this.handleOfferTitleClick}
         onSortingOptionChange={onSortingOptionChange}
+        onOfferHover={onOfferHover}
       />
     );
   }
 
   render() {
-    const {offers} = this.props;
+    const {
+      offers,
+      currentCity,
+    } = this.props;
 
     return (
       <Router>
@@ -71,6 +77,7 @@ class App extends PureComponent {
             <DetailedOfferInfo
               offer={offers[0]}
               nearbyOffers={offers}
+              currentCity={currentCity}
               onNearbyOfferTitleClick={this.handleOfferTitleClick}
             />
           </Route>
@@ -99,18 +106,24 @@ App.propTypes = {
     value: PropTypes.string,
     label: PropTypes.string,
   }).isRequired,
+  activeOfferId: PropTypes.number,
   onSortingOptionChange: PropTypes.func.isRequired,
+  onOfferHover: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
   offers: getSortedOffers(state),
   currentCity: state.currentCity,
   currentSortingOption: state.currentSortingOption,
+  activeOfferId: state.activeOfferId,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onSortingOptionChange(option) {
     dispatch(ActionCreator.changeSortingOption(option));
+  },
+  onOfferHover(offerId) {
+    dispatch(ActionCreator.changeActiveOffer(offerId));
   },
 });
 

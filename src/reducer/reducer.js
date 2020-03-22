@@ -24,6 +24,9 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_SORTING_OPTION:
       return extend(state, {currentSortingOption: action.payload});
 
+    case ActionType.CHANGE_ACTIVE_OFFER:
+      return extend(state, {activeOfferId: action.payload});
+
     default:
       return state;
   }

@@ -33,13 +33,13 @@ export const pluralizeWord = (word, count) => count > 1 ? `${word}s` : `${word}`
 export const sortOffers = (offers, sortingOption) => {
   switch (sortingOption) {
     case SortingOption.PRICE_LOW_TO_HIGH:
-      return offers.slice().sort((a, b) => a.price - b.price);
+      return [...offers].sort((a, b) => a.price - b.price);
 
     case SortingOption.PRICE_HIGH_TO_LOW:
-      return offers.slice().sort((a, b) => b.price - a.price);
+      return [...offers].sort((a, b) => b.price - a.price);
 
     case SortingOption.TOP_RATED_FIRST:
-      return offers.slice().sort((a, b) => b.rating - a.rating);
+      return [...offers].sort((a, b) => b.rating - a.rating);
 
     default:
       return offers;
@@ -54,4 +54,17 @@ export const getSortedOffers = (state) => {
   const offers = getCityOffers(state);
 
   return sortOffers(offers, state.currentSortingOption.value);
+};
+
+export const areArraysEqual = (arr1, arr2) => {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+
+  const sortedArr1 = arr1.slice().sort();
+  const sortedArr2 = arr2.slice().sort();
+
+  return sortedArr1.every((item, index) => (
+    item === sortedArr2[index]
+  ));
 };
