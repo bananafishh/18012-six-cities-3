@@ -21,16 +21,23 @@ const offers = {
   },
 };
 
-const currentCity = {
+const city = {
   name: `Amsterdam`,
   coords: [52.37403, 4.88969],
 };
 
-describe(`Action creators работают корректно`, () => {
+const sortingOption = {
+  label: `Price: low to high`,
+  value: `priceLowToHigh`,
+};
+
+const offerId = 1;
+
+describe(`Action creator работает корректно`, () => {
   it(`Action creator для изменения текущего города возвращает правильный action`, () => {
-    expect(ActionCreator.changeCity(currentCity)).toEqual({
+    expect(ActionCreator.changeCity(city)).toEqual({
       type: ActionType.CHANGE_CITY,
-      payload: currentCity,
+      payload: city,
     });
   });
 
@@ -38,6 +45,20 @@ describe(`Action creators работают корректно`, () => {
     expect(ActionCreator.getOffers(offers)).toEqual({
       type: ActionType.GET_OFFERS,
       payload: offers,
+    });
+  });
+
+  it(`Action creator для изменения варианта сортировки предложений об аренде возвращает правильный action`, () => {
+    expect(ActionCreator.changeSortingOption(sortingOption)).toEqual({
+      type: ActionType.CHANGE_SORTING_OPTION,
+      payload: sortingOption,
+    });
+  });
+
+  it(`Action creator для изменения активного предложения об аренде возвращает правильный action`, () => {
+    expect(ActionCreator.changeActiveOffer(offerId)).toEqual({
+      type: ActionType.CHANGE_ACTIVE_OFFER,
+      payload: offerId,
     });
   });
 });
