@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {getSortedOffers} from '../../utils';
+import {getSortedOffers, getCities} from '../../utils';
 import {ActionCreator} from '../../action-creator/action-creator';
 
 import Main from '../main/main.jsx';
@@ -25,11 +25,13 @@ class App extends PureComponent {
   renderApp() {
     const {
       offers,
+      cities,
       currentCity,
       currentSortingOption,
       activeOfferId,
       onSortingOptionChange,
       onOfferHover,
+      onCityChange
     } = this.props;
 
     const {clickedOffer} = this.state;
@@ -48,12 +50,14 @@ class App extends PureComponent {
     return (
       <Main
         offers={offers}
+        cities={cities}
         currentCity={currentCity}
         currentSortingOption={currentSortingOption}
         activeOfferId={activeOfferId}
         onOfferTitleClick={this.handleOfferTitleClick}
         onSortingOptionChange={onSortingOptionChange}
         onOfferHover={onOfferHover}
+        onCityChange={onCityChange}
       />
     );
   }
@@ -98,6 +102,10 @@ App.propTypes = {
     isPremium: PropTypes.bool,
     isBookmarked: PropTypes.bool,
   })).isRequired,
+  cities: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    coords: PropTypes.arrayOf(PropTypes.number),
+  })).isRequired,
   currentCity: PropTypes.shape({
     name: PropTypes.string,
     coords: PropTypes.arrayOf(PropTypes.number),
@@ -109,16 +117,21 @@ App.propTypes = {
   activeOfferId: PropTypes.number,
   onSortingOptionChange: PropTypes.func.isRequired,
   onOfferHover: PropTypes.func,
+  onCityChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offers: getSortedOffers(state),
+  cities: getCities(state),
   currentCity: state.currentCity,
   currentSortingOption: state.currentSortingOption,
   activeOfferId: state.activeOfferId,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  onCityChange(city) {
+    dispatch(ActionCreator.changeCity(city));
+  },
   onSortingOptionChange(option) {
     dispatch(ActionCreator.changeSortingOption(option));
   },

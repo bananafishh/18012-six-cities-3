@@ -12,16 +12,20 @@ import SortingOptions from '../sorting-options/sorting-options.jsx';
 const Main = (props) => {
   const {
     offers,
-    currentCity: {
-      name,
-      coords,
-    },
+    cities,
+    currentCity,
     currentSortingOption,
     activeOfferId,
     onOfferTitleClick,
     onSortingOptionChange,
     onOfferHover,
+    onCityChange,
   } = props;
+
+  const {
+    name,
+    coords,
+  } = currentCity;
 
   return (
     <div className="page page--gray page--main">
@@ -57,7 +61,11 @@ const Main = (props) => {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
 
-        <CitiesList/>
+        <CitiesList
+          cities={cities}
+          currentCity={currentCity}
+          onCityChange={onCityChange}
+        />
 
         <div className="cities">
           <div className="cities__places-container container">
@@ -113,6 +121,10 @@ Main.propTypes = {
     isPremium: PropTypes.bool,
     isBookmarked: PropTypes.bool,
   })).isRequired,
+  cities: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    coords: PropTypes.arrayOf(PropTypes.number),
+  })).isRequired,
   currentCity: PropTypes.shape({
     name: PropTypes.string,
     coords: PropTypes.arrayOf(PropTypes.number),
@@ -125,6 +137,7 @@ Main.propTypes = {
   onOfferTitleClick: PropTypes.func.isRequired,
   onSortingOptionChange: PropTypes.func.isRequired,
   onOfferHover: PropTypes.func,
+  onCityChange: PropTypes.func.isRequired,
 };
 
 export default Main;

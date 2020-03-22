@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import {CitiesList} from './cities-list';
+import CitiesList from './cities-list';
 
 const cities = [
   {
