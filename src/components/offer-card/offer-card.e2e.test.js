@@ -17,37 +17,38 @@ const offer = {
   isBookmarked: false,
 };
 
-it(`При наведении на карточку предложения об аренде вызывается коллбэк, в который передаётся id предложения`, () => {
-  const handleOfferCardHover = jest.fn();
+describe(`Компонент «OfferCard» работает корректно`, () => {
+  it(`При наведении на карточку предложения об аренде вызывается коллбэк, в который передаётся id предложения`, () => {
+    const handleOfferHover = jest.fn();
 
-  const offerCard = shallow(
-      <OfferCard
-        offer={offer}
-        onOfferTitleClick={() => {}}
-        onOfferCardHover={handleOfferCardHover}
-      />
-  );
+    const offerCard = shallow(
+        <OfferCard
+          offer={offer}
+          onOfferTitleClick={() => {}}
+          onOfferHover={handleOfferHover}
+        />
+    );
 
-  offerCard.simulate(`mouseenter`);
+    offerCard.simulate(`mouseenter`);
+    expect(handleOfferHover).toHaveBeenCalledTimes(1);
+    expect(handleOfferHover.mock.calls[0][0]).toBe(offer.id);
+  });
 
-  expect(handleOfferCardHover).toHaveBeenCalledTimes(1);
-  expect(handleOfferCardHover.mock.calls[0][0]).toBe(offer.id);
-});
+  it(`При клике по заголовку карточки предложения об аренде вызывается коллбэк, в который передаётся выбранное предложение`, () => {
+    const handleOfferTitleClick = jest.fn();
 
-it(`При клике по заголовку карточки предложения об аренде вызывается коллбэк, в который передаётся id предложения`, () => {
-  const handleOfferTitleClick = jest.fn();
+    const offerCard = shallow(
+        <OfferCard
+          offer={offer}
+          onOfferTitleClick={handleOfferTitleClick}
+          onOfferHover={() => {}}
+        />
+    );
 
-  const offerCard = shallow(
-      <OfferCard
-        offer={offer}
-        onOfferTitleClick={handleOfferTitleClick}
-        onOfferCardHover={() => {}}
-      />
-  );
+    const offerTitle = offerCard.find(`.place-card__name`);
 
-  const offerTitle = offerCard.find(`.place-card__name`);
-  offerTitle.simulate(`click`);
-
-  expect(handleOfferTitleClick).toHaveBeenCalledTimes(1);
-  expect(handleOfferTitleClick.mock.calls[0][0]).toBe(offer.id);
+    offerTitle.simulate(`click`);
+    expect(handleOfferTitleClick).toHaveBeenCalledTimes(1);
+    expect(handleOfferTitleClick.mock.calls[0][0]).toEqual(offer);
+  });
 });
