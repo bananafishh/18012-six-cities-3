@@ -1,7 +1,9 @@
 import {reducer} from '../reducer/reducer';
 import {ActionType} from '../action-creator/action-creator';
 
-const offers = {
+const offers = {};
+
+const newOffers = {
   Amsterdam: {
     city: {
       name: `Amsterdam`,
@@ -22,29 +24,6 @@ const offers = {
   },
 };
 
-const newOffers = [
-  {
-    id: 3,
-    title: `Cozy Parkside Studio in the ❤ of the East Village`,
-    type: `hotel`,
-    price: 500,
-    pictures: [`https://placeimg.com/260/200/arch/3`],
-    rating: 5,
-    isPremium: true,
-    isBookmarked: true,
-  },
-  {
-    id: 4,
-    title: `Sunny, Modern room in East Village!`,
-    type: `room`,
-    price: 80,
-    pictures: [`https://placeimg.com/260/200/arch/4`],
-    rating: 2.5,
-    isPremium: false,
-    isBookmarked: false,
-  },
-];
-
 const currentCity = {
   name: `Amsterdam`,
   coords: [52.37403, 4.88969],
@@ -55,16 +34,24 @@ const newCity = {
   coords: [48.85341, 2.3488],
 };
 
+const currentSortingOption = {
+  label: `Popular`,
+  value: `popular`,
+};
+
+const newSortingOption = {
+  label: `Price: low to high`,
+  value: `priceLowToHigh`,
+};
+
 describe(`Редьюсер работает корректно`, () => {
   it(`Редьюсер изменяет текущий город на переданное значение`, () => {
     expect(reducer({
-      offers,
       currentCity,
     }, {
       type: ActionType.CHANGE_CITY,
       payload: newCity,
     })).toEqual({
-      offers,
       currentCity: newCity,
     });
   });
@@ -72,13 +59,33 @@ describe(`Редьюсер работает корректно`, () => {
   it(`Редьюсер изменяет список предложений об аренде на переданное значение`, () => {
     expect(reducer({
       offers,
-      currentCity,
     }, {
       type: ActionType.GET_OFFERS,
       payload: newOffers,
     })).toEqual({
       offers: newOffers,
-      currentCity,
+    });
+  });
+
+  it(`Редьюсер изменяет текущий вариант сортировки на переданное значение`, () => {
+    expect(reducer({
+      currentSortingOption,
+    }, {
+      type: ActionType.CHANGE_SORTING_OPTION,
+      payload: newSortingOption,
+    })).toEqual({
+      currentSortingOption: newSortingOption,
+    });
+  });
+
+  it(`Редьюсер изменяет активное предложение об аренде на переданное значение`, () => {
+    expect(reducer({
+      activeOfferId: 1,
+    }, {
+      type: ActionType.CHANGE_ACTIVE_OFFER,
+      payload: 2,
+    })).toEqual({
+      activeOfferId: 2,
     });
   });
 });
