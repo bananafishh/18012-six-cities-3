@@ -21,27 +21,39 @@ const cities = [
   },
 ];
 
-const currentCity = {
-  name: `Amsterdam`,
-  coords: [52.37403, 4.88969],
-};
+describe(`Компонент «CitiesList» работает корректно`, () => {
+  it(`При клике по городу вызывается коллбэк`, () => {
+    const handleCityClick = jest.fn();
 
-it(`При переключении города вызывается коллбэк, в который передаётся новый город`, () => {
-  const handleCityClick = jest.fn();
+    const citiesList = shallow(
+        <CitiesList
+          cities={cities}
+          currentCity={cities[0]}
+          onCityChange={handleCityClick}
+        />
+    );
 
-  const citiesList = shallow(
-      <CitiesList
-        cities={cities}
-        currentCity={currentCity}
-        onCityChange={handleCityClick}
-      />
-  );
+    const cityLinks = citiesList.find(`.locations__item-link`);
 
-  const cityLinks = citiesList.find(`.locations__item-link`);
+    cityLinks.forEach((link) => link.simulate(`click`));
+    expect(handleCityClick).toHaveBeenCalledTimes(cities.length);
+  });
 
-  cityLinks.forEach((link) => link.simulate(`click`));
-  expect(handleCityClick).toHaveBeenCalledTimes(cities.length);
+  it(`При клике по городу в вызванный коллбэк передаётся выбранный город`, () => {
+    const handleCityClick = jest.fn();
 
-  cityLinks.at(0).simulate(`click`);
-  expect(handleCityClick.mock.calls[0][0]).toMatchObject(cities[0]);
+    const citiesList = shallow(
+        <CitiesList
+          cities={cities}
+          currentCity={cities[0]}
+          onCityChange={handleCityClick}
+        />
+    );
+
+    const cityLinks = citiesList.find(`.locations__item-link`);
+
+    cityLinks.at(1).simulate(`click`);
+    expect(handleCityClick).toHaveBeenCalledTimes(1);
+    expect(handleCityClick.mock.calls[0][0]).toEqual(cities[1]);
+  });
 });

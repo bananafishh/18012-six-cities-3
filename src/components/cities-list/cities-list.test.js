@@ -18,17 +18,12 @@ const cities = [
   },
 ];
 
-const currentCity = {
-  name: `Amsterdam`,
-  coords: [52.37403, 4.88969],
-};
-
 it(`Компонент «CitiesList» рендерится корректно`, () => {
   const tree = renderer
     .create(
         <CitiesList
           cities={cities}
-          currentCity={currentCity}
+          currentCity={cities[0]}
           onCityChange={() => {}}
         />
     )
