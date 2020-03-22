@@ -88,12 +88,18 @@ const offer = {
   ],
 };
 
+const currentCity = {
+  name: `Amsterdam`,
+  coords: [52.37403, 4.88969],
+};
+
 it(`Компонент «DetailedOfferInfo» рендерится корректно`, () => {
   const tree = renderer
     .create(
         <DetailedOfferInfo
           offer={offer}
           nearbyOffers={offers}
+          currentCity={currentCity}
           onNearbyOfferTitleClick={() => {}}
         />
     )
