@@ -4,22 +4,13 @@ import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card.jsx';
 
 class OffersList extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.handleOfferHover = this.handleOfferHover.bind(this);
-  }
-
-  handleOfferHover(offerId) {
-    this.setState({activeOfferCard: offerId});
-  }
-
   render() {
     const {
       offers,
       onOfferTitleClick,
       mix,
       offerMix,
+      onOfferHover,
     } = this.props;
 
     if (!offers.length) {
@@ -34,7 +25,7 @@ class OffersList extends PureComponent {
             mix={offerMix}
             offer={offer}
             onOfferTitleClick={onOfferTitleClick}
-            onOfferCardHover={this.handleOfferHover}
+            onOfferHover={onOfferHover}
           />
         ))}
       </div>
@@ -56,6 +47,7 @@ OffersList.propTypes = {
   onOfferTitleClick: PropTypes.func.isRequired,
   mix: PropTypes.string,
   offerMix: PropTypes.string,
+  onOfferHover: PropTypes.func,
 };
 
 export default OffersList;

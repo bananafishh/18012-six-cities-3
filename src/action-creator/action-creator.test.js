@@ -21,36 +21,44 @@ const offers = {
   },
 };
 
-const currentOffers = [
-  {
-    id: 1,
-    title: `Luxe 1-Bedroom Flat Near Manhattan`,
-    type: `apartment`,
-    price: 120,
-    pictures: [`https://placeimg.com/260/200/arch/1`],
-    rating: 4.5,
-    isPremium: true,
-    isBookmarked: false,
-  },
-];
-
-const currentCity = {
+const city = {
   name: `Amsterdam`,
   coords: [52.37403, 4.88969],
 };
 
-describe(`Action creators работают корректно`, () => {
+const sortingOption = {
+  label: `Price: low to high`,
+  value: `priceLowToHigh`,
+};
+
+const offerId = 1;
+
+describe(`Action creator работает корректно`, () => {
   it(`Action creator для изменения текущего города возвращает правильный action`, () => {
-    expect(ActionCreator.changeCity(currentCity)).toEqual({
+    expect(ActionCreator.changeCity(city)).toEqual({
       type: ActionType.CHANGE_CITY,
-      payload: currentCity,
+      payload: city,
     });
   });
 
-  it(`Action creator для изменения текущих предложений возвращает правильный action`, () => {
-    expect(ActionCreator.filterOffers(offers, currentCity)).toEqual({
-      type: ActionType.FILTER_OFFERS,
-      payload: currentOffers,
+  it(`Action creator для получения списка предложений об аренде возвращает правильный action`, () => {
+    expect(ActionCreator.getOffers(offers)).toEqual({
+      type: ActionType.GET_OFFERS,
+      payload: offers,
+    });
+  });
+
+  it(`Action creator для изменения варианта сортировки предложений об аренде возвращает правильный action`, () => {
+    expect(ActionCreator.changeSortingOption(sortingOption)).toEqual({
+      type: ActionType.CHANGE_SORTING_OPTION,
+      payload: sortingOption,
+    });
+  });
+
+  it(`Action creator для изменения активного предложения об аренде возвращает правильный action`, () => {
+    expect(ActionCreator.changeActiveOffer(offerId)).toEqual({
+      type: ActionType.CHANGE_ACTIVE_OFFER,
+      payload: offerId,
     });
   });
 });

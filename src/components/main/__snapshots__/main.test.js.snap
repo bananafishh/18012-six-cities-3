@@ -86,6 +86,32 @@ exports[`Компонент «Main» рендерится корректно 1`]
               </span>
             </a>
           </li>
+          <li
+            className="locations__item"
+          >
+            <a
+              className="locations__item-link tabs__item"
+              href="#"
+              onClick={[Function]}
+            >
+              <span>
+                Paris
+              </span>
+            </a>
+          </li>
+          <li
+            className="locations__item"
+          >
+            <a
+              className="locations__item-link tabs__item"
+              href="#"
+              onClick={[Function]}
+            >
+              <span>
+                Brussels
+              </span>
+            </a>
+          </li>
         </ul>
       </section>
     </div>
@@ -125,9 +151,10 @@ exports[`Компонент «Main» рендерится корректно 1`]
              
             <span
               className="places__sorting-type"
+              onClick={[Function]}
               tabIndex="0"
             >
-              Popular
+              Price: low to high
               <svg
                 className="places__sorting-arrow"
                 height="4"
@@ -139,28 +166,32 @@ exports[`Компонент «Main» рендерится корректно 1`]
               </svg>
             </span>
             <ul
-              className="places__options places__options--custom places__options--opened"
+              className="places__options places__options--custom"
             >
               <li
-                className="places__option places__option--active"
+                className="places__option"
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Popular
               </li>
               <li
-                className="places__option"
+                className="places__option places__option--active"
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Price: low to high
               </li>
               <li
                 className="places__option"
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Price: high to low
               </li>
               <li
                 className="places__option"
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Top rated first

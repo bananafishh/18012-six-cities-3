@@ -6,25 +6,29 @@ import {getRatingInPercent} from '../../utils';
 
 const OfferCard = (props) => {
   const {
-    offer: {
-      id,
-      title,
-      type,
-      price,
-      pictures,
-      rating,
-      isPremium,
-      isBookmarked,
-    },
+    offer,
     onOfferTitleClick,
-    onOfferCardHover,
+    onOfferHover,
     mix,
   } = props;
+
+  const {
+    id,
+    title,
+    type,
+    price,
+    pictures,
+    rating,
+    isPremium,
+    isBookmarked,
+  } = offer;
+
+  const handleOfferHover = (offerId) => onOfferHover && onOfferHover(offerId);
 
   return (
     <article
       className={`place-card${mix ? ` ${mix}` : ``}`}
-      onMouseEnter={() => onOfferCardHover(id)}
+      onMouseEnter={() => handleOfferHover(id)}
     >
       {isPremium && (
         <div className="place-card__mark">
@@ -73,7 +77,7 @@ const OfferCard = (props) => {
 
         <h2
           className="place-card__name"
-          onClick={() => onOfferTitleClick(id)}
+          onClick={() => onOfferTitleClick(offer)}
         >
           <a href="#">{title}</a>
         </h2>
@@ -96,7 +100,7 @@ OfferCard.propTypes = {
     isBookmarked: PropTypes.bool,
   }).isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
-  onOfferCardHover: PropTypes.func.isRequired,
+  onOfferHover: PropTypes.func,
   mix: PropTypes.string,
 };
 

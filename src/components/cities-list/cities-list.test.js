@@ -1,40 +1,29 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import {CitiesList} from './cities-list';
+import CitiesList from './cities-list';
 
-const offers = {
-  Amsterdam: {
-    city: {
-      name: `Amsterdam`,
-      coords: [52.37403, 4.88969],
-    },
-    offers: [
-      {
-        id: 1,
-        title: `Luxe 1-Bedroom Flat Near Manhattan`,
-        type: `apartment`,
-        price: 120,
-        pictures: [`https://placeimg.com/260/200/arch/1`],
-        rating: 4.5,
-        isPremium: true,
-        isBookmarked: false,
-      },
-    ],
+const cities = [
+  {
+    name: `Amsterdam`,
+    coords: [52.37403, 4.88969],
   },
-};
-
-const currentCity = {
-  name: `Amsterdam`,
-  coords: [52.37403, 4.88969],
-};
+  {
+    name: `Paris`,
+    coords: [48.85341, 2.3488],
+  },
+  {
+    name: `Brussels`,
+    coords: [50.85045, 4.34878],
+  },
+];
 
 it(`Компонент «CitiesList» рендерится корректно`, () => {
   const tree = renderer
     .create(
         <CitiesList
-          offers={offers}
-          currentCity={currentCity}
+          cities={cities}
+          currentCity={cities[0]}
           onCityChange={() => {}}
         />
     )

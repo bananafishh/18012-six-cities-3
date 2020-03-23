@@ -1,10 +1,11 @@
-import React, {PureComponent, createRef} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 
+import {areArraysEqual} from '../../utils';
 import {MapPinIcon} from '../../constants';
 
-class Map extends PureComponent {
+class Map extends Component {
   constructor(props) {
     super(props);
 
@@ -13,6 +14,23 @@ class Map extends PureComponent {
 
   componentDidMount() {
     this.initMap();
+  }
+
+  shouldComponentUpdate(nextProps) {
+    const {
+      offers,
+      activeOfferId,
+    } = this.props;
+
+    const {
+      offers: nextOffers,
+      activeOfferId: nextActiveOfferId,
+    } = nextProps;
+
+    const offersId = offers.map((offer) => offer.id);
+    const nextOffersId = nextOffers.map((offer) => offer.id);
+
+    return !areArraysEqual(offersId, nextOffersId) || activeOfferId !== nextActiveOfferId;
   }
 
   componentDidUpdate() {
@@ -55,8 +73,13 @@ class Map extends PureComponent {
   }
 
   addMarkersToMap() {
-    const icon = leaflet.icon({
-      iconUrl: MapPinIcon.URL,
+    const {
+      offers,
+      activeOfferId,
+    } = this.props;
+
+    const getIcon = (isIconActive) => leaflet.icon({
+      iconUrl: isIconActive ? MapPinIcon.URL_ACTIVE : MapPinIcon.URL,
       iconSize: MapPinIcon.SIZE,
     });
 
@@ -66,10 +89,13 @@ class Map extends PureComponent {
       });
     }
 
-    this.markers = this.props.coords.map((coord) => (leaflet
-      .marker(coord, {icon})
-      .addTo(this.map)
-    ));
+    this.markers = offers.map((offer) => {
+      const icon = getIcon(offer.id === activeOfferId);
+
+      return leaflet
+        .marker(offer.coords, {icon})
+        .addTo(this.map);
+    });
   }
 
   destroyMap() {
@@ -87,10 +113,12 @@ class Map extends PureComponent {
 }
 
 Map.propTypes = {
-  coords: PropTypes.arrayOf(PropTypes.arrayOf(
-      PropTypes.number
-  )).isRequired,
-  center: PropTypes.arrayOf(PropTypes.number),
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    coords: PropTypes.arrayOf(PropTypes.number),
+  })).isRequired,
+  center: PropTypes.arrayOf(PropTypes.number).isRequired,
+  activeOfferId: PropTypes.number,
 };
 
 export default Map;

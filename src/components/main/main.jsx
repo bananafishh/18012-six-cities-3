@@ -2,22 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {pluralizeWord} from '../../utils';
+import {SORTING_OPTIONS} from '../../constants';
 
 import CitiesList from '../cities-list/cities-list.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import Map from '../map/map.jsx';
+import SortingOptions from '../sorting-options/sorting-options.jsx';
 
 const Main = (props) => {
   const {
-    currentOffers,
-    currentCity: {
-      name,
-      coords,
-    },
+    offers,
+    cities,
+    currentCity,
+    currentSortingOption,
+    activeOfferId,
     onOfferTitleClick,
+    onSortingOptionChange,
+    onOfferHover,
+    onCityChange,
   } = props;
 
-  const offersCoords = currentOffers.map((offer) => offer.coords);
+  const {
+    name,
+    coords,
+  } = currentCity;
 
   return (
     <div className="page page--gray page--main">
@@ -53,52 +61,42 @@ const Main = (props) => {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
 
-        <CitiesList/>
+        <CitiesList
+          cities={cities}
+          currentCity={currentCity}
+          onCityChange={onCityChange}
+        />
 
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {currentOffers.length} {pluralizeWord(`place`, currentOffers.length)} to stay in {name}
+                {offers.length} {pluralizeWord(`place`, offers.length)} to stay in {name}
               </b>
 
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                {` `}
-                <span className="places__sorting-type" tabIndex="0">
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                  <li className="places__option" tabIndex="0">Price: low to high</li>
-                  <li className="places__option" tabIndex="0">Price: high to low</li>
-                  <li className="places__option" tabIndex="0">Top rated first</li>
-                </ul>
-
-                {/* <select class="places__sorting-type" id="places-sorting">*/}
-                {/*  <option class="places__option" value="popular" selected="">Popular</option>*/}
-                {/*  <option class="places__option" value="to-high">Price: low to high</option>*/}
-                {/*  <option class="places__option" value="to-low">Price: high to low</option>*/}
-                {/*  <option class="places__option" value="top-rated">Top rated first</option>*/}
-                {/* </select>*/}
-              </form>
+              <SortingOptions
+                options={SORTING_OPTIONS}
+                currentOption={currentSortingOption}
+                onOptionChange={onSortingOptionChange}
+              />
 
               <OffersList
                 mix="cities__places-list places__list tabs__content"
                 offerMix="cities__place-card"
-                offers={currentOffers}
+                offers={offers}
                 onOfferTitleClick={onOfferTitleClick}
+                onOfferHover={onOfferHover}
               />
             </section>
 
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map center={coords} coords={offersCoords}/>
+                <Map
+                  center={coords}
+                  offers={offers}
+                  activeOfferId={activeOfferId}
+                />
               </section>
             </div>
           </div>
@@ -109,11 +107,11 @@ const Main = (props) => {
 };
 
 Main.defaultProps = {
-  currentOffers: [],
+  offers: [],
 };
 
 Main.propTypes = {
-  currentOffers: PropTypes.arrayOf(PropTypes.shape({
+  offers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
     type: PropTypes.string,
@@ -123,11 +121,23 @@ Main.propTypes = {
     isPremium: PropTypes.bool,
     isBookmarked: PropTypes.bool,
   })).isRequired,
+  cities: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    coords: PropTypes.arrayOf(PropTypes.number),
+  })).isRequired,
   currentCity: PropTypes.shape({
     name: PropTypes.string,
     coords: PropTypes.arrayOf(PropTypes.number),
   }).isRequired,
+  currentSortingOption: PropTypes.shape({
+    value: PropTypes.string,
+    label: PropTypes.string,
+  }).isRequired,
+  activeOfferId: PropTypes.number,
   onOfferTitleClick: PropTypes.func.isRequired,
+  onSortingOptionChange: PropTypes.func.isRequired,
+  onOfferHover: PropTypes.func,
+  onCityChange: PropTypes.func.isRequired,
 };
 
 export default Main;

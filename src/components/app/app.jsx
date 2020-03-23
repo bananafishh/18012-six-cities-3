@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 
+import {getSortedOffers, getCities} from '../../utils';
+import {ActionCreator} from '../../action-creator/action-creator';
+
 import Main from '../main/main.jsx';
 import DetailedOfferInfo from '../detailed-offer-info/detailed-offer-info.jsx';
 
@@ -15,25 +18,30 @@ class App extends PureComponent {
     this.handleOfferTitleClick = this.handleOfferTitleClick.bind(this);
   }
 
-  handleOfferTitleClick(clickedOfferId) {
-    this.setState({clickedOfferId});
+  handleOfferTitleClick(clickedOffer) {
+    this.setState({clickedOffer});
   }
 
   renderApp() {
     const {
-      currentOffers,
+      offers,
+      cities,
       currentCity,
+      currentSortingOption,
+      activeOfferId,
+      onSortingOptionChange,
+      onOfferHover,
+      onCityChange
     } = this.props;
 
-    const {clickedOfferId} = this.state;
+    const {clickedOffer} = this.state;
 
-    if (clickedOfferId) {
-      const clickedOffer = currentOffers.find((offer) => offer.id === clickedOfferId);
-
+    if (clickedOffer) {
       return (
         <DetailedOfferInfo
           offer={clickedOffer}
-          nearbyOffers={currentOffers}
+          nearbyOffers={offers}
+          currentCity={currentCity}
           onNearbyOfferTitleClick={this.handleOfferTitleClick}
         />
       );
@@ -41,15 +49,24 @@ class App extends PureComponent {
 
     return (
       <Main
+        offers={offers}
+        cities={cities}
         currentCity={currentCity}
-        currentOffers={currentOffers}
+        currentSortingOption={currentSortingOption}
+        activeOfferId={activeOfferId}
         onOfferTitleClick={this.handleOfferTitleClick}
+        onSortingOptionChange={onSortingOptionChange}
+        onOfferHover={onOfferHover}
+        onCityChange={onCityChange}
       />
     );
   }
 
   render() {
-    const {currentOffers} = this.props;
+    const {
+      offers,
+      currentCity,
+    } = this.props;
 
     return (
       <Router>
@@ -62,8 +79,9 @@ class App extends PureComponent {
         <Switch>
           <Route exact path="/dev-offer">
             <DetailedOfferInfo
-              offer={currentOffers[0]}
-              nearbyOffers={currentOffers}
+              offer={offers[0]}
+              nearbyOffers={offers}
+              currentCity={currentCity}
               onNearbyOfferTitleClick={this.handleOfferTitleClick}
             />
           </Route>
@@ -74,7 +92,7 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  currentOffers: PropTypes.arrayOf(PropTypes.shape({
+  offers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
     type: PropTypes.string,
@@ -84,15 +102,42 @@ App.propTypes = {
     isPremium: PropTypes.bool,
     isBookmarked: PropTypes.bool,
   })).isRequired,
+  cities: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    coords: PropTypes.arrayOf(PropTypes.number),
+  })).isRequired,
   currentCity: PropTypes.shape({
     name: PropTypes.string,
     coords: PropTypes.arrayOf(PropTypes.number),
   }).isRequired,
+  currentSortingOption: PropTypes.shape({
+    value: PropTypes.string,
+    label: PropTypes.string,
+  }).isRequired,
+  activeOfferId: PropTypes.number,
+  onSortingOptionChange: PropTypes.func.isRequired,
+  onOfferHover: PropTypes.func,
+  onCityChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  offers: getSortedOffers(state),
+  cities: getCities(state),
   currentCity: state.currentCity,
-  currentOffers: state.currentOffers,
+  currentSortingOption: state.currentSortingOption,
+  activeOfferId: state.activeOfferId,
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  onCityChange(city) {
+    dispatch(ActionCreator.changeCity(city));
+  },
+  onSortingOptionChange(option) {
+    dispatch(ActionCreator.changeSortingOption(option));
+  },
+  onOfferHover(offerId) {
+    dispatch(ActionCreator.changeActiveOffer(offerId));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

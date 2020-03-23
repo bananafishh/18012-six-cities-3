@@ -10,35 +10,41 @@ import Map from '../map/map.jsx';
 
 const DetailedOfferInfo = (props) => {
   const {
-    offer: {
-      title,
-      type,
-      price,
-      pictures,
-      rating,
-      isPremium,
-      isBookmarked,
-      description,
-      bedroomsCount,
-      guestsCountMax,
-      householdItems,
-      host: {
-        name,
-        picture: hostPicture,
-        isSuper,
-      },
-      reviews,
-    },
+    offer,
     nearbyOffers,
+    currentCity: {
+      coords: currentCityCoords,
+    },
     onNearbyOfferTitleClick,
   } = props;
 
-  const sortedReviews = reviews
+  const {
+    id,
+    title,
+    type,
+    price,
+    pictures,
+    rating,
+    isPremium,
+    isBookmarked,
+    description,
+    bedroomsCount,
+    guestsCountMax,
+    householdItems,
+    host: {
+      name,
+      picture: hostPicture,
+      isSuper,
+    },
+    reviews,
+  } = offer;
+
+  const sortedReviews = [...reviews]
     .sort((a, b) => b.date.getTime() - a.date.getTime())
     .slice(0, REVIEWS_ON_PAGE_MAX);
 
   const reducedNearbyOffers = nearbyOffers.slice(0, NEARBY_OFFERS_MAX);
-  const nearbyOffersCoords = reducedNearbyOffers.map((offer) => offer.coords);
+  const offers = [offer, ...reducedNearbyOffers];
 
   return (
     <div className="page">
@@ -270,7 +276,11 @@ const DetailedOfferInfo = (props) => {
           </div>
 
           <section className="property__map map">
-            <Map coords={nearbyOffersCoords}/>
+            <Map
+              center={currentCityCoords}
+              offers={offers}
+              activeOfferId={id}
+            />
           </section>
         </section>
 
@@ -298,6 +308,7 @@ DetailedOfferInfo.defaultProps = {
 
 DetailedOfferInfo.propTypes = {
   offer: PropTypes.shape({
+    id: PropTypes.number,
     title: PropTypes.string,
     type: PropTypes.string,
     price: PropTypes.number,
@@ -336,6 +347,9 @@ DetailedOfferInfo.propTypes = {
     isBookmarked: PropTypes.bool,
   })).isRequired,
   onNearbyOfferTitleClick: PropTypes.func.isRequired,
+  currentCity: PropTypes.shape({
+    coords: PropTypes.arrayOf(PropTypes.number),
+  }).isRequired,
 };
 
 export default DetailedOfferInfo;

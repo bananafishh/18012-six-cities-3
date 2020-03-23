@@ -1,16 +1,16 @@
 import {extend} from '../utils';
+import {SORTING_OPTIONS} from '../constants';
 import {ActionType} from '../action-creator/action-creator';
 
 import offers from '../mocks/offers';
 
 const cities = Object.keys(offers);
 const currentCity = offers[cities[0]].city;
-const currentOffers = offers[currentCity.name].offers;
 
 const initialState = {
-  currentCity,
-  currentOffers,
   offers,
+  currentCity,
+  currentSortingOption: SORTING_OPTIONS[0],
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,8 +18,14 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_CITY:
       return extend(state, {currentCity: action.payload});
 
-    case ActionType.FILTER_OFFERS:
-      return extend(state, {currentOffers: action.payload});
+    case ActionType.GET_OFFERS:
+      return extend(state, {offers: action.payload});
+
+    case ActionType.CHANGE_SORTING_OPTION:
+      return extend(state, {currentSortingOption: action.payload});
+
+    case ActionType.CHANGE_ACTIVE_OFFER:
+      return extend(state, {activeOfferId: action.payload});
 
     default:
       return state;
