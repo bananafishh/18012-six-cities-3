@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 
 import {pluralizeWord} from '../../utils';
 import {SORTING_OPTIONS} from '../../constants';
+import withToggle from '../../hoc/with-toggle/with-toggle';
 
 import CitiesList from '../cities-list/cities-list.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import Map from '../map/map.jsx';
 import SortingOptions from '../sorting-options/sorting-options.jsx';
+
+const SortingOptionsWrapped = withToggle(SortingOptions);
 
 const Main = (props) => {
   const {
@@ -75,7 +78,7 @@ const Main = (props) => {
                 {offers.length} {pluralizeWord(`place`, offers.length)} to stay in {name}
               </b>
 
-              <SortingOptions
+              <SortingOptionsWrapped
                 options={SORTING_OPTIONS}
                 currentOption={currentSortingOption}
                 onOptionChange={onSortingOptionChange}
