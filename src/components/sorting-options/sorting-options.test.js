@@ -21,6 +21,8 @@ it(`Компонент «SortingOptions» рендерится корректн�
           options={sortingOptions}
           currentOption={sortingOptions[1]}
           onOptionChange={() => {}}
+          isOpen={false}
+          onToggleButtonClick={() => {}}
         />
     )
     .toJSON();

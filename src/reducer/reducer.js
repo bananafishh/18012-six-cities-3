@@ -15,11 +15,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.CHANGE_CITY:
-      return extend(state, {currentCity: action.payload});
-
     case ActionType.GET_OFFERS:
       return extend(state, {offers: action.payload});
+
+    case ActionType.CHANGE_CITY:
+      return extend(state, {currentCity: action.payload});
 
     case ActionType.CHANGE_SORTING_OPTION:
       return extend(state, {currentSortingOption: action.payload});

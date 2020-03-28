@@ -1,6 +1,6 @@
-import {MONTHS, SortingOption} from './constants';
+import {MONTHS, RATING_MAX, SortingOption} from './constants';
 
-export const getRatingInPercent = (currentRating, maxRating) => Math.round(currentRating / maxRating * 100);
+export const getRatingInPercent = (currentRating) => Math.round(currentRating / RATING_MAX * 100);
 
 function addZeroTo(number) {
   return number < 10 ? `0${number}` : String(number);

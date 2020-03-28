@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {RATING_MAX, DateFormat} from '../../constants';
+import {DateFormat} from '../../constants';
 import {getRatingInPercent, formatDateToString} from '../../utils';
 
 const Review = (props) => {
@@ -36,7 +36,7 @@ const Review = (props) => {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${getRatingInPercent(rating, RATING_MAX)}%`}}></span>
+            <span style={{width: `${getRatingInPercent(rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

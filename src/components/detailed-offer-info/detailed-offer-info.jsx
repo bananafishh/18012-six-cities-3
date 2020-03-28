@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {RATING_MAX, REVIEWS_ON_PAGE_MAX, NEARBY_OFFERS_MAX, PlaceType} from '../../constants';
+import {REVIEWS_ON_PAGE_MAX, NEARBY_OFFERS_MAX, PlaceType} from '../../constants';
 import {getRatingInPercent, pluralizeWord} from '../../utils';
 
 import ReviewsList from '../reviews-list/reviews-list.jsx';
@@ -105,7 +105,7 @@ const DetailedOfferInfo = (props) => {
 
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `${getRatingInPercent(rating, RATING_MAX)}%`}}></span>
+                  <span style={{width: `${getRatingInPercent(rating)}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
 
