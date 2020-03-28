@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {RATING_MAX, PlaceType} from '../../constants';
+import {PlaceType} from '../../constants';
 import {getRatingInPercent} from '../../utils';
 
 const OfferCard = (props) => {
@@ -70,7 +70,7 @@ const OfferCard = (props) => {
 
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${getRatingInPercent(rating, RATING_MAX)}%`}}></span>
+            <span style={{width: `${getRatingInPercent(rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
