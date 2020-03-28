@@ -24,8 +24,8 @@ class OffersList extends PureComponent {
             key={offer.id}
             mix={offerMix}
             offer={offer}
-            onOfferTitleClick={onOfferTitleClick}
-            onOfferHover={onOfferHover}
+            onTitleClick={onOfferTitleClick}
+            onHover={onOfferHover}
           />
         ))}
       </div>
