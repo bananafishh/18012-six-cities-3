@@ -22,24 +22,7 @@ const cities = [
 ];
 
 describe(`Компонент «CitiesList» работает корректно`, () => {
-  it(`При клике по городу вызывается коллбэк`, () => {
-    const handleCityClick = jest.fn();
-
-    const citiesList = shallow(
-        <CitiesList
-          cities={cities}
-          currentCity={cities[0]}
-          onCityChange={handleCityClick}
-        />
-    );
-
-    const cityLinks = citiesList.find(`.locations__item-link`);
-
-    cityLinks.forEach((link) => link.simulate(`click`));
-    expect(handleCityClick).toHaveBeenCalledTimes(cities.length);
-  });
-
-  it(`При клике по городу в вызванный коллбэк передаётся выбранный город`, () => {
+  it(`При клике по городу вызывается коллбэк, в который передаётся выбранный город`, () => {
     const handleCityClick = jest.fn();
 
     const citiesList = shallow(
