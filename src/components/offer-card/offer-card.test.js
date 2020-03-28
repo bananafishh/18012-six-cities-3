@@ -19,8 +19,8 @@ it(`Компонент «OfferCard» рендерится корректно`, (
     .create(
         <OfferCard
           offer={offer}
-          onOfferTitleClick={() => {}}
-          onOfferCardHover={() => {}}
+          onTitleClick={() => {}}
+          onHover={() => {}}
         />
     )
     .toJSON();

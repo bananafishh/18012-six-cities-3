@@ -19,36 +19,36 @@ const offer = {
 
 describe(`Компонент «OfferCard» работает корректно`, () => {
   it(`При наведении на карточку предложения об аренде вызывается коллбэк, в который передаётся id предложения`, () => {
-    const handleOfferHover = jest.fn();
+    const handleHover = jest.fn();
 
     const offerCard = shallow(
         <OfferCard
           offer={offer}
-          onOfferTitleClick={() => {}}
-          onOfferHover={handleOfferHover}
+          onTitleClick={() => {}}
+          onHover={handleHover}
         />
     );
 
     offerCard.simulate(`mouseenter`);
-    expect(handleOfferHover).toHaveBeenCalledTimes(1);
-    expect(handleOfferHover.mock.calls[0][0]).toBe(offer.id);
+    expect(handleHover).toHaveBeenCalledTimes(1);
+    expect(handleHover.mock.calls[0][0]).toBe(offer.id);
   });
 
   it(`При клике по заголовку карточки предложения об аренде вызывается коллбэк, в который передаётся выбранное предложение`, () => {
-    const handleOfferTitleClick = jest.fn();
+    const handleTitleClick = jest.fn();
 
     const offerCard = shallow(
         <OfferCard
           offer={offer}
-          onOfferTitleClick={handleOfferTitleClick}
-          onOfferHover={() => {}}
+          onTitleClick={handleTitleClick}
+          onHover={() => {}}
         />
     );
 
     const offerTitle = offerCard.find(`.place-card__name`);
 
     offerTitle.simulate(`click`);
-    expect(handleOfferTitleClick).toHaveBeenCalledTimes(1);
-    expect(handleOfferTitleClick.mock.calls[0][0]).toEqual(offer);
+    expect(handleTitleClick).toHaveBeenCalledTimes(1);
+    expect(handleTitleClick.mock.calls[0][0]).toEqual(offer);
   });
 });
