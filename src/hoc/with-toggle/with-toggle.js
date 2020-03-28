@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 
-const withToggle = (Component) => {
+const withToggle = (Component) => (
   class WithToggle extends PureComponent {
     constructor(props) {
       super(props);
@@ -24,8 +24,6 @@ const withToggle = (Component) => {
       );
     }
   }
-
-  return WithToggle;
-};
+);
 
 export default withToggle;

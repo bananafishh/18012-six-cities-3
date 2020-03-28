@@ -1,9 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {configure, mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import withToggle from './with-toggle';
-import PropTypes from "prop-types";
 
 configure({adapter: new Adapter()});
 
