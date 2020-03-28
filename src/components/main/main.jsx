@@ -9,6 +9,7 @@ import CitiesList from '../cities-list/cities-list.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import Map from '../map/map.jsx';
 import SortingOptions from '../sorting-options/sorting-options.jsx';
+import NoOffers from '../no-offers/no-offers.jsx';
 
 const SortingOptionsWrapped = withToggle(SortingOptions);
 
@@ -29,6 +30,35 @@ const Main = (props) => {
     name,
     coords,
   } = currentCity;
+
+  const offersLength = offers.length;
+
+  const renderOffers = () => (
+    offersLength ? (
+      <section className="cities__places places">
+        <h2 className="visually-hidden">Places</h2>
+        <b className="places__found">
+          {offersLength} {pluralizeWord(`place`, offersLength)} to stay in {name}
+        </b>
+
+        <SortingOptionsWrapped
+          options={SORTING_OPTIONS}
+          currentOption={currentSortingOption}
+          onOptionChange={onSortingOptionChange}
+        />
+
+        <OffersList
+          mix="cities__places-list places__list tabs__content"
+          offerMix="cities__place-card"
+          offers={offers}
+          onOfferTitleClick={onOfferTitleClick}
+          onOfferHover={onOfferHover}
+        />
+      </section>
+    ) : (
+      <NoOffers city={name}/>
+    )
+  );
 
   return (
     <div className="page page--gray page--main">
@@ -61,7 +91,7 @@ const Main = (props) => {
         </div>
       </header>
 
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index${!offersLength ? ` page__main--index-empty` : ``}`}>
         <h1 className="visually-hidden">Cities</h1>
 
         <CitiesList
@@ -71,36 +101,19 @@ const Main = (props) => {
         />
 
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">
-                {offers.length} {pluralizeWord(`place`, offers.length)} to stay in {name}
-              </b>
-
-              <SortingOptionsWrapped
-                options={SORTING_OPTIONS}
-                currentOption={currentSortingOption}
-                onOptionChange={onSortingOptionChange}
-              />
-
-              <OffersList
-                mix="cities__places-list places__list tabs__content"
-                offerMix="cities__place-card"
-                offers={offers}
-                onOfferTitleClick={onOfferTitleClick}
-                onOfferHover={onOfferHover}
-              />
-            </section>
+          <div className={`cities__places-container${!offersLength ? ` cities__places-container--empty` : ``} container`}>
+            {renderOffers()}
 
             <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map
-                  center={coords}
-                  offers={offers}
-                  activeOfferId={activeOfferId}
-                />
-              </section>
+              {!!offersLength && (
+                <section className="cities__map map">
+                  <Map
+                    center={coords}
+                    offers={offers}
+                    activeOfferId={activeOfferId}
+                  />
+                </section>
+              )}
             </div>
           </div>
         </div>
