@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {getSortedOffers, getCities} from '../../utils';
-import {ActionCreator} from '../../action-creator/action-creator';
+import {ActionCreator} from '../../reducer/app/app';
 
 import Main from '../main/main.jsx';
 import DetailedOfferInfo from '../detailed-offer-info/detailed-offer-info.jsx';
