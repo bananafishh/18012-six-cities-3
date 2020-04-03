@@ -3,32 +3,62 @@ import renderer from 'react-test-renderer';
 
 import Map from './map';
 
+const city = {
+  name: `Dusseldorf`,
+  location: {
+    latitude: 51.225402,
+    longitude: 6.776314,
+    zoom: 13,
+  },
+};
+
 const offers = [
   {
     id: 1,
-    coords: [52.3909553943508, 4.85309666406198],
+    city,
+    location: {
+      latitude: 51.216402,
+      longitude: 6.758314,
+      zoom: 16,
+    },
   },
   {
     id: 2,
-    coords: [52.369553943508, 4.85309666406198],
+    city,
+    location: {
+      latitude: 51.211402,
+      longitude: 6.756314000000001,
+      zoom: 16,
+    },
   },
   {
     id: 3,
-    coords: [52.3909553943508, 4.929309666406198],
+    city,
+    location: {
+      latitude: 50.844556999999995,
+      longitude: 4.346697,
+      zoom: 16,
+    },
   },
   {
     id: 4,
-    coords: [52.3809553943508, 4.939309666406198],
+    city,
+    location: {
+      latitude: 51.210402,
+      longitude: 6.798314,
+      zoom: 16,
+    },
   },
 ];
+
+const activeOfferId = 4;
 
 it(`Компонент «Map» рендерится корректно`, () => {
   const tree = renderer
     .create(
         <Map
-          center={offers[0].coords}
           offers={offers}
-          activeOfferId={1}
+          activeOfferId={activeOfferId}
         />,
         {createNodeMock: () => document.createElement(`div`)}
     )
