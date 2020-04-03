@@ -13,13 +13,13 @@ const CitiesList = (props) => {
       <section className="locations container">
         <ul className="locations__list tabs__list">
           {cities.map((city) => (
-            <li key={city.name} className="locations__item">
+            <li key={city} className="locations__item">
               <a
-                className={`locations__item-link tabs__item${city.name === currentCity.name ? ` tabs__item--active` : ``}`}
+                className={`locations__item-link tabs__item${city === currentCity ? ` tabs__item--active` : ``}`}
                 href="#"
                 onClick={() => onCityChange(city)}
               >
-                <span>{city.name}</span>
+                <span>{city}</span>
               </a>
             </li>
           ))}
@@ -30,14 +30,8 @@ const CitiesList = (props) => {
 };
 
 CitiesList.propTypes = {
-  cities: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    coords: PropTypes.arrayOf(PropTypes.number),
-  })).isRequired,
-  currentCity: PropTypes.shape({
-    name: PropTypes.string,
-    coords: PropTypes.arrayOf(PropTypes.number),
-  }).isRequired,
+  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currentCity: PropTypes.string.isRequired,
   onCityChange: PropTypes.func.isRequired,
 };
 
