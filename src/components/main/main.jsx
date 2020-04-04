@@ -26,11 +26,6 @@ const Main = (props) => {
     onCityChange,
   } = props;
 
-  const {
-    name,
-    coords,
-  } = currentCity;
-
   const offersLength = offers.length;
 
   const renderOffers = () => (
@@ -38,7 +33,7 @@ const Main = (props) => {
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">
-          {offersLength} {pluralizeWord(`place`, offersLength)} to stay in {name}
+          {offersLength} {pluralizeWord(`place`, offersLength)} to stay in {currentCity}
         </b>
 
         <SortingOptionsWrapped
@@ -56,7 +51,7 @@ const Main = (props) => {
         />
       </section>
     ) : (
-      <NoOffers city={name}/>
+      <NoOffers city={currentCity}/>
     )
   );
 
@@ -108,7 +103,6 @@ const Main = (props) => {
               {!!offersLength && (
                 <section className="cities__map map">
                   <Map
-                    center={coords}
                     offers={offers}
                     activeOfferId={activeOfferId}
                   />
@@ -132,19 +126,13 @@ Main.propTypes = {
     title: PropTypes.string,
     type: PropTypes.string,
     price: PropTypes.number,
-    picture: PropTypes.string,
+    previewImage: PropTypes.string,
     rating: PropTypes.number,
     isPremium: PropTypes.bool,
-    isBookmarked: PropTypes.bool,
+    isFavorite: PropTypes.bool,
   })).isRequired,
-  cities: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    coords: PropTypes.arrayOf(PropTypes.number),
-  })).isRequired,
-  currentCity: PropTypes.shape({
-    name: PropTypes.string,
-    coords: PropTypes.arrayOf(PropTypes.number),
-  }).isRequired,
+  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currentCity: PropTypes.string.isRequired,
   currentSortingOption: PropTypes.shape({
     value: PropTypes.string,
     label: PropTypes.string,
