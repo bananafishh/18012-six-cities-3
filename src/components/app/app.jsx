@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {getSortedOffers, getCities} from '../../utils';
 import {ActionCreator} from '../../reducer/app/app';
+import {getSortedOffers, getCities} from '../../reducer/data/selector';
+import {getCurrentCity, getCurrentSortingOption, getActiveOfferId} from '../../reducer/app/selector';
 
 import Main from '../main/main.jsx';
 import DetailedOfferInfo from '../detailed-offer-info/detailed-offer-info.jsx';
@@ -41,7 +42,6 @@ class App extends PureComponent {
         <DetailedOfferInfo
           offer={clickedOffer}
           nearbyOffers={offers}
-          currentCity={currentCity}
           onNearbyOfferTitleClick={this.handleOfferTitleClick}
         />
       );
@@ -63,10 +63,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {
-      offers,
-      currentCity,
-    } = this.props;
+    const {offers} = this.props;
 
     return (
       <Router>
@@ -81,7 +78,6 @@ class App extends PureComponent {
             <DetailedOfferInfo
               offer={offers[0]}
               nearbyOffers={offers}
-              currentCity={currentCity}
               onNearbyOfferTitleClick={this.handleOfferTitleClick}
             />
           </Route>
@@ -97,19 +93,13 @@ App.propTypes = {
     title: PropTypes.string,
     type: PropTypes.string,
     price: PropTypes.number,
-    pictureSrc: PropTypes.string,
-    ratingStarsCount: PropTypes.number,
+    previewImage: PropTypes.string,
+    rating: PropTypes.number,
     isPremium: PropTypes.bool,
-    isBookmarked: PropTypes.bool,
+    isFavorite: PropTypes.bool,
   })).isRequired,
-  cities: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    coords: PropTypes.arrayOf(PropTypes.number),
-  })).isRequired,
-  currentCity: PropTypes.shape({
-    name: PropTypes.string,
-    coords: PropTypes.arrayOf(PropTypes.number),
-  }).isRequired,
+  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currentCity: PropTypes.string.isRequired,
   currentSortingOption: PropTypes.shape({
     value: PropTypes.string,
     label: PropTypes.string,
@@ -123,14 +113,14 @@ App.propTypes = {
 const mapStateToProps = (state) => ({
   offers: getSortedOffers(state),
   cities: getCities(state),
-  currentCity: state.currentCity,
-  currentSortingOption: state.currentSortingOption,
-  activeOfferId: state.activeOfferId,
+  currentCity: getCurrentCity(state),
+  currentSortingOption: getCurrentSortingOption(state),
+  activeOfferId: getActiveOfferId(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onCityChange(city) {
-    dispatch(ActionCreator.changeCity(city));
+    dispatch(ActionCreator.changeCurrentCity(city));
   },
   onSortingOptionChange(option) {
     dispatch(ActionCreator.changeSortingOption(option));
