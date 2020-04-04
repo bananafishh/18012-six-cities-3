@@ -4,17 +4,13 @@ export const REVIEWS_ON_PAGE_MAX = 10;
 
 export const NEARBY_OFFERS_MAX = 3;
 
+export const OFFER_IMAGES_MAX = 6;
+
 export const PlaceType = {
   APARTMENT: `Apartment`,
   ROOM: `Private Room`,
   HOUSE: `House`,
   HOTEL: `Hotel`,
-};
-
-export const MapPinIcon = {
-  URL: `img/pin.svg`,
-  URL_ACTIVE: `img/pin-active.svg`,
-  SIZE: [27, 39],
 };
 
 export const MONTHS = [
@@ -62,3 +58,8 @@ export const SORTING_OPTIONS = [
     value: SortingOption.TOP_RATED_FIRST,
   },
 ];
+
+export const AuthorizationStatus = {
+  AUTHORIZED: `AUTHORIZED`,
+  UNAUTHORIZED: `UNAUTHORIZED`,
+};

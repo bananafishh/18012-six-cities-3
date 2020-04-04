@@ -17,10 +17,10 @@ const OfferCard = (props) => {
     title,
     type,
     price,
-    pictures,
+    previewImage,
     rating,
     isPremium,
-    isBookmarked,
+    isFavorite,
   } = offer;
 
   const handleHover = (offerId) => onHover && onHover(offerId);
@@ -40,7 +40,7 @@ const OfferCard = (props) => {
         <a href="#">
           <img
             className="place-card__image"
-            src={pictures[0]}
+            src={previewImage}
             width="260"
             height="200"
             alt="Place image"
@@ -57,7 +57,7 @@ const OfferCard = (props) => {
           </div>
 
           <button
-            className={`place-card__bookmark-button${isBookmarked ? ` place-card__bookmark-button--active` : ``} button`}
+            className={`place-card__bookmark-button${isFavorite ? ` place-card__bookmark-button--active` : ``} button`}
             type="button"
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
@@ -94,10 +94,10 @@ OfferCard.propTypes = {
     title: PropTypes.string,
     type: PropTypes.string,
     price: PropTypes.number,
-    pictures: PropTypes.arrayOf(PropTypes.string),
+    previewImage: PropTypes.string,
     rating: PropTypes.number,
     isPremium: PropTypes.bool,
-    isBookmarked: PropTypes.bool,
+    isFavorite: PropTypes.bool,
   }).isRequired,
   onTitleClick: PropTypes.func.isRequired,
   onHover: PropTypes.func,

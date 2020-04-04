@@ -8,10 +8,10 @@ const offer = {
   title: `Luxe 1-Bedroom Flat Near Manhattan`,
   type: `apartment`,
   price: 120,
-  pictures: [`https://placeimg.com/260/200/arch/1`],
+  previewImage: `https://placeimg.com/260/200/arch/1`,
   rating: 4.5,
   isPremium: true,
-  isBookmarked: false,
+  isFavorite: false,
 };
 
 it(`Компонент «OfferCard» рендерится корректно`, () => {

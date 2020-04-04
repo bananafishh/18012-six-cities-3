@@ -1,11 +1,14 @@
-import React, {Component, createRef} from 'react';
+import React, {PureComponent, createRef} from 'react';
 import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 
-import {areArraysEqual} from '../../utils';
-import {MapPinIcon} from '../../constants';
+const MapPinIcon = {
+  URL: `img/pin.svg`,
+  URL_ACTIVE: `img/pin-active.svg`,
+  SIZE: [27, 39],
+};
 
-class Map extends Component {
+class Map extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -16,27 +19,11 @@ class Map extends Component {
     this.initMap();
   }
 
-  shouldComponentUpdate(nextProps) {
-    const {
-      offers,
-      activeOfferId,
-    } = this.props;
-
-    const {
-      offers: nextOffers,
-      activeOfferId: nextActiveOfferId,
-    } = nextProps;
-
-    const offersId = offers.map((offer) => offer.id);
-    const nextOffersId = nextOffers.map((offer) => offer.id);
-
-    return !areArraysEqual(offersId, nextOffersId) || activeOfferId !== nextActiveOfferId;
-  }
-
   componentDidUpdate() {
-    this.addMarkersToMap();
+    const center = this.getMapCenter();
 
-    this.map.flyTo(this.props.center);
+    this.addMarkersToMap();
+    this.map.flyTo(center);
   }
 
   componentWillUnmount() {
@@ -44,10 +31,10 @@ class Map extends Component {
   }
 
   initMap() {
-    const {center} = this.props;
+    const center = this.getMapCenter();
+    const zoom = this.getMapZoom();
 
     const mapElement = this.mapRef.current;
-    const zoom = 12;
 
     if (mapElement) {
       this.map = leaflet.map(mapElement, {
@@ -78,23 +65,50 @@ class Map extends Component {
       activeOfferId,
     } = this.props;
 
-    const getIcon = (isIconActive) => leaflet.icon({
-      iconUrl: isIconActive ? MapPinIcon.URL_ACTIVE : MapPinIcon.URL,
-      iconSize: MapPinIcon.SIZE,
-    });
-
     if (this.markers) {
       this.markers.forEach((marker) => {
         this.map.removeLayer(marker);
       });
     }
 
-    this.markers = offers.map((offer) => {
-      const icon = getIcon(offer.id === activeOfferId);
+    this.markers = offers.map(({id, location: {latitude, longitude}}) => {
+      const icon = this.getMapPinIcon(id === activeOfferId);
 
       return leaflet
-        .marker(offer.coords, {icon})
+        .marker([latitude, longitude], {icon})
         .addTo(this.map);
+    });
+  }
+
+  getMapCenter() {
+    const {
+      city: {
+        location: {
+          latitude,
+          longitude,
+        },
+      },
+    } = this.props.offers[0];
+
+    return [latitude, longitude];
+  }
+
+  getMapZoom() {
+    const {
+      city: {
+        location: {
+          zoom,
+        },
+      },
+    } = this.props.offers[0];
+
+    return zoom;
+  }
+
+  getMapPinIcon(isIconActive) {
+    return leaflet.icon({
+      iconUrl: isIconActive ? MapPinIcon.URL_ACTIVE : MapPinIcon.URL,
+      iconSize: MapPinIcon.SIZE,
     });
   }
 
@@ -115,9 +129,20 @@ class Map extends Component {
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
-    coords: PropTypes.arrayOf(PropTypes.number),
+    city: PropTypes.shape({
+      name: PropTypes.string,
+      location: PropTypes.shape({
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+        zoom: PropTypes.number,
+      }),
+    }),
+    location: PropTypes.shape({
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
+      zoom: PropTypes.number,
+    }),
   })).isRequired,
-  center: PropTypes.arrayOf(PropTypes.number).isRequired,
   activeOfferId: PropTypes.number,
 };
 

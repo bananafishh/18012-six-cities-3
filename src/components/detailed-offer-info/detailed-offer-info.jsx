@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {REVIEWS_ON_PAGE_MAX, NEARBY_OFFERS_MAX, PlaceType} from '../../constants';
+import {
+  REVIEWS_ON_PAGE_MAX,
+  NEARBY_OFFERS_MAX,
+  OFFER_IMAGES_MAX,
+  PlaceType,
+} from '../../constants';
 import {getRatingInPercent, pluralizeWord} from '../../utils';
 
 import ReviewsList from '../reviews-list/reviews-list.jsx';
@@ -11,10 +16,8 @@ import Map from '../map/map.jsx';
 const DetailedOfferInfo = (props) => {
   const {
     offer,
+    reviews,
     nearbyOffers,
-    currentCity: {
-      coords: currentCityCoords,
-    },
     onNearbyOfferTitleClick,
   } = props;
 
@@ -23,28 +26,31 @@ const DetailedOfferInfo = (props) => {
     title,
     type,
     price,
-    pictures,
+    images,
     rating,
     isPremium,
-    isBookmarked,
+    isFavorite,
     description,
-    bedroomsCount,
-    guestsCountMax,
-    householdItems,
+    bedrooms,
+    maxAdults,
+    goods,
     host: {
       name,
-      picture: hostPicture,
-      isSuper,
+      avatarUrl,
+      isPro,
     },
-    reviews,
   } = offer;
 
-  const sortedReviews = [...reviews]
-    .sort((a, b) => b.date.getTime() - a.date.getTime())
-    .slice(0, REVIEWS_ON_PAGE_MAX);
+  const sortedReviews = reviews.length
+    ? reviews
+      .slice(0, REVIEWS_ON_PAGE_MAX)
+      .sort((a, b) => b.date.getTime() - a.date.getTime())
+    : [];
 
-  const reducedNearbyOffers = nearbyOffers.slice(0, NEARBY_OFFERS_MAX);
-  const offers = [offer, ...reducedNearbyOffers];
+  const nearbyOffersForRender = nearbyOffers.slice(0, NEARBY_OFFERS_MAX);
+  const offers = [offer, ...nearbyOffersForRender];
+
+  const imagesForRender = images.slice(0, OFFER_IMAGES_MAX);
 
   return (
     <div className="page">
@@ -75,7 +81,7 @@ const DetailedOfferInfo = (props) => {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {!!pictures.length && pictures.map((picture) => (
+              {!!imagesForRender.length && imagesForRender.map((picture) => (
                 <div key={picture} className="property__image-wrapper">
                   <img className="property__image" src={picture} alt="Photo studio"/>
                 </div>
@@ -94,7 +100,7 @@ const DetailedOfferInfo = (props) => {
               <div className="property__name-wrapper">
                 <h1 className="property__name">{title}</h1>
 
-                <button className={`property__bookmark-button${isBookmarked ? ` property__bookmark-button--active` : ``} button`} type="button">
+                <button className={`property__bookmark-button${isFavorite ? ` property__bookmark-button--active` : ``} button`} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -118,11 +124,11 @@ const DetailedOfferInfo = (props) => {
                 </li>
 
                 <li className="property__feature property__feature--bedrooms">
-                  {bedroomsCount} {pluralizeWord(`Bedroom`, bedroomsCount)}
+                  {bedrooms} {pluralizeWord(`Bedroom`, bedrooms)}
                 </li>
 
                 <li className="property__feature property__feature--adults">
-                  Max {guestsCountMax} {pluralizeWord(`adult`, guestsCountMax)}
+                  Max {maxAdults} {pluralizeWord(`adult`, maxAdults)}
                 </li>
               </ul>
 
@@ -136,7 +142,7 @@ const DetailedOfferInfo = (props) => {
                 <h2 className="property__inside-title">What&apos;s inside</h2>
 
                 <ul className="property__inside-list">
-                  {!!householdItems.length && householdItems.map((householdItem) => (
+                  {!!goods.length && goods.map((householdItem) => (
                     <li key={householdItem} className="property__inside-item">{householdItem}</li>
                   ))}
                 </ul>
@@ -146,10 +152,10 @@ const DetailedOfferInfo = (props) => {
                 <h2 className="property__host-title">Meet the host</h2>
 
                 <div className="property__host-user user">
-                  <div className={`property__avatar-wrapper${isSuper ? ` property__avatar-wrapper--pro` : ``} user__avatar-wrapper`}>
+                  <div className={`property__avatar-wrapper${isPro ? ` property__avatar-wrapper--pro` : ``} user__avatar-wrapper`}>
                     <img
                       className="property__avatar user__avatar"
-                      src={hostPicture}
+                      src={avatarUrl}
                       width="74"
                       height="74"
                       alt="Host avatar"
@@ -172,7 +178,7 @@ const DetailedOfferInfo = (props) => {
               </div>
 
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{sortedReviews.length}</span></h2>
 
                 <ReviewsList reviews={sortedReviews}/>
 
@@ -277,7 +283,6 @@ const DetailedOfferInfo = (props) => {
 
           <section className="property__map map">
             <Map
-              center={currentCityCoords}
               offers={offers}
               activeOfferId={id}
             />
@@ -291,7 +296,7 @@ const DetailedOfferInfo = (props) => {
             <OffersList
               mix="near-places__list places__list"
               offerMix="near-places__card"
-              offers={reducedNearbyOffers}
+              offers={nearbyOffersForRender}
               onOfferTitleClick={onNearbyOfferTitleClick}
             />
           </section>
@@ -302,54 +307,61 @@ const DetailedOfferInfo = (props) => {
 };
 
 DetailedOfferInfo.defaultProps = {
-  pictures: [],
-  householdItems: [],
+  offer: {},
+  images: [],
+  goods: [],
+  reviews: [],
 };
 
 DetailedOfferInfo.propTypes = {
   offer: PropTypes.shape({
     id: PropTypes.number,
+    city: PropTypes.shape({
+      name: PropTypes.string,
+      location: PropTypes.shape({
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+        zoom: PropTypes.number,
+      }),
+    }),
     title: PropTypes.string,
     type: PropTypes.string,
     price: PropTypes.number,
-    pictures: PropTypes.arrayOf(PropTypes.string),
+    images: PropTypes.arrayOf(PropTypes.string),
     rating: PropTypes.number,
     isPremium: PropTypes.bool,
-    isBookmarked: PropTypes.bool,
+    isFavorite: PropTypes.bool,
     description: PropTypes.string,
-    bedroomsCount: PropTypes.number,
-    guestsCountMax: PropTypes.number,
-    householdItems: PropTypes.arrayOf(PropTypes.string),
+    bedrooms: PropTypes.number,
+    maxAdults: PropTypes.number,
+    goods: PropTypes.arrayOf(PropTypes.string),
     host: PropTypes.shape({
-      picture: PropTypes.string,
       name: PropTypes.string,
-      isSuper: PropTypes.bool,
+      isPro: PropTypes.bool,
+      avatarUrl: PropTypes.string,
     }),
-    reviews: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number,
-      text: PropTypes.string,
-      rating: PropTypes.number,
-      date: PropTypes.instanceOf(Date),
-      user: PropTypes.shape({
-        name: PropTypes.string,
-        picture: PropTypes.string,
-      })
-    })),
   }).isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    text: PropTypes.string,
+    rating: PropTypes.number,
+    date: PropTypes.instanceOf(Date),
+    user: PropTypes.shape({
+      name: PropTypes.string,
+      picture: PropTypes.string,
+    })
+  })).isRequired,
   nearbyOffers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
     type: PropTypes.string,
     price: PropTypes.number,
-    picture: PropTypes.string,
+    previewImage: PropTypes.string,
     rating: PropTypes.number,
     isPremium: PropTypes.bool,
-    isBookmarked: PropTypes.bool,
+    isFavorite: PropTypes.bool,
   })).isRequired,
   onNearbyOfferTitleClick: PropTypes.func.isRequired,
-  currentCity: PropTypes.shape({
-    coords: PropTypes.arrayOf(PropTypes.number),
-  }).isRequired,
 };
 
 export default DetailedOfferInfo;
