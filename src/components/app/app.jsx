@@ -53,6 +53,7 @@ class App extends PureComponent {
         <DetailedOfferInfo
           offer={clickedOffer}
           nearbyOffers={offers}
+          authStatus={authStatus}
           onNearbyOfferTitleClick={this.handleOfferTitleClick}
         />
       );
@@ -112,6 +113,7 @@ class App extends PureComponent {
             <DetailedOfferInfo
               offer={offers[0]}
               nearbyOffers={offers}
+              authStatus={authStatus}
               onNearbyOfferTitleClick={this.handleOfferTitleClick}
             />
           </Route>
