@@ -6,6 +6,8 @@ export const NEARBY_OFFERS_MAX = 3;
 
 export const OFFER_IMAGES_MAX = 6;
 
+export const BASE_URL = `https://htmlacademy-react-3.appspot.com/six-cities`;
+
 export const PlaceType = {
   APARTMENT: `Apartment`,
   ROOM: `Private Room`,
@@ -59,7 +61,7 @@ export const SORTING_OPTIONS = [
   },
 ];
 
-export const AuthorizationStatus = {
-  AUTHORIZED: `AUTHORIZED`,
-  UNAUTHORIZED: `UNAUTHORIZED`,
+export const AuthStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
 };

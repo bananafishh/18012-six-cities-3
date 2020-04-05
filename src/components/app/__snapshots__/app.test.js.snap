@@ -2,7 +2,7 @@
 
 exports[`Компонент «App» рендерится корректно 1`] = `
 <div
-  className="page page--gray page--main"
+  className="page "
 >
   <header
     className="header"
@@ -43,9 +43,14 @@ exports[`Компонент «App» рендерится корректно 1`] 
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
+                  style={
+                    Object {
+                      "backgroundImage": "url(https://htmlacademy-react-3.appspot.com/six-citiesimg/1.png)",
+                    }
+                  }
                 />
                 <span
-                  className="header__user-name user__name"
+                  className="header__login"
                 >
                   Oliver.conner@gmail.com
                 </span>

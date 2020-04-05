@@ -4,11 +4,20 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {ActionCreator} from '../../reducer/app/app';
+import {Operation as UserOperation} from '../../reducer/user/user';
 import {getSortedOffers, getCities} from '../../reducer/data/selector';
 import {getCurrentCity, getCurrentSortingOption, getActiveOfferId} from '../../reducer/app/selector';
+import {getAuthStatus, getUserData} from '../../reducer/user/selector';
 
+import {AuthStatus} from '../../constants';
+import withAuthFieldsChange from '../../hoc/with-auth-fields-change/with-auth-fields-change';
+
+import Page from '../page/page.jsx';
 import Main from '../main/main.jsx';
 import DetailedOfferInfo from '../detailed-offer-info/detailed-offer-info.jsx';
+import SignIn from '../sign-in/sign-in.jsx';
+
+const SignInWrapped = withAuthFieldsChange(SignIn);
 
 class App extends PureComponent {
   constructor(props) {
@@ -25,6 +34,7 @@ class App extends PureComponent {
 
   renderApp() {
     const {
+      authStatus,
       offers,
       cities,
       currentCity,
@@ -32,7 +42,8 @@ class App extends PureComponent {
       activeOfferId,
       onSortingOptionChange,
       onOfferHover,
-      onCityChange
+      onCityChange,
+      onSignIn,
     } = this.props;
 
     const {clickedOffer} = this.state;
@@ -42,34 +53,58 @@ class App extends PureComponent {
         <DetailedOfferInfo
           offer={clickedOffer}
           nearbyOffers={offers}
+          authStatus={authStatus}
           onNearbyOfferTitleClick={this.handleOfferTitleClick}
         />
       );
     }
 
-    return (
-      <Main
-        offers={offers}
-        cities={cities}
-        currentCity={currentCity}
-        currentSortingOption={currentSortingOption}
-        activeOfferId={activeOfferId}
-        onOfferTitleClick={this.handleOfferTitleClick}
-        onSortingOptionChange={onSortingOptionChange}
-        onOfferHover={onOfferHover}
-        onCityChange={onCityChange}
-      />
-    );
+    if (authStatus === AuthStatus.NO_AUTH) {
+      return (
+        <SignInWrapped
+          currentCity={currentCity}
+          onSignIn={onSignIn}
+        />
+      );
+    }
+
+    if (authStatus === AuthStatus.AUTH) {
+      return (
+        <Main
+          authStatus={authStatus}
+          offers={offers}
+          cities={cities}
+          currentCity={currentCity}
+          currentSortingOption={currentSortingOption}
+          activeOfferId={activeOfferId}
+          onOfferTitleClick={this.handleOfferTitleClick}
+          onSortingOptionChange={onSortingOptionChange}
+          onOfferHover={onOfferHover}
+          onCityChange={onCityChange}
+        />
+      );
+    }
+
+    return {};
   }
 
   render() {
-    const {offers} = this.props;
+    const {
+      offers,
+      authStatus,
+      user,
+    } = this.props;
 
     return (
       <Router>
         <Switch>
           <Route exact path="/">
-            {this.renderApp()}
+            <Page
+              authStatus={authStatus}
+              user={user}
+            >
+              {this.renderApp()}
+            </Page>
           </Route>
         </Switch>
 
@@ -78,6 +113,7 @@ class App extends PureComponent {
             <DetailedOfferInfo
               offer={offers[0]}
               nearbyOffers={offers}
+              authStatus={authStatus}
               onNearbyOfferTitleClick={this.handleOfferTitleClick}
             />
           </Route>
@@ -88,6 +124,7 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
+  authStatus: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
@@ -105,17 +142,27 @@ App.propTypes = {
     label: PropTypes.string,
   }).isRequired,
   activeOfferId: PropTypes.number,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    email: PropTypes.string,
+    avatarUrl: PropTypes.string,
+    isPro: PropTypes.bool,
+  }).isRequired,
   onSortingOptionChange: PropTypes.func.isRequired,
   onOfferHover: PropTypes.func,
   onCityChange: PropTypes.func.isRequired,
+  onSignIn: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  authStatus: getAuthStatus(state),
   offers: getSortedOffers(state),
   cities: getCities(state),
   currentCity: getCurrentCity(state),
   currentSortingOption: getCurrentSortingOption(state),
   activeOfferId: getActiveOfferId(state),
+  user: getUserData(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -127,6 +174,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onOfferHover(offerId) {
     dispatch(ActionCreator.changeActiveOffer(offerId));
+  },
+  onSignIn(userData) {
+    dispatch(UserOperation.signIn(userData));
   },
 });
 

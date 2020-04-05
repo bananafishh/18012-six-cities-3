@@ -26,13 +26,14 @@ MockComponent.propTypes = {
   onToggleButtonClick: PropTypes.func.isRequired,
 };
 
+const MockComponentWrapped = withToggle(MockComponent);
+
 describe(`HOC «withToggle» работает корректно`, () => {
   it(`При вызове коллбэка «onToggleButtonClick» в компоненте, обёрнутом в HOC, происходит его показ/скрытие`, () => {
-    const MockComponentWrapped = withToggle(MockComponent);
-    const mockComponentWrapped = mount(<MockComponentWrapped/>);
+    const mockComponent = mount(<MockComponentWrapped/>);
 
-    expect(mockComponentWrapped.find(`.is-open`).length).toBe(0);
-    mockComponentWrapped.find(`button`).simulate(`click`);
-    expect(mockComponentWrapped.find(`.is-open`).length).toBe(1);
+    expect(mockComponent.find(`.is-open`).length).toBe(0);
+    mockComponent.find(`button`).simulate(`click`);
+    expect(mockComponent.find(`.is-open`).length).toBe(1);
   });
 });
