@@ -3,6 +3,8 @@ import renderer from 'react-test-renderer';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 
+import {AuthStatus} from '../../constants';
+
 import App from './app';
 
 const mockStore = configureStore([]);
@@ -72,6 +74,14 @@ const currentSortingOption = {
 
 const activeOfferId = 1;
 
+const user = {
+  avatarUrl: `img/1.png`,
+  email: `Oliver.conner@gmail.com`,
+  id: 1,
+  isPro: false,
+  name: `Oliver.conner`,
+};
+
 it(`Компонент «App» рендерится корректно`, () => {
   const store = mockStore({
     DATA: {
@@ -83,6 +93,10 @@ it(`Компонент «App» рендерится корректно`, () => {
       currentSortingOption,
       activeOfferId,
     },
+    USER: {
+      authStatus: AuthStatus.AUTH,
+      user,
+    }
   });
 
   const tree = renderer
