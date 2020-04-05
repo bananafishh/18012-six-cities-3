@@ -2,6 +2,7 @@ import MockAdapter from "axios-mock-adapter";
 
 import {createApi} from '../../api';
 import {reducer, ActionType, Operation, ActionCreator} from './data';
+import {ActionType as AppActionType} from '../app/app';
 import OffersDataAdapter from '../../adapters/offers-data-adapter';
 
 const api = createApi(() => {});
@@ -102,7 +103,7 @@ describe(`Редьюсер «data» работает корректно`, () => 
 });
 
 describe(`Загрузка данных с сервера происходит корректно`, () => {
-  it(`Происходит корректный запрос к API по адресу /hotels`, function () {
+  it(`Происходит корректный GET запрос к API по адресу /hotels`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const loadOffers = Operation.loadOffers();
@@ -119,6 +120,11 @@ describe(`Загрузка данных с сервера происходит �
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_OFFERS,
           payload: adaptedOffers,
+        });
+
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: AppActionType.SET_CURRENT_CITY,
+          payload: adaptedOffers[0].city.name,
         });
       });
   });
