@@ -1,6 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
+import {AuthStatus} from '../../constants';
+
 import DetailedOfferInfo from './detailed-offer-info';
 
 const offers = [
@@ -104,6 +106,7 @@ it(`Компонент «DetailedOfferInfo» рендерится коррект
           offer={offer}
           reviews={reviews}
           nearbyOffers={offers}
+          authStatus={AuthStatus.AUTH}
           onNearbyOfferTitleClick={() => {}}
         />
     )

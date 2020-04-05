@@ -1,870 +1,813 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Компонент «DetailedOfferInfo» рендерится корректно 1`] = `
-<div
-  className="page"
+<main
+  className="page__main page__main--property"
 >
-  <header
-    className="header"
+  <section
+    className="property"
   >
     <div
-      className="container"
+      className="property__gallery-container container"
     >
       <div
-        className="header__wrapper"
+        className="property__gallery"
       >
         <div
-          className="header__left"
+          className="property__image-wrapper"
         >
-          <a
-            className="header__logo-link"
-            href="main.html"
-          >
-            <img
-              alt="6 cities logo"
-              className="header__logo"
-              height="41"
-              src="img/logo.svg"
-              width="81"
-            />
-          </a>
+          <img
+            alt="Photo studio"
+            className="property__image"
+            src="https://placeimg.com/260/200/arch/1"
+          />
         </div>
-        <nav
-          className="header__nav"
+        <div
+          className="property__image-wrapper"
         >
-          <ul
-            className="header__nav-list"
-          >
-            <li
-              className="header__nav-item user"
-            >
-              <a
-                className="header__nav-link header__nav-link--profile"
-                href="#"
-              >
-                <div
-                  className="header__avatar-wrapper user__avatar-wrapper"
-                />
-                <span
-                  className="header__user-name user__name"
-                >
-                  Oliver.conner@gmail.com
-                </span>
-              </a>
-            </li>
-          </ul>
-        </nav>
+          <img
+            alt="Photo studio"
+            className="property__image"
+            src="https://placeimg.com/260/200/arch/2"
+          />
+        </div>
+        <div
+          className="property__image-wrapper"
+        >
+          <img
+            alt="Photo studio"
+            className="property__image"
+            src="https://placeimg.com/260/200/arch/3"
+          />
+        </div>
+        <div
+          className="property__image-wrapper"
+        >
+          <img
+            alt="Photo studio"
+            className="property__image"
+            src="https://placeimg.com/260/200/arch/4"
+          />
+        </div>
+        <div
+          className="property__image-wrapper"
+        >
+          <img
+            alt="Photo studio"
+            className="property__image"
+            src="https://placeimg.com/260/200/arch/5"
+          />
+        </div>
+        <div
+          className="property__image-wrapper"
+        >
+          <img
+            alt="Photo studio"
+            className="property__image"
+            src="https://placeimg.com/260/200/arch/6"
+          />
+        </div>
       </div>
     </div>
-  </header>
-  <main
-    className="page__main page__main--property"
-  >
-    <section
-      className="property"
+    <div
+      className="property__container container"
     >
       <div
-        className="property__gallery-container container"
+        className="property__wrapper"
       >
         <div
-          className="property__gallery"
+          className="property__mark"
+        >
+          <span>
+            Premium
+          </span>
+        </div>
+        <div
+          className="property__name-wrapper"
+        >
+          <h1
+            className="property__name"
+          >
+            Luxe 1-Bedroom Flat Near Manhattan
+          </h1>
+          <button
+            className="property__bookmark-button button"
+            type="button"
+          >
+            <svg
+              className="property__bookmark-icon"
+              height="33"
+              width="31"
+            >
+              <use
+                xlinkHref="#icon-bookmark"
+              />
+            </svg>
+            <span
+              className="visually-hidden"
+            >
+              To bookmarks
+            </span>
+          </button>
+        </div>
+        <div
+          className="property__rating rating"
         >
           <div
-            className="property__image-wrapper"
+            className="property__stars rating__stars"
           >
-            <img
-              alt="Photo studio"
-              className="property__image"
-              src="https://placeimg.com/260/200/arch/1"
+            <span
+              style={
+                Object {
+                  "width": "90%",
+                }
+              }
             />
+            <span
+              className="visually-hidden"
+            >
+              Rating
+            </span>
+          </div>
+          <span
+            className="property__rating-value rating__value"
+          >
+            4.5
+          </span>
+        </div>
+        <ul
+          className="property__features"
+        >
+          <li
+            className="property__feature property__feature--entire"
+          >
+            Apartment
+          </li>
+          <li
+            className="property__feature property__feature--bedrooms"
+          >
+            1
+             
+            Bedroom
+          </li>
+          <li
+            className="property__feature property__feature--adults"
+          >
+            Max 
+            2
+             
+            adults
+          </li>
+        </ul>
+        <div
+          className="property__price"
+        >
+          <b
+            className="property__price-value"
+          >
+            €
+            120
+          </b>
+           
+          <span
+            className="property__price-text"
+          >
+             night
+          </span>
+        </div>
+        <div
+          className="property__inside"
+        >
+          <h2
+            className="property__inside-title"
+          >
+            What's inside
+          </h2>
+          <ul
+            className="property__inside-list"
+          >
+            <li
+              className="property__inside-item"
+            >
+              Wi-Fi
+            </li>
+            <li
+              className="property__inside-item"
+            >
+              Washing machine
+            </li>
+            <li
+              className="property__inside-item"
+            >
+              Towels
+            </li>
+            <li
+              className="property__inside-item"
+            >
+              Heating
+            </li>
+            <li
+              className="property__inside-item"
+            >
+              Coffee machine
+            </li>
+            <li
+              className="property__inside-item"
+            >
+              Kitchen
+            </li>
+            <li
+              className="property__inside-item"
+            >
+              Dishwasher
+            </li>
+            <li
+              className="property__inside-item"
+            >
+              Cabel TV
+            </li>
+            <li
+              className="property__inside-item"
+            >
+              Fridge
+            </li>
+          </ul>
+        </div>
+        <div
+          className="property__host"
+        >
+          <h2
+            className="property__host-title"
+          >
+            Meet the host
+          </h2>
+          <div
+            className="property__host-user user"
+          >
+            <div
+              className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper"
+            >
+              <img
+                alt="Host avatar"
+                className="property__avatar user__avatar"
+                height="74"
+                src="https://api.adorable.io/avatars/128/1"
+                width="74"
+              />
+            </div>
+            <span
+              className="property__user-name"
+            >
+              Abott
+            </span>
           </div>
           <div
-            className="property__image-wrapper"
+            className="property__description"
           >
-            <img
-              alt="Photo studio"
-              className="property__image"
-              src="https://placeimg.com/260/200/arch/2"
-            />
-          </div>
-          <div
-            className="property__image-wrapper"
-          >
-            <img
-              alt="Photo studio"
-              className="property__image"
-              src="https://placeimg.com/260/200/arch/3"
-            />
-          </div>
-          <div
-            className="property__image-wrapper"
-          >
-            <img
-              alt="Photo studio"
-              className="property__image"
-              src="https://placeimg.com/260/200/arch/4"
-            />
-          </div>
-          <div
-            className="property__image-wrapper"
-          >
-            <img
-              alt="Photo studio"
-              className="property__image"
-              src="https://placeimg.com/260/200/arch/5"
-            />
-          </div>
-          <div
-            className="property__image-wrapper"
-          >
-            <img
-              alt="Photo studio"
-              className="property__image"
-              src="https://placeimg.com/260/200/arch/6"
-            />
+            <p
+              className="property__text"
+            >
+              This is a unique and lovely apartment located in the heart of the Manhattan. Its truly original interior design will help you to experience New-York's unforgettable charm.
+            </p>
+            <p
+              className="property__text"
+            >
+                The apartment is very clean. It has high ceilings, TV set with a selection of movies to enjoy on a rainy day, hi-fi system, high speed wi-fi and a tiny but fully-equipped kitchenette.
+            </p>
           </div>
         </div>
+        <section
+          className="property__reviews reviews"
+        >
+          <h2
+            className="reviews__title"
+          >
+            Reviews · 
+            <span
+              className="reviews__amount"
+            >
+              2
+            </span>
+          </h2>
+          <ul
+            className="reviews__list"
+          >
+            <li
+              className="reviews__item"
+            >
+              <div
+                className="reviews__user user"
+              >
+                <div
+                  className="reviews__avatar-wrapper user__avatar-wrapper"
+                >
+                  <img
+                    alt="Reviewer's avatar"
+                    className="reviews__avatar user__avatar"
+                    height="54"
+                    src="https://api.adorable.io/avatars/128/1"
+                    width="54"
+                  />
+                </div>
+                <span
+                  className="reviews__user-name"
+                >
+                  Steven
+                </span>
+              </div>
+              <div
+                className="reviews__info"
+              >
+                <div
+                  className="reviews__rating rating"
+                >
+                  <div
+                    className="reviews__stars rating__stars"
+                  >
+                    <span
+                      style={
+                        Object {
+                          "width": "100%",
+                        }
+                      }
+                    />
+                    <span
+                      className="visually-hidden"
+                    >
+                      Rating
+                    </span>
+                  </div>
+                </div>
+                <p
+                  className="reviews__text"
+                >
+                  Excellent location in a charming building. It’s about the size of a typical hotel room and 
+      perhaps a little smaller than Airbnb places tend to be overall. Would recommend though as it’s 
+      a great value and location.
+                </p>
+                <time
+                  className="reviews__time"
+                  dateTime="2020-03-15"
+                >
+                  March 15, 2020
+                </time>
+              </div>
+            </li>
+            <li
+              className="reviews__item"
+            >
+              <div
+                className="reviews__user user"
+              >
+                <div
+                  className="reviews__avatar-wrapper user__avatar-wrapper"
+                >
+                  <img
+                    alt="Reviewer's avatar"
+                    className="reviews__avatar user__avatar"
+                    height="54"
+                    src="https://api.adorable.io/avatars/128/2"
+                    width="54"
+                  />
+                </div>
+                <span
+                  className="reviews__user-name"
+                >
+                  Monica
+                </span>
+              </div>
+              <div
+                className="reviews__info"
+              >
+                <div
+                  className="reviews__rating rating"
+                >
+                  <div
+                    className="reviews__stars rating__stars"
+                  >
+                    <span
+                      style={
+                        Object {
+                          "width": "80%",
+                        }
+                      }
+                    />
+                    <span
+                      className="visually-hidden"
+                    >
+                      Rating
+                    </span>
+                  </div>
+                </div>
+                <p
+                  className="reviews__text"
+                >
+                  Apartment was very pretty and quaint! Location was excellent , very close to the main 
+      sights in Porto. Abott greeted us and was very helpful, gave us some great tips.
+                </p>
+                <time
+                  className="reviews__time"
+                  dateTime="2020-03-15"
+                >
+                  March 15, 2020
+                </time>
+              </div>
+            </li>
+          </ul>
+          <form
+            action="#"
+            className="reviews__form form"
+            method="post"
+          >
+            <label
+              className="reviews__label form__label"
+              htmlFor="review"
+            >
+              Your review
+            </label>
+            <div
+              className="reviews__rating-form form__rating"
+            >
+              <input
+                className="form__rating-input visually-hidden"
+                id="5-stars"
+                name="rating"
+                type="radio"
+                value="5"
+              />
+              <label
+                className="reviews__rating-label form__rating-label"
+                htmlFor="5-stars"
+                title="perfect"
+              >
+                <svg
+                  className="form__star-image"
+                  height="33"
+                  width="37"
+                >
+                  <use
+                    xlinkHref="#icon-star"
+                  />
+                </svg>
+              </label>
+              <input
+                className="form__rating-input visually-hidden"
+                id="4-stars"
+                name="rating"
+                type="radio"
+                value="4"
+              />
+              <label
+                className="reviews__rating-label form__rating-label"
+                htmlFor="4-stars"
+                title="good"
+              >
+                <svg
+                  className="form__star-image"
+                  height="33"
+                  width="37"
+                >
+                  <use
+                    xlinkHref="#icon-star"
+                  />
+                </svg>
+              </label>
+              <input
+                className="form__rating-input visually-hidden"
+                id="3-stars"
+                name="rating"
+                type="radio"
+                value="3"
+              />
+              <label
+                className="reviews__rating-label form__rating-label"
+                htmlFor="3-stars"
+                title="not bad"
+              >
+                <svg
+                  className="form__star-image"
+                  height="33"
+                  width="37"
+                >
+                  <use
+                    xlinkHref="#icon-star"
+                  />
+                </svg>
+              </label>
+              <input
+                className="form__rating-input visually-hidden"
+                id="2-stars"
+                name="rating"
+                type="radio"
+                value="2"
+              />
+              <label
+                className="reviews__rating-label form__rating-label"
+                htmlFor="2-stars"
+                title="badly"
+              >
+                <svg
+                  className="form__star-image"
+                  height="33"
+                  width="37"
+                >
+                  <use
+                    xlinkHref="#icon-star"
+                  />
+                </svg>
+              </label>
+              <input
+                className="form__rating-input visually-hidden"
+                id="1-star"
+                name="rating"
+                type="radio"
+                value="1"
+              />
+              <label
+                className="reviews__rating-label form__rating-label"
+                htmlFor="1-star"
+                title="terribly"
+              >
+                <svg
+                  className="form__star-image"
+                  height="33"
+                  width="37"
+                >
+                  <use
+                    xlinkHref="#icon-star"
+                  />
+                </svg>
+              </label>
+            </div>
+            <textarea
+              className="reviews__textarea form__textarea"
+              id="review"
+              name="review"
+              placeholder="Tell how was your stay, what you like and what can be improved"
+            />
+            <div
+              className="reviews__button-wrapper"
+            >
+              <p
+                className="reviews__help"
+              >
+                To submit review please make sure to set 
+                <span
+                  className="reviews__star"
+                >
+                  rating
+                </span>
+                 and describe your stay with at least 
+                <b
+                  className="reviews__text-amount"
+                >
+                  50 characters
+                </b>
+                .
+              </p>
+              <button
+                className="reviews__submit form__submit button"
+                disabled={true}
+                type="submit"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </section>
       </div>
+    </div>
+    <section
+      className="property__map map"
+    >
       <div
-        className="property__container container"
+        style={
+          Object {
+            "height": "100%",
+          }
+        }
+      />
+    </section>
+  </section>
+  <div
+    className="container"
+  >
+    <section
+      className="near-places places"
+    >
+      <h2
+        className="near-places__title"
       >
-        <div
-          className="property__wrapper"
+        Other places in the neighbourhood
+      </h2>
+      <div
+        className="near-places__list places__list"
+      >
+        <article
+          className="place-card near-places__card"
+          onMouseEnter={[Function]}
         >
           <div
-            className="property__mark"
+            className="place-card__mark"
           >
             <span>
               Premium
             </span>
           </div>
           <div
-            className="property__name-wrapper"
+            className="cities__image-wrapper place-card__image-wrapper"
           >
-            <h1
-              className="property__name"
+            <a
+              href="#"
             >
-              Luxe 1-Bedroom Flat Near Manhattan
-            </h1>
-            <button
-              className="property__bookmark-button button"
-              type="button"
-            >
-              <svg
-                className="property__bookmark-icon"
-                height="33"
-                width="31"
-              >
-                <use
-                  xlinkHref="#icon-bookmark"
-                />
-              </svg>
-              <span
-                className="visually-hidden"
-              >
-                To bookmarks
-              </span>
-            </button>
+              <img
+                alt="Place image"
+                className="place-card__image"
+                height="200"
+                src="https://placeimg.com/260/200/arch/1"
+                width="260"
+              />
+            </a>
           </div>
           <div
-            className="property__rating rating"
+            className="place-card__info"
           >
             <div
-              className="property__stars rating__stars"
+              className="place-card__price-wrapper"
             >
-              <span
-                style={
-                  Object {
-                    "width": "90%",
-                  }
-                }
-              />
-              <span
-                className="visually-hidden"
+              <div
+                className="place-card__price"
               >
-                Rating
-              </span>
+                <b
+                  className="place-card__price-value"
+                >
+                  €
+                  120
+                </b>
+                 
+                <span
+                  className="place-card__price-text"
+                >
+                  / night
+                </span>
+              </div>
+              <button
+                className="place-card__bookmark-button button"
+                type="button"
+              >
+                <svg
+                  className="place-card__bookmark-icon"
+                  height="19"
+                  width="18"
+                >
+                  <use
+                    xlinkHref="#icon-bookmark"
+                  />
+                </svg>
+                <span
+                  className="visually-hidden"
+                >
+                  To bookmarks
+                </span>
+              </button>
             </div>
-            <span
-              className="property__rating-value rating__value"
+            <div
+              className="place-card__rating rating"
             >
-              4.5
-            </span>
-          </div>
-          <ul
-            className="property__features"
-          >
-            <li
-              className="property__feature property__feature--entire"
+              <div
+                className="place-card__stars rating__stars"
+              >
+                <span
+                  style={
+                    Object {
+                      "width": "90%",
+                    }
+                  }
+                />
+                <span
+                  className="visually-hidden"
+                >
+                  Rating
+                </span>
+              </div>
+            </div>
+            <h2
+              className="place-card__name"
+              onClick={[Function]}
+            >
+              <a
+                href="#"
+              >
+                Luxe 1-Bedroom Flat Near Manhattan
+              </a>
+            </h2>
+            <p
+              className="place-card__type"
             >
               Apartment
-            </li>
-            <li
-              className="property__feature property__feature--bedrooms"
-            >
-              1
-               
-              Bedroom
-            </li>
-            <li
-              className="property__feature property__feature--adults"
-            >
-              Max 
-              2
-               
-              adults
-            </li>
-          </ul>
-          <div
-            className="property__price"
-          >
-            <b
-              className="property__price-value"
-            >
-              €
-              120
-            </b>
-             
-            <span
-              className="property__price-text"
-            >
-               night
-            </span>
+            </p>
           </div>
+        </article>
+        <article
+          className="place-card near-places__card"
+          onMouseEnter={[Function]}
+        >
           <div
-            className="property__inside"
+            className="cities__image-wrapper place-card__image-wrapper"
           >
-            <h2
-              className="property__inside-title"
+            <a
+              href="#"
             >
-              What's inside
-            </h2>
-            <ul
-              className="property__inside-list"
-            >
-              <li
-                className="property__inside-item"
-              >
-                Wi-Fi
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Washing machine
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Towels
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Heating
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Coffee machine
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Kitchen
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Dishwasher
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Cabel TV
-              </li>
-              <li
-                className="property__inside-item"
-              >
-                Fridge
-              </li>
-            </ul>
-          </div>
-          <div
-            className="property__host"
-          >
-            <h2
-              className="property__host-title"
-            >
-              Meet the host
-            </h2>
-            <div
-              className="property__host-user user"
-            >
-              <div
-                className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper"
-              >
-                <img
-                  alt="Host avatar"
-                  className="property__avatar user__avatar"
-                  height="74"
-                  src="https://api.adorable.io/avatars/128/1"
-                  width="74"
-                />
-              </div>
-              <span
-                className="property__user-name"
-              >
-                Abott
-              </span>
-            </div>
-            <div
-              className="property__description"
-            >
-              <p
-                className="property__text"
-              >
-                This is a unique and lovely apartment located in the heart of the Manhattan. Its truly original interior design will help you to experience New-York's unforgettable charm.
-              </p>
-              <p
-                className="property__text"
-              >
-                  The apartment is very clean. It has high ceilings, TV set with a selection of movies to enjoy on a rainy day, hi-fi system, high speed wi-fi and a tiny but fully-equipped kitchenette.
-              </p>
-            </div>
-          </div>
-          <section
-            className="property__reviews reviews"
-          >
-            <h2
-              className="reviews__title"
-            >
-              Reviews · 
-              <span
-                className="reviews__amount"
-              >
-                2
-              </span>
-            </h2>
-            <ul
-              className="reviews__list"
-            >
-              <li
-                className="reviews__item"
-              >
-                <div
-                  className="reviews__user user"
-                >
-                  <div
-                    className="reviews__avatar-wrapper user__avatar-wrapper"
-                  >
-                    <img
-                      alt="Reviewer's avatar"
-                      className="reviews__avatar user__avatar"
-                      height="54"
-                      src="https://api.adorable.io/avatars/128/1"
-                      width="54"
-                    />
-                  </div>
-                  <span
-                    className="reviews__user-name"
-                  >
-                    Steven
-                  </span>
-                </div>
-                <div
-                  className="reviews__info"
-                >
-                  <div
-                    className="reviews__rating rating"
-                  >
-                    <div
-                      className="reviews__stars rating__stars"
-                    >
-                      <span
-                        style={
-                          Object {
-                            "width": "100%",
-                          }
-                        }
-                      />
-                      <span
-                        className="visually-hidden"
-                      >
-                        Rating
-                      </span>
-                    </div>
-                  </div>
-                  <p
-                    className="reviews__text"
-                  >
-                    Excellent location in a charming building. It’s about the size of a typical hotel room and 
-      perhaps a little smaller than Airbnb places tend to be overall. Would recommend though as it’s 
-      a great value and location.
-                  </p>
-                  <time
-                    className="reviews__time"
-                    dateTime="2020-03-15"
-                  >
-                    March 15, 2020
-                  </time>
-                </div>
-              </li>
-              <li
-                className="reviews__item"
-              >
-                <div
-                  className="reviews__user user"
-                >
-                  <div
-                    className="reviews__avatar-wrapper user__avatar-wrapper"
-                  >
-                    <img
-                      alt="Reviewer's avatar"
-                      className="reviews__avatar user__avatar"
-                      height="54"
-                      src="https://api.adorable.io/avatars/128/2"
-                      width="54"
-                    />
-                  </div>
-                  <span
-                    className="reviews__user-name"
-                  >
-                    Monica
-                  </span>
-                </div>
-                <div
-                  className="reviews__info"
-                >
-                  <div
-                    className="reviews__rating rating"
-                  >
-                    <div
-                      className="reviews__stars rating__stars"
-                    >
-                      <span
-                        style={
-                          Object {
-                            "width": "80%",
-                          }
-                        }
-                      />
-                      <span
-                        className="visually-hidden"
-                      >
-                        Rating
-                      </span>
-                    </div>
-                  </div>
-                  <p
-                    className="reviews__text"
-                  >
-                    Apartment was very pretty and quaint! Location was excellent , very close to the main 
-      sights in Porto. Abott greeted us and was very helpful, gave us some great tips.
-                  </p>
-                  <time
-                    className="reviews__time"
-                    dateTime="2020-03-15"
-                  >
-                    March 15, 2020
-                  </time>
-                </div>
-              </li>
-            </ul>
-            <form
-              action="#"
-              className="reviews__form form"
-              method="post"
-            >
-              <label
-                className="reviews__label form__label"
-                htmlFor="review"
-              >
-                Your review
-              </label>
-              <div
-                className="reviews__rating-form form__rating"
-              >
-                <input
-                  className="form__rating-input visually-hidden"
-                  id="5-stars"
-                  name="rating"
-                  type="radio"
-                  value="5"
-                />
-                <label
-                  className="reviews__rating-label form__rating-label"
-                  htmlFor="5-stars"
-                  title="perfect"
-                >
-                  <svg
-                    className="form__star-image"
-                    height="33"
-                    width="37"
-                  >
-                    <use
-                      xlinkHref="#icon-star"
-                    />
-                  </svg>
-                </label>
-                <input
-                  className="form__rating-input visually-hidden"
-                  id="4-stars"
-                  name="rating"
-                  type="radio"
-                  value="4"
-                />
-                <label
-                  className="reviews__rating-label form__rating-label"
-                  htmlFor="4-stars"
-                  title="good"
-                >
-                  <svg
-                    className="form__star-image"
-                    height="33"
-                    width="37"
-                  >
-                    <use
-                      xlinkHref="#icon-star"
-                    />
-                  </svg>
-                </label>
-                <input
-                  className="form__rating-input visually-hidden"
-                  id="3-stars"
-                  name="rating"
-                  type="radio"
-                  value="3"
-                />
-                <label
-                  className="reviews__rating-label form__rating-label"
-                  htmlFor="3-stars"
-                  title="not bad"
-                >
-                  <svg
-                    className="form__star-image"
-                    height="33"
-                    width="37"
-                  >
-                    <use
-                      xlinkHref="#icon-star"
-                    />
-                  </svg>
-                </label>
-                <input
-                  className="form__rating-input visually-hidden"
-                  id="2-stars"
-                  name="rating"
-                  type="radio"
-                  value="2"
-                />
-                <label
-                  className="reviews__rating-label form__rating-label"
-                  htmlFor="2-stars"
-                  title="badly"
-                >
-                  <svg
-                    className="form__star-image"
-                    height="33"
-                    width="37"
-                  >
-                    <use
-                      xlinkHref="#icon-star"
-                    />
-                  </svg>
-                </label>
-                <input
-                  className="form__rating-input visually-hidden"
-                  id="1-star"
-                  name="rating"
-                  type="radio"
-                  value="1"
-                />
-                <label
-                  className="reviews__rating-label form__rating-label"
-                  htmlFor="1-star"
-                  title="terribly"
-                >
-                  <svg
-                    className="form__star-image"
-                    height="33"
-                    width="37"
-                  >
-                    <use
-                      xlinkHref="#icon-star"
-                    />
-                  </svg>
-                </label>
-              </div>
-              <textarea
-                className="reviews__textarea form__textarea"
-                id="review"
-                name="review"
-                placeholder="Tell how was your stay, what you like and what can be improved"
+              <img
+                alt="Place image"
+                className="place-card__image"
+                height="200"
+                src="https://placeimg.com/260/200/arch/2"
+                width="260"
               />
+            </a>
+          </div>
+          <div
+            className="place-card__info"
+          >
+            <div
+              className="place-card__price-wrapper"
+            >
               <div
-                className="reviews__button-wrapper"
+                className="place-card__price"
               >
-                <p
-                  className="reviews__help"
+                <b
+                  className="place-card__price-value"
                 >
-                  To submit review please make sure to set 
-                  <span
-                    className="reviews__star"
-                  >
-                    rating
-                  </span>
-                   and describe your stay with at least 
-                  <b
-                    className="reviews__text-amount"
-                  >
-                    50 characters
-                  </b>
-                  .
-                </p>
-                <button
-                  className="reviews__submit form__submit button"
-                  disabled={true}
-                  type="submit"
+                  €
+                  200
+                </b>
+                 
+                <span
+                  className="place-card__price-text"
                 >
-                  Submit
-                </button>
+                  / night
+                </span>
               </div>
-            </form>
-          </section>
-        </div>
+              <button
+                className="place-card__bookmark-button place-card__bookmark-button--active button"
+                type="button"
+              >
+                <svg
+                  className="place-card__bookmark-icon"
+                  height="19"
+                  width="18"
+                >
+                  <use
+                    xlinkHref="#icon-bookmark"
+                  />
+                </svg>
+                <span
+                  className="visually-hidden"
+                >
+                  To bookmarks
+                </span>
+              </button>
+            </div>
+            <div
+              className="place-card__rating rating"
+            >
+              <div
+                className="place-card__stars rating__stars"
+              >
+                <span
+                  style={
+                    Object {
+                      "width": "78%",
+                    }
+                  }
+                />
+                <span
+                  className="visually-hidden"
+                >
+                  Rating
+                </span>
+              </div>
+            </div>
+            <h2
+              className="place-card__name"
+              onClick={[Function]}
+            >
+              <a
+                href="#"
+              >
+                Bright & Airy in Highland Park
+              </a>
+            </h2>
+            <p
+              className="place-card__type"
+            >
+              House
+            </p>
+          </div>
+        </article>
       </div>
-      <section
-        className="property__map map"
-      >
-        <div
-          style={
-            Object {
-              "height": "100%",
-            }
-          }
-        />
-      </section>
     </section>
-    <div
-      className="container"
-    >
-      <section
-        className="near-places places"
-      >
-        <h2
-          className="near-places__title"
-        >
-          Other places in the neighbourhood
-        </h2>
-        <div
-          className="near-places__list places__list"
-        >
-          <article
-            className="place-card near-places__card"
-            onMouseEnter={[Function]}
-          >
-            <div
-              className="place-card__mark"
-            >
-              <span>
-                Premium
-              </span>
-            </div>
-            <div
-              className="cities__image-wrapper place-card__image-wrapper"
-            >
-              <a
-                href="#"
-              >
-                <img
-                  alt="Place image"
-                  className="place-card__image"
-                  height="200"
-                  src="https://placeimg.com/260/200/arch/1"
-                  width="260"
-                />
-              </a>
-            </div>
-            <div
-              className="place-card__info"
-            >
-              <div
-                className="place-card__price-wrapper"
-              >
-                <div
-                  className="place-card__price"
-                >
-                  <b
-                    className="place-card__price-value"
-                  >
-                    €
-                    120
-                  </b>
-                   
-                  <span
-                    className="place-card__price-text"
-                  >
-                    / night
-                  </span>
-                </div>
-                <button
-                  className="place-card__bookmark-button button"
-                  type="button"
-                >
-                  <svg
-                    className="place-card__bookmark-icon"
-                    height="19"
-                    width="18"
-                  >
-                    <use
-                      xlinkHref="#icon-bookmark"
-                    />
-                  </svg>
-                  <span
-                    className="visually-hidden"
-                  >
-                    To bookmarks
-                  </span>
-                </button>
-              </div>
-              <div
-                className="place-card__rating rating"
-              >
-                <div
-                  className="place-card__stars rating__stars"
-                >
-                  <span
-                    style={
-                      Object {
-                        "width": "90%",
-                      }
-                    }
-                  />
-                  <span
-                    className="visually-hidden"
-                  >
-                    Rating
-                  </span>
-                </div>
-              </div>
-              <h2
-                className="place-card__name"
-                onClick={[Function]}
-              >
-                <a
-                  href="#"
-                >
-                  Luxe 1-Bedroom Flat Near Manhattan
-                </a>
-              </h2>
-              <p
-                className="place-card__type"
-              >
-                Apartment
-              </p>
-            </div>
-          </article>
-          <article
-            className="place-card near-places__card"
-            onMouseEnter={[Function]}
-          >
-            <div
-              className="cities__image-wrapper place-card__image-wrapper"
-            >
-              <a
-                href="#"
-              >
-                <img
-                  alt="Place image"
-                  className="place-card__image"
-                  height="200"
-                  src="https://placeimg.com/260/200/arch/2"
-                  width="260"
-                />
-              </a>
-            </div>
-            <div
-              className="place-card__info"
-            >
-              <div
-                className="place-card__price-wrapper"
-              >
-                <div
-                  className="place-card__price"
-                >
-                  <b
-                    className="place-card__price-value"
-                  >
-                    €
-                    200
-                  </b>
-                   
-                  <span
-                    className="place-card__price-text"
-                  >
-                    / night
-                  </span>
-                </div>
-                <button
-                  className="place-card__bookmark-button place-card__bookmark-button--active button"
-                  type="button"
-                >
-                  <svg
-                    className="place-card__bookmark-icon"
-                    height="19"
-                    width="18"
-                  >
-                    <use
-                      xlinkHref="#icon-bookmark"
-                    />
-                  </svg>
-                  <span
-                    className="visually-hidden"
-                  >
-                    To bookmarks
-                  </span>
-                </button>
-              </div>
-              <div
-                className="place-card__rating rating"
-              >
-                <div
-                  className="place-card__stars rating__stars"
-                >
-                  <span
-                    style={
-                      Object {
-                        "width": "78%",
-                      }
-                    }
-                  />
-                  <span
-                    className="visually-hidden"
-                  >
-                    Rating
-                  </span>
-                </div>
-              </div>
-              <h2
-                className="place-card__name"
-                onClick={[Function]}
-              >
-                <a
-                  href="#"
-                >
-                  Bright & Airy in Highland Park
-                </a>
-              </h2>
-              <p
-                className="place-card__type"
-              >
-                House
-              </p>
-            </div>
-          </article>
-        </div>
-      </section>
-    </div>
-  </main>
-</div>
+  </div>
+</main>
 `;
