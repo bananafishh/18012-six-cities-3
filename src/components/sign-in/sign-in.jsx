@@ -1,14 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Redirect} from 'react-router-dom';
+
+import {AuthStatus, AppRoute} from '../../constants';
 
 const SignIn = (props) => {
   const {
+    authStatus,
     currentCity,
     email,
     password,
     onChange,
     onSignIn,
   } = props;
+
+  if (authStatus === AuthStatus.AUTH) {
+    return <Redirect to={AppRoute.ROOT}/>;
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -75,6 +83,7 @@ const SignIn = (props) => {
 };
 
 SignIn.propTypes = {
+  authStatus: PropTypes.string.isRequired,
   currentCity: PropTypes.string.isRequired,
   email: PropTypes.string,
   password: PropTypes.string,

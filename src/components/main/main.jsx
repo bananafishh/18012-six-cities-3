@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {pluralizeWord} from '../../utils';
 import {SORTING_OPTIONS} from '../../constants';
-import withToggle from '../../hoc/with-toggle/with-toggle';
+import withToggle from '../../hocs/with-toggle/with-toggle';
 
 import CitiesList from '../cities-list/cities-list.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
@@ -20,9 +20,11 @@ const Main = (props) => {
     currentCity,
     currentSortingOption,
     activeOfferId,
-    onOfferTitleClick,
+    authStatus,
+    history,
     onSortingOptionChange,
     onOfferHover,
+    onBookmarkClick,
     onCityChange,
   } = props;
 
@@ -46,8 +48,10 @@ const Main = (props) => {
           mix="cities__places-list places__list tabs__content"
           offerMix="cities__place-card"
           offers={offers}
-          onOfferTitleClick={onOfferTitleClick}
+          history={history}
+          authStatus={authStatus}
           onOfferHover={onOfferHover}
+          onBookmarkClick={onBookmarkClick}
         />
       </section>
     ) : (
@@ -107,8 +111,12 @@ Main.propTypes = {
     label: PropTypes.string,
   }).isRequired,
   activeOfferId: PropTypes.number,
-  onOfferTitleClick: PropTypes.func.isRequired,
+  authStatus: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
   onSortingOptionChange: PropTypes.func.isRequired,
+  onBookmarkClick: PropTypes.func.isRequired,
   onOfferHover: PropTypes.func,
   onCityChange: PropTypes.func.isRequired,
 };

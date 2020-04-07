@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
-import {PlaceType} from '../../constants';
+import {AppRoute, AuthStatus, PlaceType} from '../../constants';
 import {getRatingInPercent} from '../../utils';
 
 const OfferCard = (props) => {
   const {
     offer,
-    onTitleClick,
-    onHover,
     mix,
+    authStatus,
+    history,
+    onHover,
+    onBookmarkClick,
   } = props;
 
   const {
@@ -24,6 +27,12 @@ const OfferCard = (props) => {
   } = offer;
 
   const handleHover = (offerId) => onHover && onHover(offerId);
+
+  const handleBookmarkClick = (offerId, isOfferFavorite) => (
+    authStatus === AuthStatus.AUTH
+      ? onBookmarkClick(offerId, isOfferFavorite)
+      : history.push(AppRoute.SIGN_IN)
+  );
 
   return (
     <article
@@ -59,6 +68,7 @@ const OfferCard = (props) => {
           <button
             className={`place-card__bookmark-button${isFavorite ? ` place-card__bookmark-button--active` : ``} button`}
             type="button"
+            onClick={() => handleBookmarkClick(id, isFavorite)}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
@@ -75,11 +85,8 @@ const OfferCard = (props) => {
           </div>
         </div>
 
-        <h2
-          className="place-card__name"
-          onClick={() => onTitleClick(offer)}
-        >
-          <a href="#">{title}</a>
+        <h2 className="place-card__name">
+          <Link to={{pathname: `${AppRoute.OFFER}/${id}`}}>{title}</Link>
         </h2>
 
         <p className="place-card__type">{PlaceType[type.toUpperCase()]}</p>
@@ -99,9 +106,13 @@ OfferCard.propTypes = {
     isPremium: PropTypes.bool,
     isFavorite: PropTypes.bool,
   }).isRequired,
-  onTitleClick: PropTypes.func.isRequired,
-  onHover: PropTypes.func,
   mix: PropTypes.string,
+  authStatus: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  onHover: PropTypes.func,
+  onBookmarkClick: PropTypes.func.isRequired,
 };
 
 export default OfferCard;

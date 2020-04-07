@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link, withRouter} from 'react-router-dom';
 
-import {AuthStatus, BASE_URL} from '../../constants';
+import {AppRoute, AuthStatus, BASE_URL} from '../../constants';
 
 const Page = (props) => {
   const {
@@ -11,20 +12,33 @@ const Page = (props) => {
       email,
       avatarUrl
     },
+    history: {
+      location: {
+        pathname,
+      }
+    }
   } = props;
 
   const getPageClass = () => {
-    if (authStatus === AuthStatus.NO_AUTH) {
-      return `page--gray page--login`;
-    }
+    switch (pathname) {
+      case AppRoute.SIGN_IN:
+        return `page page--gray page--login`;
 
-    return ``;
+      case AppRoute.ROOT:
+        return `page page--gray page--main`;
+
+      default:
+        return `page`;
+    }
   };
 
   const renderHeaderNavLink = () => (
     authStatus === AuthStatus.AUTH
       ? (
-        <a className="header__nav-link header__nav-link--profile" href="#">
+        <Link
+          className="header__nav-link header__nav-link--profile"
+          to={AppRoute.FAVORITES}
+        >
           <div
             className="header__avatar-wrapper user__avatar-wrapper"
             style={{
@@ -33,24 +47,30 @@ const Page = (props) => {
           >
           </div>
 
-          <span className="header__login">{email}</span>
-        </a>
+          <span className="header__user-name user__name">{email}</span>
+        </Link>
       ) : (
-        <a className="header__nav-link header__nav-link--profile" href="#">
+        <Link
+          className="header__nav-link header__nav-link--profile"
+          to={AppRoute.SIGN_IN}
+        >
           <div className="header__avatar-wrapper user__avatar-wrapper">
           </div>
           <span className="header__login">Sign in</span>
-        </a>
+        </Link>
       )
   );
 
   return (
-    <div className={`page ${getPageClass()}`}>
+    <div className={getPageClass()}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
+              <Link
+                className="header__logo-link header__logo-link--active"
+                to={AppRoute.ROOT}
+              >
                 <img
                   className="header__logo"
                   src="img/logo.svg"
@@ -58,7 +78,7 @@ const Page = (props) => {
                   width="81"
                   height="41"
                 />
-              </a>
+              </Link>
             </div>
 
             <nav className="header__nav">
@@ -84,6 +104,12 @@ Page.propTypes = {
     email: PropTypes.string,
     avatarUrl: PropTypes.string,
   }).isRequired,
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
-export default Page;
+export {Page};
+export default withRouter(Page);

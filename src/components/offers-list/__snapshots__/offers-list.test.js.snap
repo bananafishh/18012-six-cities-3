@@ -52,6 +52,7 @@ exports[`Компонент «OffersList» рендерится корректн
         </div>
         <button
           className="place-card__bookmark-button button"
+          onClick={[Function]}
           type="button"
         >
           <svg
@@ -92,10 +93,10 @@ exports[`Компонент «OffersList» рендерится корректн
       </div>
       <h2
         className="place-card__name"
-        onClick={[Function]}
       >
         <a
-          href="#"
+          href="/offer/1"
+          onClick={[Function]}
         >
           Luxe 1-Bedroom Flat Near Manhattan
         </a>
@@ -150,6 +151,7 @@ exports[`Компонент «OffersList» рендерится корректн
         </div>
         <button
           className="place-card__bookmark-button place-card__bookmark-button--active button"
+          onClick={[Function]}
           type="button"
         >
           <svg
@@ -190,10 +192,10 @@ exports[`Компонент «OffersList» рендерится корректн
       </div>
       <h2
         className="place-card__name"
-        onClick={[Function]}
       >
         <a
-          href="#"
+          href="/offer/2"
+          onClick={[Function]}
         >
           Bright & Airy in Highland Park
         </a>
@@ -255,6 +257,7 @@ exports[`Компонент «OffersList» рендерится корректн
         </div>
         <button
           className="place-card__bookmark-button place-card__bookmark-button--active button"
+          onClick={[Function]}
           type="button"
         >
           <svg
@@ -295,10 +298,10 @@ exports[`Компонент «OffersList» рендерится корректн
       </div>
       <h2
         className="place-card__name"
-        onClick={[Function]}
       >
         <a
-          href="#"
+          href="/offer/3"
+          onClick={[Function]}
         >
           Cozy Parkside Studio in the ❤ of the East Village
         </a>
@@ -353,6 +356,7 @@ exports[`Компонент «OffersList» рендерится корректн
         </div>
         <button
           className="place-card__bookmark-button button"
+          onClick={[Function]}
           type="button"
         >
           <svg
@@ -393,10 +397,10 @@ exports[`Компонент «OffersList» рендерится корректн
       </div>
       <h2
         className="place-card__name"
-        onClick={[Function]}
       >
         <a
-          href="#"
+          href="/offer/4"
+          onClick={[Function]}
         >
           Sunny, Modern room in East Village!
         </a>

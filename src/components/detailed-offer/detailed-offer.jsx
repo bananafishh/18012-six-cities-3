@@ -6,16 +6,18 @@ import {
   getReviews,
   getNearbyOffers,
   getReviewPostingStatus,
-  getReviewPostingError
+  getReviewPostingError,
+  getOffer,
 } from '../../reducer/data/selector';
 
 import {Operation} from '../../reducer/data/data';
-import withReviewFieldsChange from '../../hoc/with-review-fields-change/with-review-fields-change';
+import withReviewFieldsChange from '../../hocs/with-review-fields-change/with-review-fields-change';
 
 import {
   Offer,
   PlaceType,
   AuthStatus,
+  AppRoute,
 } from '../../constants';
 
 import {getRatingInPercent, pluralizeWord} from '../../utils';
@@ -30,21 +32,23 @@ const ReviewFormWrapped = withReviewFieldsChange(ReviewForm);
 class DetailedOffer extends PureComponent {
   componentDidMount() {
     const {
-      offer: {id},
+      id,
       onOfferDataLoad,
     } = this.props;
 
     onOfferDataLoad(id);
+    window.scrollTo(0, 0);
   }
 
   componentDidUpdate(prevProps) {
     const {
-      offer: {id},
+      id,
       onOfferDataLoad,
     } = this.props;
 
-    if (id !== prevProps.offer.id) {
+    if (id !== prevProps.id) {
       onOfferDataLoad(id);
+      window.scrollTo(0, 0);
     }
   }
 
@@ -56,8 +60,9 @@ class DetailedOffer extends PureComponent {
       authStatus,
       isReviewPosting,
       isReviewPostingError,
-      onNearbyOfferTitleClick,
       onReviewSend,
+      onBookmarkClick,
+      history,
     } = this.props;
 
     const {
@@ -79,6 +84,12 @@ class DetailedOffer extends PureComponent {
         isPro,
       },
     } = offer;
+
+    const handleBookmarkClick = (offerId, isOfferFavorite) => (
+      authStatus === AuthStatus.AUTH
+        ? onBookmarkClick(offerId, isOfferFavorite)
+        : history.push(AppRoute.SIGN_IN)
+    );
 
     const sortedReviews = reviews.length
       ? reviews
@@ -117,7 +128,9 @@ class DetailedOffer extends PureComponent {
 
                 <button
                   className={`property__bookmark-button${isFavorite ? ` property__bookmark-button--active` : ``} button`}
-                  type="button">
+                  type="button"
+                  onClick={() => handleBookmarkClick(id, isFavorite)}
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -227,7 +240,9 @@ class DetailedOffer extends PureComponent {
               mix="near-places__list places__list"
               offerMix="near-places__card"
               offers={nearbyOffersForRender}
-              onOfferTitleClick={onNearbyOfferTitleClick}
+              history={history}
+              authStatus={authStatus}
+              onBookmarkClick={onBookmarkClick}
             />
           </section>
         </div>
@@ -244,6 +259,7 @@ DetailedOffer.defaultProps = {
 };
 
 DetailedOffer.propTypes = {
+  id: PropTypes.number.isRequired,
   offer: PropTypes.shape({
     id: PropTypes.number,
     city: PropTypes.shape({
@@ -294,12 +310,16 @@ DetailedOffer.propTypes = {
   authStatus: PropTypes.string.isRequired,
   isReviewPosting: PropTypes.bool.isRequired,
   isReviewPostingError: PropTypes.bool.isRequired,
-  onNearbyOfferTitleClick: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
   onOfferDataLoad: PropTypes.func.isRequired,
   onReviewSend: PropTypes.func.isRequired,
+  onBookmarkClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
+  offer: getOffer(state, ownProps),
   reviews: getReviews(state),
   nearbyOffers: getNearbyOffers(state),
   isReviewPosting: getReviewPostingStatus(state),
@@ -315,6 +335,9 @@ const mapDispatchToProps = (dispatch) => ({
     const postReviewPromise = dispatch(Operation.postReview(offerId, review));
 
     return postReviewPromise;
+  },
+  onBookmarkClick(offerId, isFavorite) {
+    dispatch(Operation.toggleFavorite(offerId, isFavorite));
   },
 });
 

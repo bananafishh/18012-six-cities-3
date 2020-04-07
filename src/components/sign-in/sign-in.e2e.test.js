@@ -2,6 +2,8 @@ import React from 'react';
 import {configure, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
+import {AuthStatus} from '../../constants';
+
 import SignIn from './sign-in';
 
 configure({adapter: new Adapter()});
@@ -20,6 +22,7 @@ describe(`Компонент «SignIn» работает корректно`, ()
 
     const signIn = shallow(
         <SignIn
+          authStatus={AuthStatus.NO_AUTH}
           currentCity={currentCity}
           email={userAuthData.email}
           password={userAuthData.password}

@@ -1,5 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {MemoryRouter} from 'react-router-dom';
+
+import {AuthStatus} from '../../constants';
 
 import OfferCard from './offer-card';
 
@@ -14,14 +17,23 @@ const offer = {
   isFavorite: false,
 };
 
+const history = {
+  push: () => {},
+};
+
 it(`Компонент «OfferCard» рендерится корректно`, () => {
   const tree = renderer
     .create(
-        <OfferCard
-          offer={offer}
-          onTitleClick={() => {}}
-          onHover={() => {}}
-        />
+        <MemoryRouter>
+          <OfferCard
+            offer={offer}
+            authStatus={AuthStatus.AUTH}
+            history={history}
+            onTitleClick={() => {}}
+            onHover={() => {}}
+            onBookmarkClick={() => {}}
+          />
+        </MemoryRouter>
     )
     .toJSON();
 
