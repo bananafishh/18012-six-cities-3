@@ -4,6 +4,7 @@ import {createApi} from '../../api';
 import {reducer, ActionType, Operation, ActionCreator} from './data';
 import {ActionType as AppActionType} from '../app/app';
 import OffersDataAdapter from '../../adapters/offers-data-adapter';
+import ReviewsDataAdapter from '../../adapters/reviews-data-adapter';
 
 const api = createApi(() => {});
 
@@ -83,10 +84,60 @@ const offers = [
   },
 ];
 
+const apiReviews = [
+  {
+    'comment': `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
+    'date': `2019-05-08T14:13:56.569Z`,
+    'id': 1,
+    'rating': 4,
+    'user': {
+      'avatar_url': `img/1.png`,
+      'id': 4,
+      'is_pro': false,
+      'name': `Max`,
+    },
+  },
+];
+
+const reviews = [
+  {
+    id: 1,
+    text: `Excellent location in a charming building. It’s about the size of a typical hotel room and 
+    perhaps a little smaller than Airbnb places tend to be overall. Would recommend though as it’s 
+    a great value and location.`,
+    rating: 5,
+    date: `2019-05-03T14:13:56.569Z`,
+    user: {
+      name: `Steven`,
+      picture: `https://api.adorable.io/avatars/128/1`,
+    }
+  },
+  {
+    id: 2,
+    text: `Apartment was very pretty and quaint! Location was excellent , very close to the main 
+    sights in Porto. Abott greeted us and was very helpful, gave us some great tips.`,
+    rating: 4,
+    date: `2019-05-08T14:13:56.569Z`,
+    user: {
+      name: `Monica`,
+      picture: `https://api.adorable.io/avatars/128/2`,
+    }
+  },
+];
+
+const reviewData = {
+  review: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
+  rating: 4,
+};
+
 describe(`Редьюсер «data» работает корректно`, () => {
   it(`Возвращает начальный стейт, если вызван без параметров`, () => {
     expect(reducer(void 0, {})).toEqual({
       offers: [],
+      reviews: [],
+      nearbyOffers: [],
+      isReviewPosting: false,
+      isReviewPostingError: false,
     });
   });
 
@@ -98,6 +149,50 @@ describe(`Редьюсер «data» работает корректно`, () => 
       payload: offers,
     })).toEqual({
       offers,
+    });
+  });
+
+  it(`Изменяет список предложений об аренде неподалёку на переданное значение`, () => {
+    expect(reducer({
+      nearbyOffers: [],
+    }, {
+      type: ActionType.LOAD_NEARBY_OFFERS,
+      payload: offers,
+    })).toEqual({
+      nearbyOffers: offers,
+    });
+  });
+
+  it(`Изменяет список отзывов на переданное значение`, () => {
+    expect(reducer({
+      reviews: [],
+    }, {
+      type: ActionType.LOAD_REVIEWS,
+      payload: reviews,
+    })).toEqual({
+      reviews,
+    });
+  });
+
+  it(`Устанавливает статус отправки отзыва`, () => {
+    expect(reducer({
+      isReviewPosting: false,
+    }, {
+      type: ActionType.SET_REVIEW_POSTING_STATUS,
+      payload: true,
+    })).toEqual({
+      isReviewPosting: true,
+    });
+  });
+
+  it(`Устанавливает статус ошибки отправки отзыва`, () => {
+    expect(reducer({
+      isReviewPostingError: false,
+    }, {
+      type: ActionType.SET_REVIEW_POSTING_ERROR,
+      payload: true,
+    })).toEqual({
+      isReviewPostingError: true,
     });
   });
 });
@@ -128,6 +223,79 @@ describe(`Загрузка данных с сервера происходит �
         });
       });
   });
+
+  it(`Происходит корректный GET запрос к API по адресу /comments/:hotel_id`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const loadReviews = Operation.loadReviews(1);
+    const adaptedReviews = ReviewsDataAdapter.parseReviews(apiReviews);
+
+    apiMock
+      .onGet(`/comments/1`)
+      .reply(200, apiReviews);
+
+    return loadReviews(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_REVIEWS,
+          payload: adaptedReviews,
+        });
+      });
+  });
+
+  it(`Происходит корректный GET запрос к API по адресу /hotels/:hotel_id/nearby`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const loadOffers = Operation.loadNearbyOffers(1);
+    const adaptedOffers = OffersDataAdapter.parseOffers(apiOffers);
+
+    apiMock
+      .onGet(`/hotels/1/nearby`)
+      .reply(200, apiOffers);
+
+    return loadOffers(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_NEARBY_OFFERS,
+          payload: adaptedOffers,
+        });
+      });
+  });
+
+  it(`Происходит корректный POST запрос к API по адресу /comments/:hotel_id`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const postReview = Operation.postReview(offers[0].id, reviewData);
+    const adaptedReviews = ReviewsDataAdapter.parseReviews(apiReviews);
+
+    apiMock
+      .onPost(`/comments/1`)
+      .reply(200, apiReviews);
+
+    return postReview(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(3);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.SET_REVIEW_POSTING_STATUS,
+          payload: true,
+        });
+
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionType.LOAD_REVIEWS,
+          payload: adaptedReviews,
+        });
+
+        expect(dispatch).toHaveBeenNthCalledWith(3, {
+          type: ActionType.SET_REVIEW_POSTING_STATUS,
+          payload: false,
+        });
+      });
+  });
 });
 
 describe(`Action creator работает корректно`, () => {
@@ -137,6 +305,32 @@ describe(`Action creator работает корректно`, () => {
       payload: offers,
     });
   });
+
+  it(`Action creator для загрузки списка предложений об аренде неподалёку возвращает правильный action`, () => {
+    expect(ActionCreator.loadNearbyOffers(offers)).toEqual({
+      type: ActionType.LOAD_NEARBY_OFFERS,
+      payload: offers,
+    });
+  });
+
+  it(`Action creator для загрузки списка отзывов возвращает правильный action`, () => {
+    expect(ActionCreator.loadReviews(reviews)).toEqual({
+      type: ActionType.LOAD_REVIEWS,
+      payload: reviews,
+    });
+  });
+
+  it(`Action creator для установки статуса отправки отзыва возвращает правильный action`, () => {
+    expect(ActionCreator.setReviewPostingStatus(true)).toEqual({
+      type: ActionType.SET_REVIEW_POSTING_STATUS,
+      payload: true,
+    });
+  });
+
+  it(`Action creator для установки статуса ошибки отправки отзыва возвращает правильный action`, () => {
+    expect(ActionCreator.setReviewPostingError(true)).toEqual({
+      type: ActionType.SET_REVIEW_POSTING_ERROR,
+      payload: true,
+    });
+  });
 });
-
-

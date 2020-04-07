@@ -28,10 +28,10 @@ ReviewsList.propTypes = {
     id: PropTypes.number,
     text: PropTypes.string,
     rating: PropTypes.number,
-    date: PropTypes.instanceOf(Date),
+    date: PropTypes.string,
     user: PropTypes.shape({
       name: PropTypes.string,
-      picture: PropTypes.string,
+      avatarUrl: PropTypes.string,
     }),
   })).isRequired,
 };

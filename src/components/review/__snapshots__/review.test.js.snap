@@ -14,7 +14,6 @@ exports[`Компонент «Review» рендерится корректно 1
         alt="Reviewer's avatar"
         className="reviews__avatar user__avatar"
         height="54"
-        src="https://api.adorable.io/avatars/128/1"
         width="54"
       />
     </div>
@@ -56,9 +55,9 @@ exports[`Компонент «Review» рендерится корректно 1
     </p>
     <time
       className="reviews__time"
-      dateTime="2020-03-15"
+      dateTime="2019-05-3"
     >
-      March 15, 2020
+      May 03, 2019
     </time>
   </div>
 </li>

@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 import {ActionCreator} from '../../reducer/app/app';
 import {Operation as UserOperation} from '../../reducer/user/user';
@@ -14,7 +14,7 @@ import withAuthFieldsChange from '../../hoc/with-auth-fields-change/with-auth-fi
 
 import Page from '../page/page.jsx';
 import Main from '../main/main.jsx';
-import DetailedOfferInfo from '../detailed-offer-info/detailed-offer-info.jsx';
+import DetailedOffer from '../detailed-offer/detailed-offer.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 
 const SignInWrapped = withAuthFieldsChange(SignIn);
@@ -50,9 +50,8 @@ class App extends PureComponent {
 
     if (clickedOffer) {
       return (
-        <DetailedOfferInfo
+        <DetailedOffer
           offer={clickedOffer}
-          nearbyOffers={offers}
           authStatus={authStatus}
           onNearbyOfferTitleClick={this.handleOfferTitleClick}
         />
@@ -110,9 +109,8 @@ class App extends PureComponent {
 
         <Switch>
           <Route exact path="/dev-offer">
-            <DetailedOfferInfo
+            <DetailedOffer
               offer={offers[0]}
-              nearbyOffers={offers}
               authStatus={authStatus}
               onNearbyOfferTitleClick={this.handleOfferTitleClick}
             />
