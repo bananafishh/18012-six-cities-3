@@ -1,12 +1,16 @@
-export const RATING_MAX = 5;
+export const AuthStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
 
-export const REVIEWS_ON_PAGE_MAX = 10;
-
-export const NEARBY_OFFERS_MAX = 3;
-
-export const OFFER_IMAGES_MAX = 6;
-
-export const BASE_URL = `https://htmlacademy-react-3.appspot.com/six-cities`;
+export const Offer = {
+  RATING_MAX: 5,
+  IMAGES_MAX: 6,
+  REVIEWS_MAX: 10,
+  REVIEW_LENGTH_MIN: 50,
+  REVIEW_LENGTH_MAX: 300,
+  NEARBY_OFFERS_MAX: 3,
+};
 
 export const PlaceType = {
   APARTMENT: `Apartment`,
@@ -14,6 +18,20 @@ export const PlaceType = {
   HOUSE: `House`,
   HOTEL: `Hotel`,
 };
+
+export const DateFormat = {
+  FULL: `MMMM DD, YYYY`,
+  WITH_DASHES: `YYYY-MM-DD`,
+};
+
+export const SortingOption = {
+  POPULAR: `popular`,
+  PRICE_LOW_TO_HIGH: `priceLowToHigh`,
+  PRICE_HIGH_TO_LOW: `priceHighToLow`,
+  TOP_RATED_FIRST: `topRatedFirst`,
+};
+
+export const BASE_URL = `https://htmlacademy-react-3.appspot.com/six-cities`;
 
 export const MONTHS = [
   `January`,
@@ -29,18 +47,6 @@ export const MONTHS = [
   `November`,
   `December`,
 ];
-
-export const DateFormat = {
-  FULL: `MMMM DD, YYYY`,
-  WITH_DASHES: `YYYY-MM-DD`,
-};
-
-export const SortingOption = {
-  POPULAR: `popular`,
-  PRICE_LOW_TO_HIGH: `priceLowToHigh`,
-  PRICE_HIGH_TO_LOW: `priceHighToLow`,
-  TOP_RATED_FIRST: `topRatedFirst`,
-};
 
 export const SORTING_OPTIONS = [
   {
@@ -60,8 +66,3 @@ export const SORTING_OPTIONS = [
     value: SortingOption.TOP_RATED_FIRST,
   },
 ];
-
-export const AuthStatus = {
-  AUTH: `AUTH`,
-  NO_AUTH: `NO_AUTH`,
-};

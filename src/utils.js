@@ -1,10 +1,12 @@
-import {MONTHS, RATING_MAX} from './constants';
+import {MONTHS, Offer} from './constants';
 
-export const getRatingInPercent = (currentRating) => Math.round(currentRating / RATING_MAX * 100);
+export const getRatingInPercent = (currentRating) => Math.round(currentRating / Offer.RATING_MAX * 100);
 
 const addZeroTo = (number) => number < 10 ? `0${number}` : String(number);
 
-export const formatDateToString = (date, format) => {
+export const formatDate = (dateString, format) => {
+  const date = new Date(dateString);
+
   const year = date.getFullYear();
   const month = date.getMonth();
   const day = date.getDate();
