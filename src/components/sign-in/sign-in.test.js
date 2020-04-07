@@ -17,8 +17,7 @@ it(`Компонент «SignIn» рендерится корректно`, () =
           currentCity={currentCity}
           email={userAuthData.email}
           password={userAuthData.password}
-          onEmailChange={() => {}}
-          onPasswordChange={() => {}}
+          onChange={() => {}}
           onSignIn={() => {}}
         />
     )
