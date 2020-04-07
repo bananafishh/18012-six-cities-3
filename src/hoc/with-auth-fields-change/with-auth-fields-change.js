@@ -10,16 +10,13 @@ const withAuthFieldsChange = (Component) => (
         password: ``,
       };
 
-      this.handleEmailChange = this.handleEmailChange.bind(this);
-      this.handlePasswordChange = this.handlePasswordChange.bind(this);
+      this.handleChange = this.handleChange.bind(this);
     }
 
-    handleEmailChange(e) {
-      this.setState({email: e.target.value});
-    }
+    handleChange(event) {
+      const {name, value} = event.target;
 
-    handlePasswordChange(e) {
-      this.setState({password: e.target.value});
+      this.setState({[name]: value});
     }
 
     render() {
@@ -33,8 +30,7 @@ const withAuthFieldsChange = (Component) => (
           {...this.props}
           email={email}
           password={password}
-          onEmailChange={this.handleEmailChange}
-          onPasswordChange={this.handlePasswordChange}
+          onChange={this.handleChange}
         />
       );
     }

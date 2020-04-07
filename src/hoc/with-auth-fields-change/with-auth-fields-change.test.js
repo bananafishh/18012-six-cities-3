@@ -11,14 +11,13 @@ const MockComponent = (props) => {
   const {
     email,
     password,
-    onEmailChange,
-    onPasswordChange,
+    onChange,
   } = props;
 
   return (
     <form>
-      <input type="email" name="email" className="email-input" value={email} onChange={onEmailChange}/>
-      <input type="password" name="password" className="password-input" value={password} onChange={onPasswordChange}/>
+      <input type="email" name="email" className="email-input" value={email} onChange={onChange}/>
+      <input type="password" name="password" className="password-input" value={password} onChange={onChange}/>
     </form>
   );
 };
@@ -26,8 +25,7 @@ const MockComponent = (props) => {
 MockComponent.propTypes = {
   email: PropTypes.string,
   password: PropTypes.string,
-  onEmailChange: PropTypes.func.isRequired,
-  onPasswordChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 const MockComponentWrapped = withAuthFieldsChange(MockComponent);
@@ -41,7 +39,12 @@ describe(`HOC «withAuthFieldsChange» работает корректно`, () 
   it(`При вводе/изменении значения в поле ввода email вызывается коллбэк, в который передаётся введённое значение`, () => {
     const mockComponent = mount(<MockComponentWrapped/>);
 
-    const event = {target: {value: userAuthData.email}};
+    const event = {
+      target: {
+        value: userAuthData.email,
+        name: `email`,
+      }
+    };
 
     const emailInput = mockComponent.find(`.email-input`);
 
@@ -52,7 +55,12 @@ describe(`HOC «withAuthFieldsChange» работает корректно`, () 
   it(`При вводе/изменении значения в поле ввода пароля вызывается коллбэк, в который передаётся введённое значение`, () => {
     const mockComponent = mount(<MockComponentWrapped/>);
 
-    const event = {target: {value: userAuthData.password}};
+    const event = {
+      target: {
+        value: userAuthData.password,
+        name: `password`,
+      }
+    };
 
     const passwordInput = mockComponent.find(`.password-input`);
 
