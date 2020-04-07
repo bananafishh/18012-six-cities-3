@@ -9,7 +9,7 @@ const review = {
   perhaps a little smaller than Airbnb places tend to be overall. Would recommend though as it’s 
   a great value and location.`,
   rating: 5,
-  date: new Date(`2020-03-15`),
+  date: `2019-05-03T14:13:56.569Z`,
   user: {
     name: `Steven`,
     picture: `https://api.adorable.io/avatars/128/1`,

@@ -6,13 +6,12 @@ const SignIn = (props) => {
     currentCity,
     email,
     password,
-    onEmailChange,
-    onPasswordChange,
+    onChange,
     onSignIn,
   } = props;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
     onSignIn({email, password});
   };
@@ -39,7 +38,7 @@ const SignIn = (props) => {
                 name="email"
                 value={email}
                 placeholder="Email"
-                onChange={onEmailChange}
+                onChange={onChange}
               />
             </div>
 
@@ -53,7 +52,7 @@ const SignIn = (props) => {
                 name="password"
                 value={password}
                 placeholder="Password"
-                onChange={onPasswordChange}
+                onChange={onChange}
               />
             </div>
 
@@ -79,8 +78,7 @@ SignIn.propTypes = {
   currentCity: PropTypes.string.isRequired,
   email: PropTypes.string,
   password: PropTypes.string,
-  onEmailChange: PropTypes.func.isRequired,
-  onPasswordChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   onSignIn: PropTypes.func.isRequired,
 };
 

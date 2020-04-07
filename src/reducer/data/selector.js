@@ -41,3 +41,11 @@ export const getCities = createSelector(
       return Array.from(uniqueCities);
     }
 );
+
+export const getReviews = (state) => state[NameSpace.DATA].reviews;
+
+export const getNearbyOffers = (state) => state[NameSpace.DATA].nearbyOffers;
+
+export const getReviewPostingStatus = (state) => state[NameSpace.DATA].isReviewPosting;
+
+export const getReviewPostingError = (state) => state[NameSpace.DATA].isReviewPostingError;

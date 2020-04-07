@@ -23,12 +23,8 @@ class OffersDataAdapter {
     this.location = offerData[`location`];
   }
 
-  static parseOffer(offerData) {
-    return new OffersDataAdapter(offerData);
-  }
-
   static parseOffers(offers) {
-    return offers.map(OffersDataAdapter.parseOffer);
+    return offers.map((offer) => new OffersDataAdapter(offer));
   }
 }
 

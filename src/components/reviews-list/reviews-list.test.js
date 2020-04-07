@@ -10,7 +10,7 @@ const reviews = [
     perhaps a little smaller than Airbnb places tend to be overall. Would recommend though as it’s 
     a great value and location.`,
     rating: 5,
-    date: new Date(`2020-03-15`),
+    date: `2019-05-03T14:13:56.569Z`,
     user: {
       name: `Steven`,
       picture: `https://api.adorable.io/avatars/128/1`,
@@ -21,7 +21,7 @@ const reviews = [
     text: `Apartment was very pretty and quaint! Location was excellent , very close to the main 
     sights in Porto. Abott greeted us and was very helpful, gave us some great tips.`,
     rating: 4,
-    date: new Date(`2020-03-15`),
+    date: `2019-05-03T14:13:56.569Z`,
     user: {
       name: `Monica`,
       picture: `https://api.adorable.io/avatars/128/2`,

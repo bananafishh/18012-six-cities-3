@@ -37,10 +37,7 @@ const Operation = {
       });
   },
   signIn: (userAuthData) => (dispatch, getState, api) => {
-    return api.post(`/login`, {
-      email: userAuthData.email,
-      password: userAuthData.password,
-    })
+    return api.post(`/login`, userAuthData)
       .then((response) => {
         const userData = UserDataAdapter.parseData(response.data);
 

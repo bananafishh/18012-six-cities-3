@@ -23,8 +23,7 @@ describe(`Компонент «SignIn» работает корректно`, ()
           currentCity={currentCity}
           email={userAuthData.email}
           password={userAuthData.password}
-          onEmailChange={() => {}}
-          onPasswordChange={() => {}}
+          onChange={() => {}}
           onSignIn={handleSignIn}
         />
     );

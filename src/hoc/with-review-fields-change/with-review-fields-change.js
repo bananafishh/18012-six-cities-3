@@ -1,16 +1,17 @@
 import React, {PureComponent} from 'react';
 
-const withAuthFieldsChange = (Component) => (
-  class WithAuthFieldsChange extends PureComponent {
+const withReviewFieldsChange = (Component) => (
+  class WithReviewFieldsChange extends PureComponent {
     constructor(props) {
       super(props);
 
       this.state = {
-        email: ``,
-        password: ``,
+        review: ``,
+        rating: 0,
       };
 
       this.handleChange = this.handleChange.bind(this);
+      this.handleReset = this.handleReset.bind(this);
     }
 
     handleChange(event) {
@@ -19,22 +20,30 @@ const withAuthFieldsChange = (Component) => (
       this.setState({[name]: value});
     }
 
+    handleReset() {
+      this.setState({
+        review: ``,
+        rating: 0,
+      });
+    }
+
     render() {
       const {
-        email,
-        password,
+        review,
+        rating,
       } = this.state;
 
       return (
         <Component
           {...this.props}
-          email={email}
-          password={password}
+          review={review}
+          rating={Number(rating)}
           onChange={this.handleChange}
+          onReset={this.handleReset}
         />
       );
     }
   }
 );
 
-export default withAuthFieldsChange;
+export default withReviewFieldsChange;

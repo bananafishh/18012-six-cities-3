@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {DateFormat} from '../../constants';
-import {getRatingInPercent, formatDateToString} from '../../utils';
+import {getRatingInPercent, formatDate} from '../../utils';
 
 const Review = (props) => {
   const {
@@ -12,7 +12,7 @@ const Review = (props) => {
       date,
       user: {
         name,
-        picture,
+        avatarUrl,
       }
     }
   } = props;
@@ -23,7 +23,7 @@ const Review = (props) => {
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img
             className="reviews__avatar user__avatar"
-            src={picture}
+            src={avatarUrl}
             width="54"
             height="54"
             alt="Reviewer's avatar"
@@ -45,9 +45,9 @@ const Review = (props) => {
 
         <time
           className="reviews__time"
-          dateTime={formatDateToString(date, DateFormat.WITH_DASHES)}
+          dateTime={formatDate(date, DateFormat.WITH_DASHES)}
         >
-          {formatDateToString(date, DateFormat.FULL)}
+          {formatDate(date, DateFormat.FULL)}
         </time>
       </div>
     </li>
@@ -59,10 +59,10 @@ Review.propTypes = {
     id: PropTypes.number,
     text: PropTypes.string,
     rating: PropTypes.number,
-    date: PropTypes.instanceOf(Date),
+    date: PropTypes.string,
     user: PropTypes.shape({
       name: PropTypes.string,
-      picture: PropTypes.string,
+      avatarUrl: PropTypes.string,
     }),
   }).isRequired,
 };
