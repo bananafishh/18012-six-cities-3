@@ -6,7 +6,7 @@ import {getCurrentCity, getCurrentSortingOption} from '../app/selector';
 
 const getOffers = (state) => state[NameSpace.DATA].offers;
 
-const getOffersByCity = createSelector(
+export const getOffersByCity = createSelector(
     getOffers,
     getCurrentCity,
     (offers, currentCity) => offers.filter((offer) => offer.city.name === currentCity)
@@ -40,6 +40,14 @@ export const getCities = createSelector(
 
       return Array.from(uniqueCities);
     }
+);
+
+const getOfferId = (state, offerProps) => offerProps.id;
+
+export const getOffer = createSelector(
+    getOffers,
+    getOfferId,
+    (offers, id) => offers.find((offer) => offer.id === id)
 );
 
 export const getReviews = (state) => state[NameSpace.DATA].reviews;

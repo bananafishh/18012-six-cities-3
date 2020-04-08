@@ -17,7 +17,12 @@ const ActionType = {
   LOAD_NEARBY_OFFERS: `LOAD_NEARBY_OFFERS`,
   SET_REVIEW_POSTING_STATUS: `SET_REVIEW_POSTING_STATUS`,
   SET_REVIEW_POSTING_ERROR: `SET_REVIEW_POSTING_ERROR`,
+  TOGGLE_FAVORITE: `TOGGLE_FAVORITE`,
 };
+
+const updateOffers = (offers, offerId, payload) => (
+  offers.map((offer) => offer.id === offerId ? payload : offer)
+);
 
 const ActionCreator = {
   loadOffers: (offers) => ({
@@ -39,6 +44,10 @@ const ActionCreator = {
   setReviewPostingError: (isError) => ({
     type: ActionType.SET_REVIEW_POSTING_ERROR,
     payload: isError,
+  }),
+  toggleFavorite: (offer) => ({
+    type: ActionType.TOGGLE_FAVORITE,
+    payload: offer,
   }),
 };
 
@@ -96,6 +105,17 @@ const Operation = {
         dispatch(ActionCreator.setReviewPostingStatus(false));
       });
   },
+  toggleFavorite: (offerId, isFavorite) => (dispatch, getState, api) => {
+    return api.post(`/favorite/${offerId}/${isFavorite ? 0 : 1}`)
+      .then((response) => {
+        const offer = OffersDataAdapter.parseOffer(response.data);
+
+        dispatch(ActionCreator.toggleFavorite(offer));
+      })
+      .catch((err) => {
+        throw err;
+      });
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -114,6 +134,14 @@ const reducer = (state = initialState, action) => {
 
     case ActionType.SET_REVIEW_POSTING_ERROR:
       return extend(state, {isReviewPostingError: action.payload});
+
+    case ActionType.TOGGLE_FAVORITE:
+      const offerId = action.payload.id;
+
+      const offers = updateOffers(state.offers, offerId, action.payload);
+      const nearbyOffers = updateOffers(state.nearbyOffers, offerId, action.payload);
+
+      return extend(state, {offers, nearbyOffers});
 
     default:
       return state;

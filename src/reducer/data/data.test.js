@@ -64,6 +64,9 @@ const offers = [
     isPremium: true,
     isFavorite: false,
   },
+];
+
+const nearbyOffers = [
   {
     id: 2,
     city: {
@@ -80,6 +83,27 @@ const offers = [
     previewImage: `https://placeimg.com/260/200/arch/2`,
     rating: 3.9,
     isPremium: false,
+    isFavorite: true,
+  },
+];
+
+const updatedOffers = [
+  {
+    id: 1,
+    city: {
+      name: `Paris`,
+      location: {
+        latitude: 48.85661,
+        longitude: 2.351499,
+        zoom: 13,
+      },
+    },
+    title: `Luxe 1-Bedroom Flat Near Manhattan`,
+    type: `apartment`,
+    price: 120,
+    previewImage: `https://placeimg.com/260/200/arch/1`,
+    rating: 4.5,
+    isPremium: true,
     isFavorite: true,
   },
 ];
@@ -195,6 +219,19 @@ describe(`Редьюсер «data» работает корректно`, () => 
       isReviewPostingError: true,
     });
   });
+
+  it(`Обновляет список предложений об аренде переданным значением`, () => {
+    expect(reducer({
+      offers,
+      nearbyOffers,
+    }, {
+      type: ActionType.TOGGLE_FAVORITE,
+      payload: updatedOffers[0],
+    })).toEqual({
+      offers: updatedOffers,
+      nearbyOffers,
+    });
+  });
 });
 
 describe(`Загрузка данных с сервера происходит корректно`, () => {
@@ -296,6 +333,27 @@ describe(`Загрузка данных с сервера происходит �
         });
       });
   });
+
+  it(`Происходит корректный POST запрос к API по адресу /favorite/:hotel_id/:status`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const toggleFavorite = Operation.toggleFavorite(offers[0].id, offers[0].isFavorite);
+    const adaptedOffer = OffersDataAdapter.parseOffer(apiOffers[0]);
+
+    apiMock
+      .onPost(`/favorite/1/1`)
+      .reply(200, apiOffers[0]);
+
+    return toggleFavorite(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.TOGGLE_FAVORITE,
+          payload: adaptedOffer,
+        });
+      });
+  });
 });
 
 describe(`Action creator работает корректно`, () => {
@@ -331,6 +389,13 @@ describe(`Action creator работает корректно`, () => {
     expect(ActionCreator.setReviewPostingError(true)).toEqual({
       type: ActionType.SET_REVIEW_POSTING_ERROR,
       payload: true,
+    });
+  });
+
+  it(`Action creator для добавления/удаления предложения об аренде в избранное возвращает правильный action`, () => {
+    expect(ActionCreator.toggleFavorite(offers[0])).toEqual({
+      type: ActionType.TOGGLE_FAVORITE,
+      payload: offers[0],
     });
   });
 });

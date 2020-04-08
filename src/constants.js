@@ -3,6 +3,13 @@ export const AuthStatus = {
   NO_AUTH: `NO_AUTH`,
 };
 
+export const AppRoute = {
+  ROOT: `/`,
+  SIGN_IN: `/login`,
+  FAVORITES: `/favorites`,
+  OFFER: `/offer`,
+};
+
 export const Offer = {
   RATING_MAX: 5,
   IMAGES_MAX: 6,

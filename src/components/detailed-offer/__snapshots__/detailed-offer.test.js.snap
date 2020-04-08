@@ -92,6 +92,7 @@ exports[`Компонент «DetailedOffer» рендерится коррек�
           </h1>
           <button
             className="property__bookmark-button button"
+            onClick={[Function]}
             type="button"
           >
             <svg
@@ -670,6 +671,7 @@ exports[`Компонент «DetailedOffer» рендерится коррек�
               </div>
               <button
                 className="place-card__bookmark-button button"
+                onClick={[Function]}
                 type="button"
               >
                 <svg
@@ -710,10 +712,10 @@ exports[`Компонент «DetailedOffer» рендерится коррек�
             </div>
             <h2
               className="place-card__name"
-              onClick={[Function]}
             >
               <a
-                href="#"
+                href="/offer/1"
+                onClick={[Function]}
               >
                 Luxe 1-Bedroom Flat Near Manhattan
               </a>
@@ -768,6 +770,7 @@ exports[`Компонент «DetailedOffer» рендерится коррек�
               </div>
               <button
                 className="place-card__bookmark-button place-card__bookmark-button--active button"
+                onClick={[Function]}
                 type="button"
               >
                 <svg
@@ -808,10 +811,10 @@ exports[`Компонент «DetailedOffer» рендерится коррек�
             </div>
             <h2
               className="place-card__name"
-              onClick={[Function]}
             >
               <a
-                href="#"
+                href="/offer/2"
+                onClick={[Function]}
               >
                 Bright & Airy in Highland Park
               </a>

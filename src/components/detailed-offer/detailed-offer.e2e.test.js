@@ -1,10 +1,12 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import {MemoryRouter} from 'react-router-dom';
+import {configure, shallow} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import {AuthStatus} from '../../constants';
 
 import {DetailedOffer} from './detailed-offer';
+
+configure({adapter: new Adapter()});
 
 const offers = [
   {
@@ -105,28 +107,32 @@ const history = {
   push: () => {},
 };
 
-it(`Компонент «DetailedOffer» рендерится корректно`, () => {
-  window.scrollTo = jest.fn();
+describe(`Компонент «DetailedOffer» работает корректно`, () => {
+  it(`При клике по иконке закладки вызывается коллбэк, в который передаются id и статус «избранности» предложения об аренде`, () => {
+    window.scrollTo = jest.fn();
+    const handleBookmarkClick = jest.fn();
 
-  const tree = renderer
-    .create(
-        <MemoryRouter>
-          <DetailedOffer
-            id={offer.id}
-            offer={offer}
-            reviews={reviews}
-            nearbyOffers={offers}
-            authStatus={AuthStatus.AUTH}
-            history={history}
-            isReviewPosting={false}
-            isReviewPostingError={false}
-            onOfferDataLoad={() => {}}
-            onReviewSend={() => {}}
-            onBookmarkClick={() => {}}
-          />
-        </MemoryRouter>
-    )
-    .toJSON();
+    const detailedOffer = shallow(
+        <DetailedOffer
+          id={offer.id}
+          offer={offer}
+          reviews={reviews}
+          nearbyOffers={offers}
+          authStatus={AuthStatus.AUTH}
+          history={history}
+          isReviewPosting={false}
+          isReviewPostingError={false}
+          onOfferDataLoad={() => {}}
+          onReviewSend={() => {}}
+          onBookmarkClick={handleBookmarkClick}
+        />
+    );
 
-  expect(tree).toMatchSnapshot();
+    const bookmarkButton = detailedOffer.find(`.property__bookmark-button`);
+
+    bookmarkButton.simulate(`click`);
+    expect(handleBookmarkClick).toHaveBeenCalledTimes(1);
+    expect(handleBookmarkClick.mock.calls[0][0]).toBe(offer.id);
+    expect(handleBookmarkClick.mock.calls[0][1]).toBe(offer.isFavorite);
+  });
 });

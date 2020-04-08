@@ -7,10 +7,12 @@ class OffersList extends PureComponent {
   render() {
     const {
       offers,
-      onOfferTitleClick,
       mix,
       offerMix,
+      authStatus,
+      history,
       onOfferHover,
+      onBookmarkClick,
     } = this.props;
 
     if (!offers.length) {
@@ -24,8 +26,10 @@ class OffersList extends PureComponent {
             key={offer.id}
             mix={offerMix}
             offer={offer}
-            onTitleClick={onOfferTitleClick}
+            authStatus={authStatus}
+            history={history}
             onHover={onOfferHover}
+            onBookmarkClick={onBookmarkClick}
           />
         ))}
       </div>
@@ -44,10 +48,14 @@ OffersList.propTypes = {
     isPremium: PropTypes.bool,
     isFavorite: PropTypes.bool,
   })).isRequired,
-  onOfferTitleClick: PropTypes.func.isRequired,
   mix: PropTypes.string,
   offerMix: PropTypes.string,
+  authStatus: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
   onOfferHover: PropTypes.func,
+  onBookmarkClick: PropTypes.func.isRequired,
 };
 
 export default OffersList;

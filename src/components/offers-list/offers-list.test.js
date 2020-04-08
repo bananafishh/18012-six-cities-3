@@ -1,5 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {MemoryRouter} from 'react-router-dom';
+
+import {AuthStatus} from '../../constants';
 
 import OffersList from './offers-list';
 
@@ -46,13 +49,21 @@ const offers = [
   },
 ];
 
+const history = {
+  push: () => {},
+};
+
 it(`Компонент «OffersList» рендерится корректно`, () => {
   const tree = renderer
     .create(
-        <OffersList
-          offers={offers}
-          onOfferTitleClick={() => {}}
-        />
+        <MemoryRouter>
+          <OffersList
+            offers={offers}
+            authStatus={AuthStatus.AUTH}
+            history={history}
+            onBookmarkClick={() => {}}
+          />
+        </MemoryRouter>
     )
     .toJSON();
 

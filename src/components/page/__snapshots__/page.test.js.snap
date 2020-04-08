@@ -2,7 +2,7 @@
 
 exports[`Компонент «Page» рендерится корректно 1`] = `
 <div
-  className="page "
+  className="page page--gray page--login"
 >
   <header
     className="header"
@@ -18,6 +18,8 @@ exports[`Компонент «Page» рендерится корректно 1`]
         >
           <a
             className="header__logo-link header__logo-link--active"
+            href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
@@ -39,7 +41,8 @@ exports[`Компонент «Page» рендерится корректно 1`]
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/favorites"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
@@ -50,7 +53,7 @@ exports[`Компонент «Page» рендерится корректно 1`]
                   }
                 />
                 <span
-                  className="header__login"
+                  className="header__user-name user__name"
                 >
                   Oliver.conner@gmail.com
                 </span>

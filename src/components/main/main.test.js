@@ -1,5 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {MemoryRouter} from 'react-router-dom';
+
+import {AuthStatus} from '../../constants';
 
 import Main from './main';
 
@@ -68,20 +71,28 @@ const currentSortingOption = {
 
 const activeOfferId = 1;
 
+const history = {
+  push: () => {},
+};
+
 it(`Компонент «Main» рендерится корректно`, () => {
   const tree = renderer
     .create(
-        <Main
-          offers={offers}
-          cities={cities}
-          currentCity={cities[0]}
-          activeOfferId={activeOfferId}
-          currentSortingOption={currentSortingOption}
-          onCityChange={() => {}}
-          onOfferHover={() => {}}
-          onOfferTitleClick={() => {}}
-          onSortingOptionChange={() => {}}
-        />
+        <MemoryRouter>
+          <Main
+            offers={offers}
+            cities={cities}
+            currentCity={cities[0]}
+            activeOfferId={activeOfferId}
+            authStatus={AuthStatus.AUTH}
+            history={history}
+            currentSortingOption={currentSortingOption}
+            onCityChange={() => {}}
+            onOfferHover={() => {}}
+            onBookmarkClick={() => {}}
+            onSortingOptionChange={() => {}}
+          />
+        </MemoryRouter>
     )
     .toJSON();
 

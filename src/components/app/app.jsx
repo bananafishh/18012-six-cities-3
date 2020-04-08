@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -9,117 +9,84 @@ import {getSortedOffers, getCities} from '../../reducer/data/selector';
 import {getCurrentCity, getCurrentSortingOption, getActiveOfferId} from '../../reducer/app/selector';
 import {getAuthStatus, getUserData} from '../../reducer/user/selector';
 
-import {AuthStatus} from '../../constants';
-import withAuthFieldsChange from '../../hoc/with-auth-fields-change/with-auth-fields-change';
+import {AppRoute} from '../../constants';
+import withAuthFieldsChange from '../../hocs/with-auth-fields-change/with-auth-fields-change';
 
 import Page from '../page/page.jsx';
 import Main from '../main/main.jsx';
 import DetailedOffer from '../detailed-offer/detailed-offer.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
+import {Operation} from "../../reducer/data/data";
 
 const SignInWrapped = withAuthFieldsChange(SignIn);
 
-class App extends PureComponent {
-  constructor(props) {
-    super(props);
+const App = (props) => {
+  const {
+    offers,
+    authStatus,
+    user,
+    cities,
+    currentCity,
+    currentSortingOption,
+    activeOfferId,
+    onSortingOptionChange,
+    onOfferHover,
+    onBookmarkClick,
+    onCityChange,
+    onSignIn,
+  } = props;
 
-    this.state = {};
-
-    this.handleOfferTitleClick = this.handleOfferTitleClick.bind(this);
-  }
-
-  handleOfferTitleClick(clickedOffer) {
-    this.setState({clickedOffer});
-  }
-
-  renderApp() {
-    const {
-      authStatus,
-      offers,
-      cities,
-      currentCity,
-      currentSortingOption,
-      activeOfferId,
-      onSortingOptionChange,
-      onOfferHover,
-      onCityChange,
-      onSignIn,
-    } = this.props;
-
-    const {clickedOffer} = this.state;
-
-    if (clickedOffer) {
-      return (
-        <DetailedOffer
-          offer={clickedOffer}
-          authStatus={authStatus}
-          onNearbyOfferTitleClick={this.handleOfferTitleClick}
-        />
-      );
-    }
-
-    if (authStatus === AuthStatus.NO_AUTH) {
-      return (
-        <SignInWrapped
-          currentCity={currentCity}
-          onSignIn={onSignIn}
-        />
-      );
-    }
-
-    if (authStatus === AuthStatus.AUTH) {
-      return (
-        <Main
-          authStatus={authStatus}
-          offers={offers}
-          cities={cities}
-          currentCity={currentCity}
-          currentSortingOption={currentSortingOption}
-          activeOfferId={activeOfferId}
-          onOfferTitleClick={this.handleOfferTitleClick}
-          onSortingOptionChange={onSortingOptionChange}
-          onOfferHover={onOfferHover}
-          onCityChange={onCityChange}
-        />
-      );
-    }
-
-    return {};
-  }
-
-  render() {
-    const {
-      offers,
-      authStatus,
-      user,
-    } = this.props;
-
-    return (
-      <Router>
+  return (
+    <Router>
+      <Page
+        authStatus={authStatus}
+        user={user}
+      >
         <Switch>
-          <Route exact path="/">
-            <Page
-              authStatus={authStatus}
-              user={user}
-            >
-              {this.renderApp()}
-            </Page>
-          </Route>
-        </Switch>
+          <Route
+            exact
+            path={AppRoute.ROOT}
+            render={(routeProps) => (
+              <Main
+                offers={offers}
+                cities={cities}
+                currentCity={currentCity}
+                currentSortingOption={currentSortingOption}
+                activeOfferId={activeOfferId}
+                authStatus={authStatus}
+                onSortingOptionChange={onSortingOptionChange}
+                onOfferHover={onOfferHover}
+                onBookmarkClick={onBookmarkClick}
+                onCityChange={onCityChange}
+                {...routeProps}
+              />
+            )}
+          />
 
-        <Switch>
-          <Route exact path="/dev-offer">
-            <DetailedOffer
-              offer={offers[0]}
+          <Route exact path={AppRoute.SIGN_IN}>
+            <SignInWrapped
               authStatus={authStatus}
-              onNearbyOfferTitleClick={this.handleOfferTitleClick}
+              currentCity={currentCity}
+              onSignIn={onSignIn}
             />
           </Route>
+
+          <Route
+            exact
+            path={`${AppRoute.OFFER}/:id`}
+            render={(routeProps) => (
+              <DetailedOffer
+                id={Number(routeProps.match.params.id)}
+                authStatus={authStatus}
+                {...routeProps}
+              />
+            )}
+          />
         </Switch>
-      </Router>
-    );
-  }
-}
+      </Page>
+    </Router>
+  );
+};
 
 App.propTypes = {
   authStatus: PropTypes.string.isRequired,
@@ -149,6 +116,7 @@ App.propTypes = {
   }).isRequired,
   onSortingOptionChange: PropTypes.func.isRequired,
   onOfferHover: PropTypes.func,
+  onBookmarkClick: PropTypes.func.isRequired,
   onCityChange: PropTypes.func.isRequired,
   onSignIn: PropTypes.func.isRequired,
 };
@@ -172,6 +140,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onOfferHover(offerId) {
     dispatch(ActionCreator.changeActiveOffer(offerId));
+  },
+  onBookmarkClick(offerId, isFavorite) {
+    dispatch(Operation.toggleFavorite(offerId, isFavorite));
   },
   onSignIn(userData) {
     dispatch(UserOperation.signIn(userData));
