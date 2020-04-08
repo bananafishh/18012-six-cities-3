@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 
 const MapPinIcon = {
-  URL: `img/pin.svg`,
-  URL_ACTIVE: `img/pin-active.svg`,
+  URL: `/img/pin.svg`,
+  URL_ACTIVE: `/img/pin-active.svg`,
   SIZE: [27, 39],
 };
 
@@ -23,7 +23,7 @@ class Map extends PureComponent {
     const center = this.getMapCenter();
 
     this.addMarkersToMap();
-    this.map.flyTo(center);
+    this.map.panTo(center);
   }
 
   componentWillUnmount() {

@@ -158,7 +158,7 @@ exports[`Компонент «Main» рендерится корректно 1`]
               </span>
             </div>
             <div
-              className="cities__image-wrapper place-card__image-wrapper"
+              className="place-card__image-wrapper cities__image-wrapper"
             >
               <a
                 href="#"
@@ -257,7 +257,7 @@ exports[`Компонент «Main» рендерится корректно 1`]
             onMouseEnter={[Function]}
           >
             <div
-              className="cities__image-wrapper place-card__image-wrapper"
+              className="place-card__image-wrapper cities__image-wrapper"
             >
               <a
                 href="#"
@@ -363,7 +363,7 @@ exports[`Компонент «Main» рендерится корректно 1`]
               </span>
             </div>
             <div
-              className="cities__image-wrapper place-card__image-wrapper"
+              className="place-card__image-wrapper cities__image-wrapper"
             >
               <a
                 href="#"
@@ -462,7 +462,7 @@ exports[`Компонент «Main» рендерится корректно 1`]
             onMouseEnter={[Function]}
           >
             <div
-              className="cities__image-wrapper place-card__image-wrapper"
+              className="place-card__image-wrapper cities__image-wrapper"
             >
               <a
                 href="#"

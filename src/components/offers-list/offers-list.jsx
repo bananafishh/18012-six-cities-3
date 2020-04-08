@@ -7,8 +7,8 @@ class OffersList extends PureComponent {
   render() {
     const {
       offers,
-      mix,
       offerMix,
+      imgSize,
       authStatus,
       history,
       onOfferHover,
@@ -20,11 +20,12 @@ class OffersList extends PureComponent {
     }
 
     return (
-      <div className={mix}>
+      <>
         {offers.map((offer) => (
           <OfferCard
             key={offer.id}
             mix={offerMix}
+            imgSize={imgSize}
             offer={offer}
             authStatus={authStatus}
             history={history}
@@ -32,7 +33,7 @@ class OffersList extends PureComponent {
             onBookmarkClick={onBookmarkClick}
           />
         ))}
-      </div>
+      </>
     );
   }
 }
@@ -48,8 +49,15 @@ OffersList.propTypes = {
     isPremium: PropTypes.bool,
     isFavorite: PropTypes.bool,
   })).isRequired,
-  mix: PropTypes.string,
-  offerMix: PropTypes.string,
+  offerMix: PropTypes.shape({
+    card: PropTypes.string,
+    info: PropTypes.string,
+    img: PropTypes.string,
+  }),
+  imgSize: PropTypes.shape({
+    width: PropTypes.string,
+    height: PropTypes.string,
+  }),
   authStatus: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,

@@ -27,6 +27,7 @@ it(`Компонент «Page» рендерится корректно`, () => 
             authStatus={AuthStatus.AUTH}
             user={user}
             history={history}
+            favoriteOffers={5}
           >
             {children}
           </Page>

@@ -160,6 +160,7 @@ describe(`Редьюсер «data» работает корректно`, () => 
       offers: [],
       reviews: [],
       nearbyOffers: [],
+      favoriteOffers: [],
       isReviewPosting: false,
       isReviewPostingError: false,
     });
@@ -184,6 +185,17 @@ describe(`Редьюсер «data» работает корректно`, () => 
       payload: offers,
     })).toEqual({
       nearbyOffers: offers,
+    });
+  });
+
+  it(`Изменяет список избранных предложений об аренде на переданное значение`, () => {
+    expect(reducer({
+      favoriteOffers: [],
+    }, {
+      type: ActionType.LOAD_FAVORITE_OFFERS,
+      payload: offers,
+    })).toEqual({
+      favoriteOffers: offers,
     });
   });
 
@@ -303,6 +315,27 @@ describe(`Загрузка данных с сервера происходит �
       });
   });
 
+  it(`Происходит корректный GET запрос к API по адресу /favorite`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const loadOffers = Operation.loadFavoriteOffers();
+    const adaptedOffers = OffersDataAdapter.parseOffers(apiOffers);
+
+    apiMock
+      .onGet(`/favorite`)
+      .reply(200, apiOffers);
+
+    return loadOffers(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_FAVORITE_OFFERS,
+          payload: adaptedOffers,
+        });
+      });
+  });
+
   it(`Происходит корректный POST запрос к API по адресу /comments/:hotel_id`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
@@ -346,7 +379,7 @@ describe(`Загрузка данных с сервера происходит �
 
     return toggleFavorite(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(2);
 
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.TOGGLE_FAVORITE,
@@ -367,6 +400,13 @@ describe(`Action creator работает корректно`, () => {
   it(`Action creator для загрузки списка предложений об аренде неподалёку возвращает правильный action`, () => {
     expect(ActionCreator.loadNearbyOffers(offers)).toEqual({
       type: ActionType.LOAD_NEARBY_OFFERS,
+      payload: offers,
+    });
+  });
+
+  it(`Action creator для загрузки списка избранных предложений об аренде возвращает правильный action`, () => {
+    expect(ActionCreator.loadFavoriteOffers(offers)).toEqual({
+      type: ActionType.LOAD_FAVORITE_OFFERS,
       payload: offers,
     });
   });

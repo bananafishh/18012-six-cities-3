@@ -13,7 +13,7 @@ exports[`Компонент «OfferCard» рендерится корректн�
     </span>
   </div>
   <div
-    className="cities__image-wrapper place-card__image-wrapper"
+    className="place-card__image-wrapper"
   >
     <a
       href="#"
@@ -21,9 +21,7 @@ exports[`Компонент «OfferCard» рендерится корректн�
       <img
         alt="Place image"
         className="place-card__image"
-        height="200"
         src="https://placeimg.com/260/200/arch/1"
-        width="260"
       />
     </a>
   </div>

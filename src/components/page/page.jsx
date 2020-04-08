@@ -16,16 +16,20 @@ const Page = (props) => {
       location: {
         pathname,
       }
-    }
+    },
+    favoriteOffers,
   } = props;
 
   const getPageClass = () => {
-    switch (pathname) {
-      case AppRoute.SIGN_IN:
+    switch (true) {
+      case pathname === AppRoute.SIGN_IN:
         return `page page--gray page--login`;
 
-      case AppRoute.ROOT:
+      case pathname === AppRoute.ROOT:
         return `page page--gray page--main`;
+
+      case pathname === AppRoute.FAVORITES && !favoriteOffers:
+        return `page page--favorites-empty`;
 
       default:
         return `page`;
@@ -109,6 +113,7 @@ Page.propTypes = {
       pathname: PropTypes.string,
     }),
   }).isRequired,
+  favoriteOffers: PropTypes.number.isRequired,
 };
 
 export {Page};

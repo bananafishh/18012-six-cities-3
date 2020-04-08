@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
 import {ActionCreator} from '../../reducer/app/app';
 import {Operation as UserOperation} from '../../reducer/user/user';
-import {getSortedOffers, getCities} from '../../reducer/data/selector';
+import {getSortedOffers, getCities, getFavoriteOffers} from '../../reducer/data/selector';
 import {getCurrentCity, getCurrentSortingOption, getActiveOfferId} from '../../reducer/app/selector';
 import {getAuthStatus, getUserData} from '../../reducer/user/selector';
 
@@ -17,12 +17,15 @@ import Main from '../main/main.jsx';
 import DetailedOffer from '../detailed-offer/detailed-offer.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import {Operation} from "../../reducer/data/data";
+import PrivateRoute from '../private-route/private-route.jsx';
+import FavoriteOffers from '../favorite-offers/favorite-offers.jsx';
 
 const SignInWrapped = withAuthFieldsChange(SignIn);
 
 const App = (props) => {
   const {
     offers,
+    favoriteOffers,
     authStatus,
     user,
     cities,
@@ -41,6 +44,7 @@ const App = (props) => {
       <Page
         authStatus={authStatus}
         user={user}
+        favoriteOffers={favoriteOffers.length}
       >
         <Switch>
           <Route
@@ -82,15 +86,39 @@ const App = (props) => {
               />
             )}
           />
+
+          <PrivateRoute
+            exact
+            path={AppRoute.FAVORITES}
+            authStatus={authStatus}
+            render={(routeProps) => (
+              <FavoriteOffers {...routeProps}/>
+            )}
+          />
+
+          <Redirect to={AppRoute.ROOT}/>
         </Switch>
       </Page>
     </Router>
   );
 };
+App.defaultProps = {
+  favoriteOffers: [],
+};
 
 App.propTypes = {
   authStatus: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    type: PropTypes.string,
+    price: PropTypes.number,
+    previewImage: PropTypes.string,
+    rating: PropTypes.number,
+    isPremium: PropTypes.bool,
+    isFavorite: PropTypes.bool,
+  })).isRequired,
+  favoriteOffers: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
     type: PropTypes.string,
@@ -124,6 +152,7 @@ App.propTypes = {
 const mapStateToProps = (state) => ({
   authStatus: getAuthStatus(state),
   offers: getSortedOffers(state),
+  favoriteOffers: getFavoriteOffers(state),
   cities: getCities(state),
   currentCity: getCurrentCity(state),
   currentSortingOption: getCurrentSortingOption(state),

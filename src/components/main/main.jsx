@@ -44,15 +44,23 @@ const Main = (props) => {
           onOptionChange={onSortingOptionChange}
         />
 
-        <OffersList
-          mix="cities__places-list places__list tabs__content"
-          offerMix="cities__place-card"
-          offers={offers}
-          history={history}
-          authStatus={authStatus}
-          onOfferHover={onOfferHover}
-          onBookmarkClick={onBookmarkClick}
-        />
+        <div className="cities__places-list places__list tabs__content">
+          <OffersList
+            offerMix={{
+              card: `cities__place-card`,
+              img: `cities__image-wrapper`,
+            }}
+            imgSize={{
+              width: `260`,
+              height: `200`,
+            }}
+            offers={offers}
+            history={history}
+            authStatus={authStatus}
+            onOfferHover={onOfferHover}
+            onBookmarkClick={onBookmarkClick}
+          />
+        </div>
       </section>
     ) : (
       <NoOffers city={currentCity}/>

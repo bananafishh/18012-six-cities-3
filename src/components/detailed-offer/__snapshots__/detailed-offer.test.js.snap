@@ -252,7 +252,7 @@ exports[`Компонент «DetailedOffer» рендерится коррек�
                 alt="Host avatar"
                 className="property__avatar user__avatar"
                 height="74"
-                src="https://api.adorable.io/avatars/128/1"
+                src="/https://api.adorable.io/avatars/128/1"
                 width="74"
               />
             </div>
@@ -633,7 +633,7 @@ exports[`Компонент «DetailedOffer» рендерится коррек�
             </span>
           </div>
           <div
-            className="cities__image-wrapper place-card__image-wrapper"
+            className="place-card__image-wrapper cities__image-wrapper"
           >
             <a
               href="#"
@@ -732,7 +732,7 @@ exports[`Компонент «DetailedOffer» рендерится коррек�
           onMouseEnter={[Function]}
         >
           <div
-            className="cities__image-wrapper place-card__image-wrapper"
+            className="place-card__image-wrapper cities__image-wrapper"
           >
             <a
               href="#"

@@ -8,7 +8,15 @@ import {getRatingInPercent} from '../../utils';
 const OfferCard = (props) => {
   const {
     offer,
-    mix,
+    mix: {
+      card,
+      info,
+      img,
+    },
+    imgSize: {
+      width,
+      height,
+    },
     authStatus,
     history,
     onHover,
@@ -36,7 +44,7 @@ const OfferCard = (props) => {
 
   return (
     <article
-      className={`place-card${mix ? ` ${mix}` : ``}`}
+      className={`place-card${card ? ` ${card}` : ``}`}
       onMouseEnter={() => handleHover(id)}
     >
       {isPremium && (
@@ -45,19 +53,19 @@ const OfferCard = (props) => {
         </div>
       )}
 
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`place-card__image-wrapper${img ? ` ${img}` : ``}`}>
         <a href="#">
           <img
             className="place-card__image"
             src={previewImage}
-            width="260"
-            height="200"
+            width={width}
+            height={height}
             alt="Place image"
           />
         </a>
       </div>
 
-      <div className="place-card__info">
+      <div className={`place-card__info${info ? ` ${info}` : ``}`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -86,13 +94,18 @@ const OfferCard = (props) => {
         </div>
 
         <h2 className="place-card__name">
-          <Link to={{pathname: `${AppRoute.OFFER}/${id}`}}>{title}</Link>
+          <Link to={`${AppRoute.OFFER}/${id}`}>{title}</Link>
         </h2>
 
         <p className="place-card__type">{PlaceType[type.toUpperCase()]}</p>
       </div>
     </article>
   );
+};
+
+OfferCard.defaultProps = {
+  mix: {},
+  imgSize: {},
 };
 
 OfferCard.propTypes = {
@@ -106,7 +119,15 @@ OfferCard.propTypes = {
     isPremium: PropTypes.bool,
     isFavorite: PropTypes.bool,
   }).isRequired,
-  mix: PropTypes.string,
+  mix: PropTypes.shape({
+    card: PropTypes.string,
+    info: PropTypes.string,
+    img: PropTypes.string,
+  }),
+  imgSize: PropTypes.shape({
+    width: PropTypes.string,
+    height: PropTypes.string,
+  }),
   authStatus: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,

@@ -7,6 +7,7 @@ const initialState = {
   offers: [],
   reviews: [],
   nearbyOffers: [],
+  favoriteOffers: [],
   isReviewPosting: false,
   isReviewPostingError: false,
 };
@@ -15,6 +16,7 @@ const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   LOAD_NEARBY_OFFERS: `LOAD_NEARBY_OFFERS`,
+  LOAD_FAVORITE_OFFERS: `LOAD_FAVORITE_OFFERS`,
   SET_REVIEW_POSTING_STATUS: `SET_REVIEW_POSTING_STATUS`,
   SET_REVIEW_POSTING_ERROR: `SET_REVIEW_POSTING_ERROR`,
   TOGGLE_FAVORITE: `TOGGLE_FAVORITE`,
@@ -36,6 +38,10 @@ const ActionCreator = {
   loadNearbyOffers: (nearbyOffers) => ({
     type: ActionType.LOAD_NEARBY_OFFERS,
     payload: nearbyOffers,
+  }),
+  loadFavoriteOffers: (favoriteOffers) => ({
+    type: ActionType.LOAD_FAVORITE_OFFERS,
+    payload: favoriteOffers,
   }),
   setReviewPostingStatus: (isReviewPosting) => ({
     type: ActionType.SET_REVIEW_POSTING_STATUS,
@@ -86,6 +92,17 @@ const Operation = {
         throw err;
       });
   },
+  loadFavoriteOffers: () => (dispatch, getState, api) => {
+    return api.get(`/favorite`)
+      .then((response) => {
+        const offers = OffersDataAdapter.parseOffers(response.data);
+
+        dispatch(ActionCreator.loadFavoriteOffers(offers));
+      })
+      .catch((err) => {
+        throw err;
+      });
+  },
   postReview: (offerId, reviewData) => (dispatch, getState, api) => {
     dispatch(ActionCreator.setReviewPostingStatus(true));
 
@@ -111,6 +128,7 @@ const Operation = {
         const offer = OffersDataAdapter.parseOffer(response.data);
 
         dispatch(ActionCreator.toggleFavorite(offer));
+        dispatch(Operation.loadFavoriteOffers());
       })
       .catch((err) => {
         throw err;
@@ -128,6 +146,9 @@ const reducer = (state = initialState, action) => {
 
     case ActionType.LOAD_NEARBY_OFFERS:
       return extend(state, {nearbyOffers: action.payload});
+
+    case ActionType.LOAD_FAVORITE_OFFERS:
+      return extend(state, {favoriteOffers: action.payload});
 
     case ActionType.SET_REVIEW_POSTING_STATUS:
       return extend(state, {isReviewPosting: action.payload});

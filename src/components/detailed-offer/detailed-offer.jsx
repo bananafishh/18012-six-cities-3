@@ -186,7 +186,7 @@ class DetailedOffer extends PureComponent {
                     className={`property__avatar-wrapper${isPro ? ` property__avatar-wrapper--pro` : ``} user__avatar-wrapper`}>
                     <img
                       className="property__avatar user__avatar"
-                      src={avatarUrl}
+                      src={`/${avatarUrl}`}
                       width="74"
                       height="74"
                       alt="Host avatar"
@@ -236,14 +236,22 @@ class DetailedOffer extends PureComponent {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
-            <OffersList
-              mix="near-places__list places__list"
-              offerMix="near-places__card"
-              offers={nearbyOffersForRender}
-              history={history}
-              authStatus={authStatus}
-              onBookmarkClick={onBookmarkClick}
-            />
+            <div className="near-places__list places__list">
+              <OffersList
+                offerMix={{
+                  card: `near-places__card`,
+                  img: `cities__image-wrapper`,
+                }}
+                imgSize={{
+                  width: `260`,
+                  height: `200`,
+                }}
+                offers={nearbyOffersForRender}
+                history={history}
+                authStatus={authStatus}
+                onBookmarkClick={onBookmarkClick}
+              />
+            </div>
           </section>
         </div>
       </main>

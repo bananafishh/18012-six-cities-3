@@ -6,6 +6,8 @@ import {getCurrentCity, getCurrentSortingOption} from '../app/selector';
 
 const getOffers = (state) => state[NameSpace.DATA].offers;
 
+export const getFavoriteOffers = (state) => state[NameSpace.DATA].favoriteOffers;
+
 export const getOffersByCity = createSelector(
     getOffers,
     getCurrentCity,
@@ -34,6 +36,16 @@ export const getSortedOffers = createSelector(
 
 export const getCities = createSelector(
     getOffers,
+    (offers) => {
+      const cities = offers.map((offer) => offer.city.name);
+      const uniqueCities = new Set(cities);
+
+      return Array.from(uniqueCities);
+    }
+);
+
+export const getFavoriteCities = createSelector(
+    getFavoriteOffers,
     (offers) => {
       const cities = offers.map((offer) => offer.city.name);
       const uniqueCities = new Set(cities);
